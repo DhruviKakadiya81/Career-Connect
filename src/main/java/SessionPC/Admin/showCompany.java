@@ -1,0 +1,44 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB30/StatelessEjbClass.java to edit this template
+ */
+package SessionPC.Admin;
+
+import EntityPC.UserMaster;
+import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+/**
+ *
+ * @author HP
+ */
+@Stateless
+public class showCompany {
+
+    @PersistenceContext(unitName = "project_sem8_persistence_unit")
+    private EntityManager entityManager;
+    
+    public Collection<UserMaster> disUser(){
+            Collection<UserMaster> user=entityManager.createNamedQuery("UserMaster.findAll").getResultList();
+            return user;
+    }
+    
+    
+    public Collection<UserMaster> findByRoleId(int roleId) {
+        return entityManager.createQuery("SELECT u FROM UserMaster u WHERE u.roleId.roleId = :roleId",UserMaster.class)
+                       .setParameter("roleId", roleId)
+                       .getResultList();
+    }
+    
+    public void deleteById(int userId) {
+    entityManager.createQuery("DELETE FROM UserMaster u WHERE u.userId = :userId")
+                 .setParameter("userId", userId)
+                 .executeUpdate();
+    }
+    
+}
