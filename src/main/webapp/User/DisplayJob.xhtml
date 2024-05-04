@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <f:view>
+
+            <h:form>
+               <h:outputLabel value="searchJob:" for="searchJob" />
+               <h:inputText id="searchJob" value="#{jobCdi.searchKeyword}" title="searchJob"/>               
+               <h:commandButton action="#{jobCdi.searchJobUsingTitle()}" value="search"/>
+            </h:form>
+
+            <h:form>              
+                <h1><h:outputText value="List"/></h1>
+                <h:dataTable value="#{jobCdi.jobCollection}" var="item">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="JobId"/>
+                        </f:facet>
+                        <h:outputText value="#{item.jobId}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="JobTitle"/>
+                        </f:facet>
+                        <h:outputText value="#{item.jobTitle}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Description"/>
+                        </f:facet>
+                        <h:outputText value="#{item.description}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Technology"/>
+                        </f:facet>
+                        <h:outputText value="#{item.technology}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Qualification"/>
+                        </f:facet>
+                        <h:outputText value="#{item.qualification}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Experience"/>
+                        </f:facet>
+                        <h:outputText value="#{item.experience}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Salary"/>
+                        </f:facet>
+                        <h:outputText value="#{item.salary}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Status"/>
+                        </f:facet>
+                        <h:outputText value="#{item.status}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="JobType"/>
+                        </f:facet>
+                        <h:outputText value="#{item.jobType}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="PostedDate"/>
+                        </f:facet>
+                        <h:outputText value="#{item.postedDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ExpirationDate"/>
+                        </f:facet>
+                        <h:outputText value="#{item.expirationDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CompanyId"/>
+                        </f:facet>
+                        <h:outputText value="#{item.companyId.FName}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </f:view>
+
+        
+        
+    </h:body>
+</html>

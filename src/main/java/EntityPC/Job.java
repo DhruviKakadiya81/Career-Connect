@@ -7,6 +7,7 @@ package EntityPC;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -222,26 +223,32 @@ public class Job implements Serializable {
         this.expirationDate = expirationDate;
     }
 
+    @JsonbTransient
     public Collection<ApprovedJob> getApprovedJobCollection() {
         return approvedJobCollection;
     }
 
+    @JsonbTransient
     public void setApprovedJobCollection(Collection<ApprovedJob> approvedJobCollection) {
         this.approvedJobCollection = approvedJobCollection;
     }
 
+    @JsonbTransient
     public Collection<JobRequest> getJobRequestCollection() {
         return jobRequestCollection;
     }
 
+    @JsonbTransient
     public void setJobRequestCollection(Collection<JobRequest> jobRequestCollection) {
         this.jobRequestCollection = jobRequestCollection;
     }
 
+    @JsonbTransient
     public Collection<Training> getTrainingCollection() {
         return trainingCollection;
     }
 
+    @JsonbTransient
     public void setTrainingCollection(Collection<Training> trainingCollection) {
         this.trainingCollection = trainingCollection;
     }
@@ -254,10 +261,12 @@ public class Job implements Serializable {
         this.companyId = companyId;
     }
 
+    @JsonbTransient
     public Collection<Interview> getInterviewCollection() {
         return interviewCollection;
     }
 
+    @JsonbTransient
     public void setInterviewCollection(Collection<Interview> interviewCollection) {
         this.interviewCollection = interviewCollection;
     }

@@ -1,5 +1,6 @@
 package com.mycompany.career_connect.resources;
 
+import EntityPC.Job;
 import EntityPC.UserMaster;
 import java.util.Collection;
 import javax.ejb.EJB;
@@ -13,10 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-/**
- *
- * @author 
- */
+
 @Path("rest")
 public class JakartaEE8Resource {
     
@@ -25,6 +23,9 @@ public class JakartaEE8Resource {
     
     @EJB
     SessionPC.Admin.showCompany showCompany;
+    
+    @EJB
+    SessionPC.Company.showJob showJob;
     
     @POST
     @Path("login")
@@ -73,4 +74,48 @@ public class JakartaEE8Resource {
         System.out.println(message);
         return Response.ok(message).build();
     }
+    
+    
+    @GET
+    @Path("findByRoleIdAndCompanyName/{roleId}/{companyName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findByRoleIdAndCompanyName(@PathParam("roleId") int roleId,@PathParam("companyName") String companyName) {
+        Collection<UserMaster> companies = showCompany.findByRoleIdAndCompanyName(roleId,companyName);
+        if (companies.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND)
+                           .entity("No companies found for the specified criteria")
+                           .build();
+        } else {
+            return Response.ok(companies).build();
+        }
+    }
+    
+    
+    @GET
+    @Path("getAllJobs")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllJobs(){
+        try {
+            Collection<Job> jobs = showJob.getAllJobs();
+            return Response.ok(jobs).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error Occure").build();
+        }
+    }
+    
+    
+    @GET
+    @Path("searchJobsByTitle/{title}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchJobsByTitle(@PathParam("title") String title) {
+        try {
+            Collection<Job> jobs = showJob.searchJobsByTitle(title);
+            return Response.ok(jobs).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred").build();
+        }
+    }
+    
 }

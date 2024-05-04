@@ -41,4 +41,11 @@ public class showCompany {
                  .executeUpdate();
     }
     
+    public Collection<UserMaster> findByRoleIdAndCompanyName(int roleId,String companyName) {
+    return entityManager.createQuery("SELECT u FROM UserMaster u WHERE u.fName = :fName AND u.roleId.roleId = :roleId")
+                       .setParameter("roleId", roleId)
+                        .setParameter("fName", "%" + companyName + "%")
+                       .getResultList();
+    }
+    
 }
