@@ -48,6 +48,10 @@ public class Career_Connect_Client {
         return webTarget.path(java.text.MessageFormat.format("deleteUser/{0}", new Object[]{userId})).request().delete(Response.class);
     }
 
+    public void updateCompany(String id, String fname, String email, String mobile, String addressline, String city, String state, String pincode, String password, String technology, String specialization, String certification) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("updatecompany/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}", new Object[]{id, fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification})).request().post(null);
+    }
+
     public <T> T findByRoleId(Class<T> responseType, String roleId) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("findByRoleId/{0}", new Object[]{roleId}));
@@ -68,6 +72,10 @@ public class Career_Connect_Client {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("searchJobsByTitle/{0}", new Object[]{title}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public void insertCompany(String fname, String email, String mobile, String addressline, String city, String state, String pincode, String password, String technology, String specialization, String certification, String roleId) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("addcompany/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}", new Object[]{fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification, roleId})).request().post(null);
     }
 
     public void close() {

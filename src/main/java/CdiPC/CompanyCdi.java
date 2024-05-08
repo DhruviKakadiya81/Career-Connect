@@ -60,4 +60,20 @@ public class CompanyCdi {
         return "DisplayCompany";
     }
     
+    public String getCompany(UserMaster u){
+        this.userTbl=u;
+        return "UpdateCompany";
+    }
+    
+    public String updateCompany(){
+        career_Client.updateCompany(String.valueOf(userTbl.getUserId()), userTbl.getFName(), userTbl.getEmail(), userTbl.getMobileNo(), userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(), String.valueOf(userTbl.getPincode()), userTbl.getPassword(), userTbl.getTechnology(), userTbl.getSpecialization(), userTbl.getCertification());
+        return "DisplayCompany";
+    }
+    
+    
+    public String insertCompany(){
+        career_Client.insertCompany(userTbl.getFName(), userTbl.getEmail(), userTbl.getMobileNo(), userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(), String.valueOf(userTbl.getPincode()), userTbl.getPassword(), userTbl.getTechnology(), userTbl.getSpecialization(), userTbl.getCertification(),String.valueOf(3));
+        return "DisplayCompany";
+    }
+    
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <head>
     <title>Sidebar Toggle Example</title>
@@ -13,7 +12,7 @@
                 if ($("#sidebar").hasClass("sidebar-hidden")) {
                     // Sidebar is hidden, move content back to the left with 50px space
                     $("#content").css("margin-left", "170px");
-                      $("#content").css("width", "180%");
+                    $("#content").css("width", "180%");
                 } else {
                     // Sidebar is shown, move content to the right
                     $("#content").css("margin-left", "250px");
@@ -56,26 +55,26 @@
             margin-top: 60px;
             /* Adjust as needed */
         }
-        
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
 
-.add-company-button {
-    background: linear-gradient(to right, #0b6bca, #c4e1ff);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-}
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
 
-.add-company-button:hover {
-    background: linear-gradient(to right, #0b6bca, #c4e1ff);
-}
+        .add-company-button {
+            background: linear-gradient(to right, #0b6bca, #c4e1ff);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        .add-company-button:hover {
+            background: linear-gradient(to right, #0b6bca, #c4e1ff);
+        }
 
         .sidebar-header {
             text-align: left;
@@ -109,7 +108,7 @@
             /* Initially align content next to the sidebar */
             margin-top: 30px;
             /* Adjust margin-top as needed */
-            /*box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);*/
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
             /* Box shadow around content */
             width: calc(97% - 250px);
             /* Set content width to occupy most of the screen */
@@ -119,10 +118,6 @@
 
         .content-moved {
             margin-left: 100px;
-           
-
-            /* Adjusted to move content along with sidebar */
-
         }
 
         .toggle-button {
@@ -143,8 +138,7 @@
         }
 
         /* Increase input size and provide padding */
-        input[type="text"],
-        input[type="email"] {
+        .form-control {
             width: calc(100% - 20px);
             /* Subtracting padding */
             padding: 10px;
@@ -157,14 +151,12 @@
         }
 
         /* Hide input placeholders */
-        input[type="text"]::placeholder,
-        input[type="email"]::placeholder {
+        .form-control::placeholder {
             color: gray;
         }
 
         /* Style input placeholders */
-        input[type="text"]:focus::placeholder,
-        input[type="email"]:focus::placeholder {
+        .form-control:focus::placeholder {
             color: #999;
             /* Placeholder color when input is focused */
         }
@@ -178,7 +170,6 @@
         }
 
         /* Style for the Add Company button */
-  
     </style>
 
     <!-- Bootstrap CSS -->
@@ -186,6 +177,7 @@
 </head>
 
 <body>
+
     <div id="sidebar" class="sidebar">
         <!-- Career Connect text -->
         <div class="sidebar-header">
@@ -215,48 +207,77 @@
     </div>
     <div id="content" class="content-moved">
         <!-- Main content goes here -->
-     
-           <h:form>
-       
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-    <ui:repeat value="#{companyCdi.userCollection}" var="company">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" style="font-size: 24px; margin-bottom: 5px;">#{company.FName}</h5>
-                    <p class="card-text" style="color: #808080; margin-bottom: 10px;">#{company.email}</p>
-                    <hr style="border-top: 1px solid #ccc; margin-bottom: 10px;"/>
-                    <div class="row">
-                        <div class="col">
-                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Mobile No:</p>
-                            <p class="card-text" style="color: #000000;">#{company.mobileNo}</p>
-                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Technology:</p>
-                            <p class="card-text" style="color: #000000; margin-bottom: 30px;">#{company.technology}</p>
-                        </div>
-                        <div class="col">
-                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Specialization:</p>
-                            <p class="card-text" style="color: #000000;">#{company.specialization}</p>
-                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Certification:</p>
-                            <p class="card-text" style="color: #000000; margin-bottom: 30px;">#{company.certification}</p>
-                        </div>
-                    </div>
-                    <h:commandButton value="Update" action="#{companyCdi.getCompany(company)}" class="btn btn-danger" style="margin: 5px"></h:commandButton>
-
-                    <h:commandButton value="Delete" action="#{companyCdi.deleteCompany(company.userId)}" class="btn btn-danger"></h:commandButton>
-                  
+        <h:form>
+            <h2 style="color: #095c9d">Add New Company</h2>
+            <hr style="border-top: 2px solid #ccc;" />
+            <h3>About</h3>
+            <div class="login-line"></div>
+            <br />
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h:outputLabel for="fname" value="First Name" />
+                    <h:inputText value="#{companyCdi.userTbl.FName}" id="fname" styleClass="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h:outputLabel for="email" value="Email" />
+                    <h:inputText value="#{companyCdi.userTbl.email}" id="email" styleClass="form-control" />
                 </div>
             </div>
-        </div>
-    </ui:repeat>
-</div>
-
-
-    </h:form>
-       
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h:outputLabel for="mobile" value="Mobile No" />
+                    <h:inputText value="#{companyCdi.userTbl.mobileNo}" id="mobile" styleClass="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <h:outputLabel for="password" value="Password" />
+                    <h:inputSecret value="#{companyCdi.userTbl.password}" id="password" styleClass="form-control" />
+                </div>
+            </div>
+            <hr class="my-4" />
+            <h3>Address</h3>
+            <div class="login-line"></div>
+            <br />
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h:outputLabel for="addressline" value="Address Line" />
+                    <h:inputText value="#{companyCdi.userTbl.addressLine}" id="addressline" styleClass="form-control" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h:outputLabel for="city" value="City" />
+                    <h:inputText value="#{companyCdi.userTbl.city}" id="city" styleClass="form-control" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h:outputLabel for="state" value="State" />
+                    <h:inputText value="#{companyCdi.userTbl.state}" id="state" styleClass="form-control" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h:outputLabel for="pincode" value="Pincode" />
+                    <h:inputText value="#{companyCdi.userTbl.pincode}" id="pincode" styleClass="form-control" />
+                </div>
+            </div>
+            <hr class="my-4" />
+            <h3>Technical Expertise</h3>
+            <div class="login-line"></div>
+            <br />
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h:outputLabel for="specialization" value="Specialization" />
+                    <h:inputText value="#{companyCdi.userTbl.specialization}" id="specialization" styleClass="form-control" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h:outputLabel for="technology" value="Technology" />
+                    <h:inputText value="#{companyCdi.userTbl.technology}" id="technology" styleClass="form-control" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h:outputLabel for="certificate" value="Certificate" />
+                    <h:inputText value="#{companyCdi.userTbl.certification}" id="certificate" styleClass="form-control" />
+                </div>
+            </div>
+            <br/>
+            <div class="button-container">
+                <h:commandButton id="add-company-button" class="add-company-button" value="Insert Company" action="#{companyCdi.insertCompany()}" />
+            </div>
+        </h:form>
     </div>
-
-    <!-- Add Company button -->
-    
 </body>
-
 </html>

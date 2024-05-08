@@ -1,105 +1,288 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        
-        <f:view>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+<head>
+    <title>Sidebar Toggle Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="DisplayJob.css"/>
+    <script>
+        $(document).ready(function () {
+            $("#sidebar-toggle-button").click(function () {
+                $("#sidebar").toggleClass("sidebar-hidden");
+                $("#content").toggleClass("content-moved");
+                if ($("#sidebar").hasClass("sidebar-hidden")) {
+                    // Sidebar is hidden, move content back to the left with 50px space
+                    $("#content").css("margin-left", "170px");
+                      $("#content").css("width", "180%");
+                } else {
+                    // Sidebar is shown, move content to the right
+                    $("#content").css("margin-left", "250px");
+                }
+            });
+        });
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+        }
+
+        .sidebar {
+            width: 200px;
+            min-width: 50px;
+            /* Adjust as needed */
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+            background-color: #095c9d;
+            /* Ensure sidebar appears on top of content */
+        }
+
+        .sidebar-hidden {
+            transform: translateX(-150px);
+            /* Adjust as needed */
+        }
+
+        .sidebar .sidebar-links {
+            margin-top: 60px;
+            /* Adjust as needed */
+        }
+        
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.add-company-button {
+    background: linear-gradient(to right, #0b6bca, #c4e1ff);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+.add-company-button:hover {
+    background: linear-gradient(to right, #0b6bca, #c4e1ff);
+}
+
+        .sidebar-header {
+            text-align: left;
+            color: white;
+            font-size: 24px;
+            /* Adjust font size as needed */
+        }
+
+        .link-style {
+            font-size: 18px;
+            /* Set font size */
+            text-decoration: none;
+            /* Remove underline */
+            display: block;
+            padding: 10px;
+            /* Add padding for better clickability */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+
+        .link-style:hover {
+            color: #fff;
+            /* Change color on hover */
+        }
+
+        #content {
+            transition: margin-left 0.3s ease-in-out;
+            /* Updated transition property */
+            padding: 20px;
+            margin-left: 250px;
+            /* Initially align content next to the sidebar */
+            margin-top: 30px;
+            /* Adjust margin-top as needed */
+            /*/box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);/*/
+            /* Box shadow around content */
+            width: calc(97% - 250px);
+            /* Set content width to occupy most of the screen */
+            max-width: calc(97% - 250px);
+            /* Set maximum content width */
+        }
+
+        .content-moved {
+            margin-left: 100px;
+           
+
+            /* Adjusted to move content along with sidebar */
+
+        }
+
+        .toggle-button {
+            background-color: #444;
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            z-index: 1001;
+            /* Ensure button appears on top of sidebar */
+        }
+
+        .toggle-button:hover {
+            background-color: #555;
+        }
+
+        /* Increase input size and provide padding */
+        input[type="text"],
+        input[type="email"] {
+            width: calc(100% - 20px);
+            /* Subtracting padding */
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            /* Adding border for clarity */
+            border-radius: 5px;
+            /* Adding border radius for aesthetics */
+        }
+
+        /* Hide input placeholders */
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder {
+            color: gray;
+        }
+
+        /* Style input placeholders */
+        input[type="text"]:focus::placeholder,
+        input[type="email"]:focus::placeholder {
+            color: #999;
+            /* Placeholder color when input is focused */
+        }
+
+        .login-line {
+            background: linear-gradient(to right, #0b6bca, #c4e1ff);
+            margin: 0px;
+            width: 10%;
+            height: 2.5px;
+            border-radius: 20px;
+        }
+
+
+        /* Style for the Add Company button */
+  
+    </style>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="sidebar" class="sidebar">
+        <!-- Career Connect text -->
+        <div class="sidebar-header">
+            <h2>Career Connect</h2>
+        </div>
+
+        <!-- Sidebar content goes here -->
+        <h:form>
+            <!-- Sidebar links or menu items -->
+            <ul class="list-unstyled sidebar-links">
+                <li class="sidebar-link">
+                    <h:outputLink value="../Admin/Dashboard.xhtml" class="text-white link-style">Dashboard</h:outputLink>
+                </li>
+                <li class="sidebar-link">
+                    <h:outputLink value="../Admin/InsertCompany.xhtml" class="text-white link-style">Add Company</h:outputLink>
+                </li>
+                <li class="sidebar-link">
+                    <h:outputLink value="../Admin/DisplayCompany.xhtml" class="text-white link-style">Show Company</h:outputLink>
+                </li>
+                <li class="sidebar-link">
+                    <h:outputLink value="../User/DisplayJob.xhtml" class="text-white link-style">Show Job</h:outputLink>
+                </li>
+            </ul>
+        </h:form>
+        <button id="sidebar-toggle-button" class="toggle-button">☰</button>
+    </div>
+    <div id="content" class="content-moved">
+        <!-- Main content goes here -->
+     
+        <div class="container">
+    <div class="row " >
+        <div class="col">
             <h:form>
-               <h:outputLabel value="searchJob:" for="searchJob" />
-               <h:inputText id="searchJob" value="#{jobCdi.searchKeyword}" title="searchJob"/>               
-               <h:commandButton action="#{jobCdi.searchJobUsingTitle()}" value="search"/>
+                <div class='doctor-list-searchbar-container py-3 px-1 mb-3 row m-0' >
+                    <div class='col-md-10 col-sm-12 mb-md-0'>
+                        <h:inputText
+                            value="#{jobCdi.searchKeyword}"
+                            id="input-with-icon-adornment"
+                            style=""
+                        />
+                    </div>
+                    
+                    <div class='col-md-2 col-sm-4'>
+                        <h:commandButton value="Search" action="#{jobCdi.searchJobUsingTitle()}" class="btn-search"/>
+                    </div>
+                </div>
             </h:form>
+        </div>
+    </div>
+</div>
+           <h:form>
+       
+        <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
+    <ui:repeat value="#{jobCdi.jobCollection}" var="job">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 24px; margin-bottom: 5px;">#{job.jobTitle}</h5>
+                    <p class="card-text" style="color: #808080; margin-bottom: 10px;">Description: #{job.description}</p>
+                    <hr style="border-top: 1px solid #ccc; margin-bottom: 10px;"/>
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Technology:</p>
+                            <p class="card-text" style="color: #000000; margin-bottom: 10px;">#{job.technology}</p>
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Qualification:</p>
+                            <p class="card-text" style="color: #000000; margin-bottom: 10px;">#{job.qualification}</p>
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Experience:</p>
+                            <p class="card-text" style="color: #000000; margin-bottom: 10px;">#{job.experience}</p>
+                        </div>
+                        <div class="col">
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Salary:</p>
+                            <p class="card-text" style="color: #000000; margin-bottom: 10px;">#{job.salary}</p>
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Status:</p>
+                            <p class="card-text" style="color: #000000; margin-bottom: 10px;">#{job.status}</p>
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">JobType:</p>
+                            <p class="card-text" style="color: #000000; margin-bottom: 10px;">#{job.jobType}</p>
+                        </div>
+                    </div>
+                    <h:form>
+                        <!-- Add action buttons here -->
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:repeat>
+</div>
 
-            <h:form>              
-                <h1><h:outputText value="List"/></h1>
-                <h:dataTable value="#{jobCdi.jobCollection}" var="item">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="JobId"/>
-                        </f:facet>
-                        <h:outputText value="#{item.jobId}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="JobTitle"/>
-                        </f:facet>
-                        <h:outputText value="#{item.jobTitle}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Description"/>
-                        </f:facet>
-                        <h:outputText value="#{item.description}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Technology"/>
-                        </f:facet>
-                        <h:outputText value="#{item.technology}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Qualification"/>
-                        </f:facet>
-                        <h:outputText value="#{item.qualification}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Experience"/>
-                        </f:facet>
-                        <h:outputText value="#{item.experience}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Salary"/>
-                        </f:facet>
-                        <h:outputText value="#{item.salary}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Status"/>
-                        </f:facet>
-                        <h:outputText value="#{item.status}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="JobType"/>
-                        </f:facet>
-                        <h:outputText value="#{item.jobType}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="PostedDate"/>
-                        </f:facet>
-                        <h:outputText value="#{item.postedDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="ExpirationDate"/>
-                        </f:facet>
-                        <h:outputText value="#{item.expirationDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="CompanyId"/>
-                        </f:facet>
-                        <h:outputText value="#{item.companyId.FName}"/>
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </f:view>
 
-        
-        
-    </h:body>
+
+    </h:form>
+       
+    </div>
+
+    <!-- Add Company button -->
+    
+</body>
+
 </html>

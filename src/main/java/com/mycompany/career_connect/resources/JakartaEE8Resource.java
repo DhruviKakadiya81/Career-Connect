@@ -4,6 +4,7 @@ import EntityPC.Job;
 import EntityPC.UserMaster;
 import java.util.Collection;
 import javax.ejb.EJB;
+import javax.persistence.PersistenceException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -117,5 +118,68 @@ public class JakartaEE8Resource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred").build();
         }
     }
+    
+    
+    
+    @POST
+    @Path("addcompany/{fname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}/{technology}/{specialization}/{certification}/{roleId}")
+    public void insertCompany(
+            @PathParam("fname") String fname,
+            @PathParam("email") String email,
+            @PathParam("mobile") String mobile,
+            @PathParam("addressline") String addressline,
+            @PathParam("city") String city,
+            @PathParam("state") String state,
+            @PathParam("pincode") Integer pincode,
+            @PathParam("password") String password,
+            @PathParam("technology") String technology,
+            @PathParam("specialization") String specialization,
+            @PathParam("certification") String certification,
+            @PathParam("roleId") Integer roleId) {
+
+        try {
+            showCompany.insertCompany(fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification, roleId);
+
+        } catch (PersistenceException e) {
+
+        } catch (RuntimeException e) {
+
+        }
+    }
+
+    
+    
+    
+    
+    
+    
+    @POST
+    @Path("updatecompany/{id}/{fname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}/{technology}/{specialization}/{certification}")
+    public void updateCompany(
+            @PathParam("id") Integer id,
+            @PathParam("fname") String fname,
+            @PathParam("email") String email,
+            @PathParam("mobile") String mobile,
+            @PathParam("addressline") String addressline,
+            @PathParam("city") String city,
+            @PathParam("state") String state,
+            @PathParam("pincode") Integer pincode,
+            @PathParam("password") String password,
+            @PathParam("technology") String technology,
+            @PathParam("specialization") String specialization,
+            @PathParam("certification") String certification
+            ) {
+
+                try {
+                    showCompany.updateCompany(id,fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification);
+
+                } catch (PersistenceException e) {
+
+                } catch (RuntimeException e) {
+
+                }
+            }
+    
+    
     
 }

@@ -1,30 +1,120 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-         <form method="POST">
-            <table>
-                <tr>
-                    <td colspan="2">Login:</td>
-                </tr>
-                <tr>
-                    <td>User Name:</td>
-                    <td><input type="text" name="username"/></td>
-                </tr>
-
-                <tr>
-                    <td>Password:</td>
-                    <td><input type="password" name="password"/></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" name="submit" value="submit"/></td>
-                    <td><input type="reset"/></td>
-                </tr>
-            </table>
-        </form>
-    </h:body>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <title>Login Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <style>
+        body {
+            background-color: white;
+            color: #0B6BCA;
+            font-family: Arial, sans-serif;
+        }
+        .login-container {
+            margin-top: 70px;
+        }
+        .login-container .row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container .form-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
+            text-align: center;
+        }
+        .login-container .form-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .login-container .form-container .form-control {
+            border: none;
+            border-radius: 20px;
+            background-color: #f2f2f2;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            width: 80%;
+            max-width: 300px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .login-container .form-container .login-text {
+            color: black;
+            font-size: 29px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .login-container .form-container .sub-text {
+            color: gray;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .login-container .form-container .login-line {
+            background: linear-gradient(to right, #0B6BCA, #c4e1ff);
+            margin: 20px auto;
+            width: 35%;
+            height: 2.5px;
+            border-radius: 20px;
+        }
+        .login-container .form-container .login-as {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .login-container .form-container .login-as a {
+            color: #0B6BCA;
+            text-decoration: none;
+        }
+        .login-container .form-container .login-as a:hover {
+            color: #095c9d;
+            text-decoration: underline;
+        }
+        .btn-primary {
+            background: linear-gradient(to right, #0B6BCA, #c4e1ff);
+            border: none;
+            border-radius: 30px;
+            padding: 8px 30px;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: block;
+            margin-right: auto;
+            margin-left: auto;
+            width: 30%;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(to right, #095c9d, #0B6BCA);
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="margin-top: 100px">
+    <div class="row login-container">
+        <div class="col-md-6">
+            <img src="../Assests/login_img.png"  alt="Image" class="img-fluid"/>
+        </div>
+        <div class="col-md-6">
+            <div class="form-container">
+                <div class="login-text">Welcome back!</div>
+                <div class="login-line"></div>
+                <div class="sub-text">Please provide login credentials to proceed and have access to all our services.</div>
+                <div class="login-as">Want to login as a <a href="#" class="login-link">job seeker?</a> <a href="#" class="login-link">company?</a></div>
+                <form>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" placeholder="Email"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="password" placeholder="Password"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>
