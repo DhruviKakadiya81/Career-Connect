@@ -24,8 +24,6 @@ import javax.ws.rs.core.Response;
 @Path("rest")
 public class JakartaEE8Resource {
     
-    @EJB
-    SessionPC.Login.LoginSession loginSession;
     
     @EJB
     SessionPC.Admin.showCompany showCompany;
@@ -35,24 +33,6 @@ public class JakartaEE8Resource {
     
     @EJB
     SessionPCG.JobBean jobBean;
-    
-    @POST
-    @Path("login")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response login(UserMaster user) {
-        boolean authenticated = loginSession.login(user.getEmail(), user.getPassword());
-        if (authenticated) {
-
-            String message = "Your Login successfully Donee!";
-            // Print the message to the Postman console
-            System.out.println(message);
-            // Return a response with the message
-            return Response.ok(message).build();
-        } else {
-            // Invalid credentials
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-        }
-    }
     
     
     @GET
@@ -68,13 +48,7 @@ public class JakartaEE8Resource {
         }
     }
     
-    @GET
-    @Path("findByRoleId/{roleId}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Collection<UserMaster> findByRoleId(@PathParam("roleId") int roleId) {
-        return showCompany.findByRoleId(roleId);
-    }
-    
+  
     @DELETE
     @Path("deleteUser/{userId}")
     public Response deleteById(@PathParam("userId") int userId) {
@@ -84,75 +58,6 @@ public class JakartaEE8Resource {
         return Response.ok(message).build();
     }
     
-    
-    @GET
-    @Path("findByRoleIdAndCompanyName/{roleId}/{companyName}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response findByRoleIdAndCompanyName(@PathParam("roleId") int roleId,@PathParam("companyName") String companyName) {
-        Collection<UserMaster> companies = showCompany.findByRoleIdAndCompanyName(roleId,companyName);
-        if (companies.isEmpty()) {
-            return Response.status(Response.Status.NOT_FOUND)
-                           .entity("No companies found for the specified criteria")
-                           .build();
-        } else {
-            return Response.ok(companies).build();
-        }
-    }
-    
-    
-    @GET
-    @Path("getAllJobs")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllJobs(){
-        try {
-            Collection<Job> jobs = jobBean.getAllJobs();
-            return Response.ok(jobs).build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error Occure").build();
-        }
-    }
-    
-    @GET
-    @Path("searchJobsByTitle/{title}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response searchJobsByTitle(@PathParam("title") String title) {
-        try {
-            Collection<Job> jobs = jobBean.searchJobsByTitle(title);
-            return Response.ok(jobs).build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred").build();
-        }
-    }
-    
-    
-    
-    @POST
-    @Path("addcompany/{fname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}/{technology}/{specialization}/{certification}/{roleId}")
-    public void insertCompany(
-            @PathParam("fname") String fname,
-            @PathParam("email") String email,
-            @PathParam("mobile") String mobile,
-            @PathParam("addressline") String addressline,
-            @PathParam("city") String city,
-            @PathParam("state") String state,
-            @PathParam("pincode") Integer pincode,
-            @PathParam("password") String password,
-            @PathParam("technology") String technology,
-            @PathParam("specialization") String specialization,
-            @PathParam("certification") String certification) {
-
-        try {
-            showCompany.insertCompany(fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification);
-
-        } catch (PersistenceException e) {
-
-        } catch (RuntimeException e) {
-
-        }
-    }
-
     
     @POST
     @Path("updatecompany/{id}/{fname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}/{technology}/{specialization}/{certification}")
@@ -244,6 +149,68 @@ public class JakartaEE8Resource {
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<UserMaster> DisplayCompany() {
         return userBean.DisplayCompany();
+    }
+    
+    
+    // Job Methods
+    
+    
+    
+    @GET
+    @Path("getAllJobs")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllJobs(){
+        try {
+            Collection<Job> jobs = jobBean.getAllJobs();
+            return Response.ok(jobs).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error Occure").build();
+        }
+    }
+    
+    @GET
+    @Path("searchJobsByTitle/{title}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchJobsByTitle(@PathParam("title") String title) {
+        try {
+            Collection<Job> jobs = jobBean.searchJobsByTitle(title);
+            return Response.ok(jobs).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred").build();
+        }
+    }
+    
+    
+    @POST
+    @Path("InsertJob/{companyId}/{jobTitle}/{description}/{technology}/{qualification}/{experience}/{salary}/{status}/{jobType}/{postedDate}/{expirationDate}")
+    public void InsertJob(
+            @PathParam("companyId") int companyId,
+            @PathParam("jobTitle") String jobTitle,
+            @PathParam("description") String description,
+            @PathParam("technology") String technology,
+            @PathParam("qualification") String qualification,
+            @PathParam("experience") String experience,
+            @PathParam("salary") Integer salary,
+            @PathParam("status") String status,
+            @PathParam("jobType") String jobType,
+            @PathParam("postedDate") String postedDate,
+            @PathParam("expirationDate") String expirationDate) throws ParseException {
+
+        try {
+            
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Date postDate=sdf.parse(postedDate);
+            Date expDate=sdf.parse(expirationDate);
+            
+            jobBean.InsertJob(companyId, jobTitle, description, technology, qualification, experience, salary, status, jobType, postDate, expDate);
+
+        } catch (PersistenceException e) {
+
+        } catch (RuntimeException e) {
+
+        }
     }
     
     

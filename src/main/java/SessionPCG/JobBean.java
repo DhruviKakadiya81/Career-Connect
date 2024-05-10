@@ -5,7 +5,9 @@
 package SessionPCG;
 
 import EntityPC.Job;
+import EntityPC.UserMaster;
 import java.util.Collection;
+import java.util.Date;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -30,6 +32,27 @@ public class JobBean {
         return entityManager.createNamedQuery("Job.findByJobTitle")
                             .setParameter("jobTitle", title)
                             .getResultList();
+    }
+    
+    public void InsertJob(int companyId,String jobTitle,String description,String technology,String qualification,String experience,int salary,String status,String jobType,Date postedDate,Date expirationDate){
+        
+        Job job=new Job();
+        UserMaster userMaster=entityManager.find(UserMaster.class, companyId);
+        job.setCompanyId(userMaster);
+        job.setJobTitle(jobTitle);
+        job.setDescription(description);
+        job.setTechnology(technology);
+        job.setQualification(qualification);
+        job.setExperience(experience);
+        job.setSalary(salary);
+        job.setStatus(status);
+        job.setJobType(jobType);
+        job.setPostedDate(postedDate);
+        job.setExpirationDate(expirationDate);
+        
+        
+        entityManager.persist(job);
+        
     }
     
 }

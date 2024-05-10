@@ -33,45 +33,11 @@ public class showCompany {
     }
     
     
-    public Collection<UserMaster> findByRoleId(int roleId) {
-        return entityManager.createQuery("SELECT u FROM UserMaster u WHERE u.roleId.roleId = :roleId",UserMaster.class)
-                       .setParameter("roleId", roleId)
-                       .getResultList();
-    }
-    
     public void deleteById(int userId) {
     entityManager.createQuery("DELETE FROM UserMaster u WHERE u.userId = :userId")
                  .setParameter("userId", userId)
                  .executeUpdate();
     }
-    
-    public Collection<UserMaster> findByRoleIdAndCompanyName(int roleId,String companyName) {
-    return entityManager.createQuery("SELECT u FROM UserMaster u WHERE u.fName = :fName AND u.roleId.roleId = :roleId")
-                       .setParameter("roleId", roleId)
-                        .setParameter("fName", "%" + companyName + "%")
-                       .getResultList();
-    }
-    
-    
-    public void insertCompany(String fname, String email, String mobile, String addressline, String city, String state, Integer pincode, String password, String technology, String specialization, String certification) {
-        UserMaster ut = new UserMaster();
-
-        ut.setFName(fname);
-        ut.setEmail(email);
-        ut.setMobileNo(mobile);
-        ut.setAddressLine(addressline);
-        ut.setCity(city);
-        ut.setState(state);
-        ut.setPincode(pincode);
-        ut.setPassword(password);
-        ut.setTechnology(technology);
-        ut.setSpecialization(specialization);
-        ut.setCertification(certification);
-
-        entityManager.persist(ut);
-    }
-
-    
     
     
     public void updateCompany(int compId,String fname, String email, String mobile, String addressline, String city, String state, Integer pincode, String password, String technology, String specialization, String certification) {
