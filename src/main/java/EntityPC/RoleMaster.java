@@ -5,18 +5,12 @@
 package EntityPC;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,66 +23,56 @@ import javax.validation.constraints.Size;
 @Table(name = "role_master")
 @NamedQueries({
     @NamedQuery(name = "RoleMaster.findAll", query = "SELECT r FROM RoleMaster r"),
-    @NamedQuery(name = "RoleMaster.findByRoleId", query = "SELECT r FROM RoleMaster r WHERE r.roleId = :roleId"),
-    @NamedQuery(name = "RoleMaster.findByRoleName", query = "SELECT r FROM RoleMaster r WHERE r.roleName = :roleName")})
+    @NamedQuery(name = "RoleMaster.findByEmail", query = "SELECT r FROM RoleMaster r WHERE r.email = :email"),
+    @NamedQuery(name = "RoleMaster.findByGroupname", query = "SELECT r FROM RoleMaster r WHERE r.groupname = :groupname")})
 public class RoleMaster implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "Role_Id")
-    private Integer roleId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "Role_Name")
-    private String roleName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
-    private Collection<UserMaster> userMasterCollection;
+    @Column(name = "Email")
+    private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "Group_name")
+    private String groupname;
 
     public RoleMaster() {
     }
 
-    public RoleMaster(Integer roleId) {
-        this.roleId = roleId;
+    public RoleMaster(String email) {
+        this.email = email;
     }
 
-    public RoleMaster(Integer roleId, String roleName) {
-        this.roleId = roleId;
-        this.roleName = roleName;
+    public RoleMaster(String email, String groupname) {
+        this.email = email;
+        this.groupname = groupname;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getGroupname() {
+        return groupname;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    @JsonbTransient
-    public Collection<UserMaster> getUserMasterCollection() {
-        return userMasterCollection;
-    }
-
-    @JsonbTransient
-    public void setUserMasterCollection(Collection<UserMaster> userMasterCollection) {
-        this.userMasterCollection = userMasterCollection;
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (roleId != null ? roleId.hashCode() : 0);
+        hash += (email != null ? email.hashCode() : 0);
         return hash;
     }
 
@@ -99,7 +83,7 @@ public class RoleMaster implements Serializable {
             return false;
         }
         RoleMaster other = (RoleMaster) object;
-        if ((this.roleId == null && other.roleId != null) || (this.roleId != null && !this.roleId.equals(other.roleId))) {
+        if ((this.email == null && other.email != null) || (this.email != null && !this.email.equals(other.email))) {
             return false;
         }
         return true;
@@ -107,7 +91,7 @@ public class RoleMaster implements Serializable {
 
     @Override
     public String toString() {
-        return "EntityPC.RoleMaster[ roleId=" + roleId + " ]";
+        return "EntityPC.RoleMaster[ email=" + email + " ]";
     }
     
 }

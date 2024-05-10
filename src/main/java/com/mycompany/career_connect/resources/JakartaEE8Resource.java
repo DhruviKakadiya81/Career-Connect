@@ -2,7 +2,13 @@ package com.mycompany.career_connect.resources;
 
 import EntityPC.Job;
 import EntityPC.UserMaster;
+import SessionPCG.UserBean;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.persistence.PersistenceException;
 import javax.ws.rs.Consumes;
@@ -15,7 +21,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
 @Path("rest")
 public class JakartaEE8Resource {
     
@@ -26,7 +31,10 @@ public class JakartaEE8Resource {
     SessionPC.Admin.showCompany showCompany;
     
     @EJB
-    SessionPC.Company.showJob showJob;
+    SessionPCG.UserBean userBean;
+    
+    @EJB
+    SessionPCG.JobBean jobBean;
     
     @POST
     @Path("login")
@@ -97,7 +105,7 @@ public class JakartaEE8Resource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllJobs(){
         try {
-            Collection<Job> jobs = showJob.getAllJobs();
+            Collection<Job> jobs = jobBean.getAllJobs();
             return Response.ok(jobs).build();
         } catch (Exception e) {
             e.printStackTrace();
@@ -105,13 +113,12 @@ public class JakartaEE8Resource {
         }
     }
     
-    
     @GET
     @Path("searchJobsByTitle/{title}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response searchJobsByTitle(@PathParam("title") String title) {
         try {
-            Collection<Job> jobs = showJob.searchJobsByTitle(title);
+            Collection<Job> jobs = jobBean.searchJobsByTitle(title);
             return Response.ok(jobs).build();
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,11 +141,10 @@ public class JakartaEE8Resource {
             @PathParam("password") String password,
             @PathParam("technology") String technology,
             @PathParam("specialization") String specialization,
-            @PathParam("certification") String certification,
-            @PathParam("roleId") Integer roleId) {
+            @PathParam("certification") String certification) {
 
         try {
-            showCompany.insertCompany(fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification, roleId);
+            showCompany.insertCompany(fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification);
 
         } catch (PersistenceException e) {
 
@@ -147,11 +153,6 @@ public class JakartaEE8Resource {
         }
     }
 
-    
-    
-    
-    
-    
     
     @POST
     @Path("updatecompany/{id}/{fname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}/{technology}/{specialization}/{certification}")
@@ -180,6 +181,70 @@ public class JakartaEE8Resource {
                 }
             }
     
+    
+    @POST
+    @Path("userRegistration/{fname}/{lname}/{email}/{mobile}/{profile_img}/{birth_date}/{addressline}/{city}/{state}/{pincode}/{password}")
+    public void userRegistration(
+            @PathParam("fname") String fname,
+            @PathParam("lname") String lname,          
+            @PathParam("email") String email,
+            @PathParam("mobile") String mobile,
+            @PathParam("profile_img") String profile_img,
+            @PathParam("birth_date") String birth_date,
+            @PathParam("addressline") String addressline,
+            @PathParam("city") String city,
+            @PathParam("state") String state,
+            @PathParam("pincode") Integer pincode,
+            @PathParam("password") String password) throws ParseException {
+
+        try {
+            
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Date birth=sdf.parse(birth_date);
+            
+           
+            userBean.userRegistration(fname, lname, email, mobile, profile_img, birth, addressline, city, state, pincode, password);
+
+        } catch (PersistenceException e) {
+
+        } catch (RuntimeException e) {
+
+        }
+    }
+    
+    
+    @POST
+    @Path("companyRegistration/{fname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}/{technology}/{specialization}/{certification}")
+    public void companyRegistration(
+            @PathParam("fname") String fname,
+            @PathParam("email") String email,
+            @PathParam("mobile") String mobile,
+            @PathParam("addressline") String addressline,
+            @PathParam("city") String city,
+            @PathParam("state") String state,
+            @PathParam("pincode") Integer pincode,
+            @PathParam("password") String password,
+            @PathParam("technology") String technology,
+            @PathParam("specialization") String specialization,
+            @PathParam("certification") String certification) {
+
+        try {
+            userBean.companyRegistration(fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification);
+
+        } catch (PersistenceException e) {
+
+        } catch (RuntimeException e) {
+
+        }
+    }
+    
+    
+    @GET
+    @Path("DisplayCompany")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<UserMaster> DisplayCompany() {
+        return userBean.DisplayCompany();
+    }
     
     
 }

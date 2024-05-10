@@ -20,7 +20,6 @@ import javax.persistence.PersistenceContext;
  * @author HP
  */
 
-@DeclareRoles({"Admin"})
 @Stateless
 public class showCompany {
 
@@ -54,9 +53,8 @@ public class showCompany {
     }
     
     
-    public void insertCompany(String fname, String email, String mobile, String addressline, String city, String state, Integer pincode, String password, String technology, String specialization, String certification, Integer roleId) {
+    public void insertCompany(String fname, String email, String mobile, String addressline, String city, String state, Integer pincode, String password, String technology, String specialization, String certification) {
         UserMaster ut = new UserMaster();
-        RoleMaster rt = entityManager.find(RoleMaster.class, roleId);
 
         ut.setFName(fname);
         ut.setEmail(email);
@@ -69,7 +67,6 @@ public class showCompany {
         ut.setTechnology(technology);
         ut.setSpecialization(specialization);
         ut.setCertification(certification);
-        ut.setRoleId(rt);
 
         entityManager.persist(ut);
     }
@@ -91,7 +88,7 @@ public class showCompany {
         ut.setTechnology(technology);
         ut.setSpecialization(specialization);
         ut.setCertification(certification);
-
+        
         entityManager.merge(ut);
     }
 

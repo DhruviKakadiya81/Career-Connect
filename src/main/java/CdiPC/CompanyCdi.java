@@ -38,7 +38,8 @@ public class CompanyCdi {
     }
 
     public Collection<UserMaster> getUserCollection() {
-        response=career_Client.findByRoleId(Response.class,String.valueOf(3));
+        response=career_Client.DisplayCompany(Response.class);
+//        response=career_Client.findByRoleId(Response.class,String.valueOf(3));
         userCollection=response.readEntity(userGeneric);
         return userCollection;
     }
@@ -71,8 +72,9 @@ public class CompanyCdi {
     }
     
     
-    public String insertCompany(){
-        career_Client.insertCompany(userTbl.getFName(), userTbl.getEmail(), userTbl.getMobileNo(), userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(), String.valueOf(userTbl.getPincode()), userTbl.getPassword(), userTbl.getTechnology(), userTbl.getSpecialization(), userTbl.getCertification(),String.valueOf(3));
+    public String companyRegistration(){
+        career_Client.companyRegistration(userTbl.getFName(), userTbl.getEmail(), userTbl.getMobileNo(), userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(),String.valueOf(userTbl.getPincode()), userTbl.getPassword(), userTbl.getTechnology(), userTbl.getSpecialization(), userTbl.getCertification());
+//        career_Client.insertCompany(userTbl.getFName(), userTbl.getEmail(), userTbl.getMobileNo(), userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(), String.valueOf(userTbl.getPincode()), userTbl.getPassword(), userTbl.getTechnology(), userTbl.getSpecialization(), userTbl.getCertification(),String.valueOf(3));
         return "DisplayCompany";
     }
     

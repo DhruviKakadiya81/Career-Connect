@@ -15,8 +15,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -102,7 +100,7 @@ public class UserMaster implements Serializable {
     private int pincode;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
+    @Size(min = 1, max = 300)
     @Column(name = "Password")
     private String password;
     @Size(max = 200)
@@ -121,9 +119,6 @@ public class UserMaster implements Serializable {
     private Collection<Feedback> feedbackCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Resume> resumeCollection;
-    @JoinColumn(name = "Role_Id", referencedColumnName = "Role_Id")
-    @ManyToOne(optional = false)
-    private RoleMaster roleId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Qualification> qualificationCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
@@ -311,14 +306,6 @@ public class UserMaster implements Serializable {
     @JsonbTransient
     public void setResumeCollection(Collection<Resume> resumeCollection) {
         this.resumeCollection = resumeCollection;
-    }
-
-    public RoleMaster getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(RoleMaster roleId) {
-        this.roleId = roleId;
     }
 
     @JsonbTransient
