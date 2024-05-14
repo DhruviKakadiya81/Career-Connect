@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+        <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .sidebar {
+        height: 100vh;
+        width: 230px;
+        background-color: #095c9d;
+        position: fixed;
+        left: -250px;
+        top: 0;
+        overflow-x: hidden;
+        padding-top: 20px;
+        transition: left 0.3s ease;
+    }
+    .sidebar.show {
+        left: 0;
+    }
+    .sidebar a {
+        padding: 10px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #fff;
+        display: block;
+    }
+    .sidebar a:hover {
+        background-color: #555;
+    }
+    .content {
+        padding-left: 55px;
+        transition: margin-left 0.3s ease;
+    }
+    .toggle-btn {
+        position: fixed;
+/*        left: 10px;
+        top: 10px;*/
+        cursor: pointer;
+        z-index: 999;
+        font-size: 25px;
+    }
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: -30px; /* Adjust the value to place the close button within the sidebar */
+        cursor: pointer;
+        z-index: 999;
+        color: white;
+        font-size: 25px;
+    }
+    .link-container {
+        position: absolute;
+        top: 60px; /* Adjust the value to place the container below the hamburger menu */
+        /*left: 10px;  Adjust the value to place the container below the hamburger menu */
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+    }
+    .shortSidebar{
+        position: fixed;
+        height: 800px;
+        width: 50px;
+        background-color: #095c9d;
+        color: white;
+        font-size: 20px;
+    }
+    
+</style>
+    </h:head>
+    
+        <body>
+            
+            <div class="shortSidebar">
+                <div class="toggle-btn px-3 py-2" id="toggleBtn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <div class="link-container" id="linkContainer">
+                    <i class="fas fa-home px-3 pb-2"></i>
+                    <i class="fas fa-info-circle px-3 py-2"></i>
+                    <i class="fas fa-cogs px-3 py-2"></i>
+                    <i class="fas fa-envelope px-3 py-2"></i>
+                </div>
+            </div>
+
+
+
+<div class="sidebar" id="sidebar">
+    <div class="close-btn" id="closeBtn" onclick="toggleSidebar()">
+        <i class="fas fa-times"></i>
+    </div>
+    <a href="#"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="../User/DisplayCompany.xhtml"><i class="fas fa-info-circle"></i> Display Company</a>
+    <a href="#"><i class="fas fa-cogs"></i> Display Job</a>
+    <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+</div>
+
+
+
+
+
+<script>
+    // Initially display the icons
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('toggleBtn').style.display = 'block';
+        document.getElementById('linkContainer').style.display = 'flex';
+    });
+
+    function toggleSidebar() {
+        var sidebar = document.getElementById('sidebar');
+        var toggleBtn = document.getElementById('toggleBtn');
+        var closeBtn = document.getElementById('closeBtn');
+        var content = document.getElementById('content');
+        var linkContainer = document.getElementById('linkContainer');
+        
+        sidebar.classList.toggle('show');
+        if (sidebar.classList.contains('show')) {
+            toggleBtn.style.display = 'none';
+            closeBtn.style.display = 'block';
+            closeBtn.style.right = '10px'; // Adjust the value to place the close button within the sidebar
+            content.style.marginLeft = '230px'; // Adjust the value to match the width of the sidebar
+            linkContainer.style.display = 'none'; // Hide icons when sidebar is open
+            content.style.paddingLeft='5px';
+        } else {
+            toggleBtn.style.display = 'block';
+            closeBtn.style.display = 'none';
+            content.style.marginLeft = '0';
+            linkContainer.style.display = 'flex'; // Display icons when sidebar is closed
+            content.style.paddingLeft='55px';
+        }
+    }
+</script>
+
+</body>
+</html>

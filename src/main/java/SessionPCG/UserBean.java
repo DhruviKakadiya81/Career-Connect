@@ -82,7 +82,7 @@ public class UserBean {
         
     }
     
-    @RolesAllowed("Admin")
+    @RolesAllowed({"Admin", "User","Company"})
     public Collection<UserMaster> DisplayCompany(){
             return entityManager.createQuery("SELECT u FROM UserMaster u INNER JOIN RoleMaster r ON u.email = r.email WHERE r.groupname = :groupname",UserMaster.class)
                     .setParameter("groupname", "Company")

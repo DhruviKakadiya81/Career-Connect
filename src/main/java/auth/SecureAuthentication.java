@@ -91,7 +91,7 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
                     }
                     if (result.getCallerGroups().contains("User")) {
                         System.out.println("User Sidee");
-                        request.getRequestDispatcher("../User/DisplayJob.xhtml").forward(request, response);
+                        request.getRequestDispatcher("../User/UserDashboard.xhtml").forward(request, response);
 //                        request.getRequestDispatcher("User/DisplayJob.jsf").forward(request, response);
                     }
                     if (result.getCallerGroups().contains("Company")) {

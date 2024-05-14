@@ -214,4 +214,44 @@ public class JakartaEE8Resource {
     }
     
     
+    @DELETE
+    @Path("deleteJob/{jobId}")
+    public Response deleteJob(@PathParam("jobId") int jobId) {
+        jobBean.deleteJob(jobId);
+        String message="Deleted Success";
+        System.out.println(message);
+        return Response.ok(message).build();
+    }
+    
+    @POST
+    @Path("updateJob/{jobId}/{jobTitle}/{description}/{technology}/{qualification}/{experience}/{salary}/{status}/{jobType}/{postedDate}/{expirationDate}")
+    public void updateJob(
+            @PathParam("jobId") Integer jobId,
+            @PathParam("jobTitle") String jobTitle,
+            @PathParam("description") String description,
+            @PathParam("technology") String technology,
+            @PathParam("qualification") String qualification,
+            @PathParam("experience") String experience,
+            @PathParam("salary") int salary,
+            @PathParam("status") String status,
+            @PathParam("jobType") String jobType,
+            @PathParam("postedDate") String postedDate,
+            @PathParam("expirationDate") String expirationDate
+            ) throws ParseException {
+
+                try {
+                    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                    Date postDate=sdf.parse(postedDate);
+                    Date expDate=sdf.parse(expirationDate);
+                    jobBean.updateJob(jobId,jobTitle, description,technology, qualification, experience, salary, status, jobType, postDate, expDate);
+
+                } catch (PersistenceException e) {
+
+                } catch (RuntimeException e) {
+
+                }
+            }
+    
+    
+    
 }

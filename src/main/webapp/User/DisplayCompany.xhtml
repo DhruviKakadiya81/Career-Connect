@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="Css/DisplayCompa.css"/>
+        <style>
+            
+            body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+        }
+
+            
+           .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.add-company-button {
+    background: linear-gradient(to right, #0b6bca, #c4e1ff);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+.add-company-button:hover {
+    background: linear-gradient(to right, #0b6bca, #c4e1ff);
+}
+
+.companyHead{
+                font-size: 40px;
+                color: #095c9d;
+                font-weight: 500;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <ui:include src="UserSidebar.xhtml"/>
+        <div class="content" id="content">
+        <h:form class="mx-3">
+        <p class='mb-3 companyHead'>Company List</p>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+    <ui:repeat value="#{companyCdi.userCollection}" var="company">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 24px; margin-bottom: 5px;">#{company.FName}</h5>
+                    <p class="card-text" style="color: #808080; margin-bottom: 10px;">#{company.email}</p>
+                    <hr style="border-top: 1px solid #ccc; margin-bottom: 10px;"/>
+                    <div class="row">
+                        <div class="col">
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Mobile No:</p>
+                            <p class="card-text" style="color: #000000;">#{company.mobileNo}</p>
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Technology:</p>
+                            <p class="card-text" style="color: #000000; margin-bottom: 30px;">#{company.technology}</p>
+                        </div>
+                        <div class="col">
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Specialization:</p>
+                            <p class="card-text" style="color: #000000;">#{company.specialization}</p>
+                            <p class="card-text" style="color: #095c9d; margin-bottom: 5px;">Certification:</p>
+                            <p class="card-text" style="color: #000000; margin-bottom: 30px;">#{company.certification}</p>
+                        </div>
+                    </div>
+                    <h:commandButton value="Update" action="#{companyCdi.getCompany(company)}" class="btn btn-danger" style="margin: 5px"></h:commandButton>
+
+                    <h:commandButton value="Delete" action="#{companyCdi.deleteCompany(company.userId)}" class="btn btn-danger"></h:commandButton>
+                  
+                </div>
+            </div>
+        </div>
+    </ui:repeat>
+</div>
+
+
+    </h:form>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </h:body>
+</html>

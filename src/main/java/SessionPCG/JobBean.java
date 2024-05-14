@@ -49,10 +49,34 @@ public class JobBean {
         job.setJobType(jobType);
         job.setPostedDate(postedDate);
         job.setExpirationDate(expirationDate);
-        
-        
-        entityManager.persist(job);
-        
+                
+        entityManager.persist(job);        
     }
+    
+    public void deleteJob(int jobId) {
+    entityManager.createQuery("DELETE FROM Job j WHERE j.jobId = :jobId")
+                 .setParameter("jobId", jobId)
+                 .executeUpdate();
+    }
+    
+    
+    public void updateJob(int jobId,String jobTitle,String description,String technology,String qualification,String experience,int salary,String status,String jobType,Date postedDate,Date expirationDate){
+    
+        Job job=entityManager.find(Job.class, jobId);
+        
+        job.setJobTitle(jobTitle);
+        job.setDescription(description);
+        job.setTechnology(technology);
+        job.setQualification(qualification);
+        job.setExperience(experience);
+        job.setSalary(salary);
+        job.setStatus(status);
+        job.setJobType(jobType);
+        job.setPostedDate(postedDate);
+        job.setExpirationDate(expirationDate);
+        
+        entityManager.merge(job);
+    }
+    
     
 }
