@@ -152,6 +152,21 @@ public class JakartaEE8Resource {
     }
     
     
+    @GET
+    @Path("searchCompanyByName/{title}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchCompanyByName(@PathParam("title") String title) {
+        try {
+            Collection<UserMaster> userMasters = userBean.searchCompanyByName(title);
+            return Response.ok(userMasters).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred").build();
+        }
+    }
+    
+    
+    
     // Job Methods
     
     

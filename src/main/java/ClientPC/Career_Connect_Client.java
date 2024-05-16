@@ -33,7 +33,6 @@ public class Career_Connect_Client {
         webTarget = client.target(BASE_URI).path("rest");
     }
 
-    
     static {
         //for localhost testing only
         javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
@@ -76,6 +75,12 @@ public class Career_Connect_Client {
 
     public void userRegistration(String fname, String lname, String email, String mobile, String profile_img, String birth_date, String addressline, String city, String state, String pincode, String password) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("userRegistration/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", new Object[]{fname, lname, email, mobile, profile_img, birth_date, addressline, city, state, pincode, password})).request().post(null);
+    }
+
+    public <T> T searchCompanyByName(Class<T> responseType, String title) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("searchCompanyByName/{0}", new Object[]{title}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public Response deleteById(String userId) throws ClientErrorException {

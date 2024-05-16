@@ -39,8 +39,16 @@
 
 <body>   
      
-           <h:form class="mx-4">
-            <p class='mb-3 mt-3 companyHead'>Company List</p>
+    <ui:include src="AdminSidebar.xhtml" />
+    <div class="content" id="content">
+            
+            <h:form class="mx-4">
+            <p class='mb-3 companyHead'>Company List</p>
+            <p:commandButton value="Add Company" icon="pi pi-plus" action="#{companyCdi.GotoInsert()}"
+                    
+                    styleClass="mb-3" style="margin-right: .5rem">
+                    
+                </p:commandButton>
             <div class="card">
                 <div class="dataTableWrapper">
                     <p:dataTable var="company" value="#{companyCdi.userCollection}">
@@ -74,14 +82,31 @@
                         <p:column headerText="Certification">
                             <h:outputText value="#{company.certification}" />
                         </p:column>
-                        <p:column headerText="Edit">
+<!--                        <p:column headerText="Edit">
                         <p:commandButton icon="pi pi-pencil" action="#{companyCdi.getCompany(company)}"/>
-                        </p:column>
+                        </p:column>-->
+                         <p:column headerText="Delete">
+                        <p:commandButton icon="pi pi-trash"
+                                         action="#{companyCdi.deleteCompany(company.userId)}"    
+                                      >
+                        </p:commandButton>
+                    </p:column>
                     </p:dataTable>
                 </div>
             </div>
+             <p:confirmDialog header="Confirmation" message="Are you sure you want to delete this item?"
+                         widgetVar="confirmation" appendTo="@(body)" id="confirmDelete">
+            <p:commandButton value="Yes" oncomplete="confirmation.hide()"
+                             action="#{companyCdi.deleteCompany(companyCdi.userTbl.userId)}"
+                             update="messagesToDelete"/>
+            <p:commandButton value="No" onclick="confirmation.hide()" type="button" />
+        </p:confirmDialog>
+
+        <p:messages id="messagesToDelete" />
         </h:form>
-       
+        
+    </div>
+           
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

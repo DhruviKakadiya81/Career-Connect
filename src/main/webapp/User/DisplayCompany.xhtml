@@ -7,7 +7,7 @@
     <h:head>
         <title>Facelet Title</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="Css/DisplayCompa.css"/>
+         <link rel="stylesheet" href="../Css/DisplayJob.css"/>
         <style>
             
             body {
@@ -44,14 +44,88 @@
                 color: #095c9d;
                 font-weight: 500;
             }
+            
+            
+            @keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.doctor-list-container {
+    animation: fadeIn 1s;
+    background-color: #fafbff;
+    min-height: calc(100vh - 125px);
+}
+
+.doctor-list-searchbar-container {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    background-color: white;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.doctor-list-searchbar-container .btn-search {
+    border-radius: 5px;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: white;
+    border: none;
+    background: linear-gradient(90deg, rgb(13, 3, 213) 0%, rgb(12, 12, 195) 26%, rgba(0, 212, 255, 1) 100%);
+    padding: 15px 10px;
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+.doctor-list-searchbar-container .btn-search:focus {
+    outline: none;
+}
+
+.doctor-list-searchbar-container .btn-search:hover {
+    opacity: 1;
+}
+
+.doctor-list-searchbar-container .btn-search:disabled {
+    cursor: not-allowed;
+}
 
         </style>
     </h:head>
     <h:body>
         <ui:include src="UserSidebar.xhtml"/>
+        
         <div class="content" id="content">
+            <p class='mb-3 mx-3 companyHead'>Company List</p>
+        <div class="mx-3">
+    <div class="row" >
+        <div class="col">
+            <h:form>
+                <div class='doctor-list-searchbar-container py-3 px-1 mb-3 row m-0' >
+                    <div class='col-md-10 col-sm-12 mb-md-0'>
+                        <h:inputText
+                            value="#{companyCdi.searchCompany}"
+                            id="input-with-icon-adornment"
+                            style="width: 100%;font-size: 20px;"
+                            class="py-1 px-2"
+                        />
+                    </div>
+                    
+                    <div class='col-md-2 col-sm-4'>
+                        <h:commandButton value="Search" action="#{companyCdi.searchCompanyUsingName()}" class="btn-search"/>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+</div>
         <h:form class="mx-3">
-        <p class='mb-3 companyHead'>Company List</p>
+        
         <div class="row row-cols-1 row-cols-md-3 g-4">
     <ui:repeat value="#{companyCdi.userCollection}" var="company">
         <div class="col">

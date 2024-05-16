@@ -27,12 +27,20 @@ public class JobBean {
         return entityManager.createNamedQuery("Job.findAll").getResultList();
     }
     
+//    @RolesAllowed("User")
+//    public Collection<Job> searchJobsByTitle(String title) {
+//        return entityManager.createNamedQuery("Job.findByJobTitle")
+//                            .setParameter("jobTitle", title)
+//                            .getResultList();
+//    }
+    
+    
     @RolesAllowed("User")
-    public Collection<Job> searchJobsByTitle(String title) {
-        return entityManager.createNamedQuery("Job.findByJobTitle")
-                            .setParameter("jobTitle", title)
-                            .getResultList();
-    }
+        public Collection<Job> searchJobsByTitle(String title) {
+            return entityManager.createQuery("SELECT j FROM Job j WHERE j.jobTitle LIKE :jobTitle")
+                                .setParameter("jobTitle", "%" + title + "%")
+                                .getResultList();
+        }
     
     public void InsertJob(int companyId,String jobTitle,String description,String technology,String qualification,String experience,int salary,String status,String jobType,Date postedDate,Date expirationDate){
         

@@ -89,6 +89,14 @@ public class UserBean {
                     .getResultList();
     }
     
+    
+    @RolesAllowed("User")
+    public Collection<UserMaster> searchCompanyByName(String Name) {
+        return entityManager.createQuery("SELECT u FROM UserMaster u INNER JOIN RoleMaster r ON u.email = r.email WHERE u.fName LIKE :firstName AND r.groupname = :groupname")
+                            .setParameter("groupname", "Company")
+                            .setParameter("firstName", "%" + Name + "%")
+                            .getResultList();
+    }
  
     
 }

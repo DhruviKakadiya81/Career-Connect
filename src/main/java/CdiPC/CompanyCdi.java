@@ -29,6 +29,8 @@ public class CompanyCdi {
     UserMaster userTbl;
     GenericType<Collection<UserMaster>> userGeneric;
     
+    String searchCompany;
+    
     public CompanyCdi() {
         career_Client=new Career_Connect_Client();
         
@@ -38,10 +40,16 @@ public class CompanyCdi {
     }
 
     public Collection<UserMaster> getUserCollection() {
-        response=career_Client.DisplayCompany(Response.class);
-//        response=career_Client.findByRoleId(Response.class,String.valueOf(3));
+        if(searchCompany!=null){
+            response=career_Client.searchCompanyByName(Response.class,searchCompany);
+            userCollection=response.readEntity(userGeneric);
+            return userCollection;
+        }else{
+            response=career_Client.DisplayCompany(Response.class);
         userCollection=response.readEntity(userGeneric);
         return userCollection;
+        }
+        
     }
 
     public void setUserCollection(Collection<UserMaster> userCollection) {
@@ -66,6 +74,14 @@ public class CompanyCdi {
         return "UpdateCompany";
     }
     
+    public String getSearchCompany() {
+        return searchCompany;
+    }
+
+    public void setSearchCompany(String searchCompany) {
+        this.searchCompany = searchCompany;
+    }
+    
     public String updateCompany(){
         career_Client.updateCompany(String.valueOf(userTbl.getUserId()), userTbl.getFName(), userTbl.getEmail(), userTbl.getMobileNo(), userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(), String.valueOf(userTbl.getPincode()), userTbl.getPassword(), userTbl.getTechnology(), userTbl.getSpecialization(), userTbl.getCertification());
         return "DisplayCompany";
@@ -76,6 +92,16 @@ public class CompanyCdi {
         career_Client.companyRegistration(userTbl.getFName(), userTbl.getEmail(), userTbl.getMobileNo(), userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(),String.valueOf(userTbl.getPincode()), userTbl.getPassword(), userTbl.getTechnology(), userTbl.getSpecialization(), userTbl.getCertification());
 //        career_Client.insertCompany(userTbl.getFName(), userTbl.getEmail(), userTbl.getMobileNo(), userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(), String.valueOf(userTbl.getPincode()), userTbl.getPassword(), userTbl.getTechnology(), userTbl.getSpecialization(), userTbl.getCertification(),String.valueOf(3));
         return "DisplayCompany";
+    }
+    
+    public String searchCompanyUsingName()
+    {
+         return "DisplayCompany";
+    }
+    
+    public String GotoInsert()
+    {
+         return "InsertCompany";
     }
     
 }

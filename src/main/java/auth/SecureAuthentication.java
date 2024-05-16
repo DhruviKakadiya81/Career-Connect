@@ -87,7 +87,7 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
                     System.out.println(result.getCallerGroups());
                     if (result.getCallerGroups().contains("Admin")) {
                         System.out.println("Admin Sideee");
-                        request.getRequestDispatcher("../Admin/DisplayCompany.xhtml").forward(request, response);
+                        request.getRequestDispatcher("../Admin/AdminDashboard.xhtml").forward(request, response);
                     }
                     if (result.getCallerGroups().contains("User")) {
                         System.out.println("User Sidee");

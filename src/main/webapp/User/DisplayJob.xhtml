@@ -5,23 +5,8 @@
 <head>
     <title>Sidebar Toggle Example</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="../Css/DisplayJob.css"/>
-    <script>
-        $(document).ready(function () {
-            $("#sidebar-toggle-button").click(function () {
-                $("#sidebar").toggleClass("sidebar-hidden");
-                $("#content").toggleClass("content-moved");
-                if ($("#sidebar").hasClass("sidebar-hidden")) {
-                    // Sidebar is hidden, move content back to the left with 50px space
-                    $("#content").css("margin-left", "170px");
-                      $("#content").css("width", "180%");
-                } else {
-                    // Sidebar is shown, move content to the right
-                    $("#content").css("margin-left", "250px");
-                }
-            });
-        });
-    </script>
+    <link rel="stylesheet" href="Css/DisplayJob.css"/>
+    
     <style>
         body {
             margin: 0;
@@ -31,155 +16,11 @@
             /* Prevent horizontal scroll */
         }
 
-        .sidebar {
-            width: 200px;
-            min-width: 50px;
-            /* Adjust as needed */
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            transition: transform 0.3s ease-in-out;
-            z-index: 1000;
-            background-color: #095c9d;
-            /* Ensure sidebar appears on top of content */
-        }
-
-        .sidebar-hidden {
-            transform: translateX(-150px);
-            /* Adjust as needed */
-        }
-
-        .sidebar .sidebar-links {
-            margin-top: 60px;
-            /* Adjust as needed */
-        }
-        
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-}
-
-.add-company-button {
-    background: linear-gradient(to right, #0b6bca, #c4e1ff);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-}
-
-.add-company-button:hover {
-    background: linear-gradient(to right, #0b6bca, #c4e1ff);
-}
-
-        .sidebar-header {
-            text-align: left;
-            color: white;
-            font-size: 24px;
-            /* Adjust font size as needed */
-        }
-
-        .link-style {
-            font-size: 18px;
-            /* Set font size */
-            text-decoration: none;
-            /* Remove underline */
-            display: block;
-            padding: 10px;
-            /* Add padding for better clickability */
-            transition: color 0.3s;
-            /* Smooth color transition on hover */
-        }
-
-        .link-style:hover {
-            color: #fff;
-            /* Change color on hover */
-        }
-
-        #content {
-            transition: margin-left 0.3s ease-in-out;
-            /* Updated transition property */
-            padding: 20px;
-            margin-left: 250px;
-            /* Initially align content next to the sidebar */
-            margin-top: 30px;
-            /* Adjust margin-top as needed */
-            /*/box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);/*/
-            /* Box shadow around content */
-            width: calc(97% - 250px);
-            /* Set content width to occupy most of the screen */
-            max-width: calc(97% - 250px);
-            /* Set maximum content width */
-        }
-
-        .content-moved {
-            margin-left: 100px;
-           
-
-            /* Adjusted to move content along with sidebar */
-
-        }
-
-        .toggle-button {
-            background-color: #444;
-            border: none;
-            color: white;
-            padding: 10px;
-            cursor: pointer;
-            position: absolute;
-            top: 20px;
-            right: 10px;
-            z-index: 1001;
-            /* Ensure button appears on top of sidebar */
-        }
-
-        .toggle-button:hover {
-            background-color: #555;
-        }
-
-        /* Increase input size and provide padding */
-        input[type="text"],
-        input[type="email"] {
-            width: calc(100% - 20px);
-            /* Subtracting padding */
-            padding: 10px;
-            margin-top: 5px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            /* Adding border for clarity */
-            border-radius: 5px;
-            /* Adding border radius for aesthetics */
-        }
-
-        /* Hide input placeholders */
-        input[type="text"]::placeholder,
-        input[type="email"]::placeholder {
-            color: gray;
-        }
-
-        /* Style input placeholders */
-        input[type="text"]:focus::placeholder,
-        input[type="email"]:focus::placeholder {
-            color: #999;
-            /* Placeholder color when input is focused */
-        }
-
-        .login-line {
-            background: linear-gradient(to right, #0b6bca, #c4e1ff);
-            margin: 0px;
-            width: 10%;
-            height: 2.5px;
-            border-radius: 20px;
-        }
-
-
-        /* Style for the Add Company button */
+       .companyHead{
+                font-size: 40px;
+                color: #095c9d;
+                font-weight: 500;
+            }
   
     </style>
 
@@ -188,37 +29,13 @@
 </head>
 
 <body>
-    <div id="sidebar" class="sidebar">
-        <!-- Career Connect text -->
-        <div class="sidebar-header">
-            <h2>Career Connect</h2>
-        </div>
-
-        <!-- Sidebar content goes here -->
-        <h:form>
-            <!-- Sidebar links or menu items -->
-            <ul class="list-unstyled sidebar-links">
-                <li class="sidebar-link">
-                    <h:outputLink value="../Admin/Dashboard.xhtml" class="text-white link-style">Dashboard</h:outputLink>
-                </li>
-                <li class="sidebar-link">
-                    <h:outputLink value="../Admin/InsertCompany.xhtml" class="text-white link-style">Add Company</h:outputLink>
-                </li>
-                <li class="sidebar-link">
-                    <h:outputLink value="../Admin/DisplayCompany.xhtml" class="text-white link-style">Show Company</h:outputLink>
-                </li>
-                <li class="sidebar-link">
-                    <h:outputLink value="../User/DisplayJob.xhtml" class="text-white link-style">Show Job</h:outputLink>
-                </li>
-            </ul>
-        </h:form>
-        <button id="sidebar-toggle-button" class="toggle-button">☰</button>
-    </div>
-    <div id="content" class="content-moved">
-        <!-- Main content goes here -->
+    <ui:include src="UserSidebar.xhtml"/>
+        
+        <div class="content" id="content">
+        <p class='mb-3 mx-3 companyHead'>Job List</p>
      
-        <div class="container">
-    <div class="row " >
+        <div class="mx-3">
+    <div class="row" >
         <div class="col">
             <h:form>
                 <div class='doctor-list-searchbar-container py-3 px-1 mb-3 row m-0' >
@@ -226,7 +43,8 @@
                         <h:inputText
                             value="#{jobCdi.searchKeyword}"
                             id="input-with-icon-adornment"
-                            style=""
+                            style="width: 100%;font-size: 20px;"
+                            class="py-1 px-2"
                         />
                     </div>
                     
