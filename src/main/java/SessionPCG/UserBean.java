@@ -124,6 +124,11 @@ public class UserBean {
         return entityManager.createNamedQuery("Resume.findAll").getResultList();
     }
 
- 
+      public Collection<UserMaster> searchCompanyByEmail(String email) {
+        return entityManager.createQuery("SELECT u FROM UserMaster u INNER JOIN RoleMaster r ON u.email = r.email WHERE u.email LIKE :email AND r.groupname = :groupname")
+                            .setParameter("groupname", "Company")
+                            .setParameter("email", "%" + email + "%")
+                            .getResultList();
+    }
     
 }
