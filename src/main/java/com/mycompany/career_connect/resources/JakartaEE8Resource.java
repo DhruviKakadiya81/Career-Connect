@@ -1,6 +1,7 @@
 package com.mycompany.career_connect.resources;
 
 import EntityPC.Job;
+import EntityPC.Resume;
 import EntityPC.UserMaster;
 import SessionPCG.UserBean;
 import java.text.ParseException;
@@ -268,5 +269,61 @@ public class JakartaEE8Resource {
             }
     
     
+       @POST
+    @Path("requestJob/{companyid}/{jobid}/{userid}/{message}/{status}/{requetDate}")
+     public void requestJob(@PathParam("companyid") int companyId, @PathParam("jobid") int jobId ,@PathParam("userid") int userId ,@PathParam("message") String Message,@PathParam("status") String Status,@PathParam("requetDate") String request_date) throws ParseException{
+         
+          try {
+            
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Date r_date=sdf.parse(request_date);
+            
+            jobBean.requestJob(companyId, jobId, userId, Message, Status, r_date);
+           
+        } catch (PersistenceException e) {
+
+        } catch (RuntimeException e) {
+
+        }
+         
+         
+     }
+     
+      @DELETE
+    @Path("deleteJobRequest/{requestId}")
+      public void cancleJobRequest(@PathParam("requestId") Integer requestId)
+      {
+          jobBean.cancleJobRequest(requestId);
+      }
+        
+ @GET
+    @Path("getAllJobRequest")
+    @Produces(MediaType.APPLICATION_JSON)
+     public Collection<Job> getAllJobRequest(){
+        return jobBean.getAllJobRequest();
+     }      
+             
+         
+    
+    @POST
+    @Path("uploadResume/{userid}/{pdfname}")
+    public void uploadResume(@PathParam("userid") Integer userid ,@PathParam("pdfname") String pdfname)
+    {
+        userBean.uploadResume(userid, pdfname);
+    }
+    
+    @DELETE
+    @Path("deleteResume/{resumeId}")
+     public void deleteResume(@PathParam("resumeId") Integer resumeid)
+     {
+         userBean.deleteResume(resumeid);
+     }
+     
+     @POST
+     @Path("displayResume")
+      public Collection<Resume> getResume(){
+          
+           return  userBean.getResume();
+      }
     
 }

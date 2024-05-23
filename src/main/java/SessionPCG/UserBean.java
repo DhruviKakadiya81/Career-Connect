@@ -4,6 +4,7 @@
  */
 package SessionPCG;
 
+import EntityPC.Resume;
 import EntityPC.RoleMaster;
 import EntityPC.UserMaster;
 import java.util.Collection;
@@ -97,6 +98,32 @@ public class UserBean {
                             .setParameter("firstName", "%" + Name + "%")
                             .getResultList();
     }
+    
+     public void uploadResume(Integer userid , String pdfname)
+    {
+        UserMaster userMaster = entityManager.find(UserMaster.class ,userid);
+        Resume resumemaster = new Resume();
+        
+        resumemaster.setUserId(userMaster);
+        resumemaster.setPdfName(pdfname);
+        
+        entityManager.persist(resumemaster);
+       
+    }
+    
+     public void deleteResume(Integer resumeid)
+    {
+       
+        Resume deleteResume = entityManager.find(Resume.class, resumeid);
+        
+        entityManager.remove(deleteResume);
+       
+    }
+     
+      public Collection<Resume> getResume(){
+        return entityManager.createNamedQuery("Resume.findAll").getResultList();
+    }
+
  
     
 }

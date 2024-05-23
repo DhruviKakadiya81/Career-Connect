@@ -5,6 +5,7 @@
 package SessionPCG;
 
 import EntityPC.Job;
+import EntityPC.JobRequest;
 import EntityPC.UserMaster;
 import java.util.Collection;
 import java.util.Date;
@@ -85,6 +86,34 @@ public class JobBean {
         
         entityManager.merge(job);
     }
+    
+     public void requestJob(int companyId,int jobId ,int userId , String Message,String Status, Date request_date){
+        
+        JobRequest request = new JobRequest();
+        Job job=entityManager.find(Job.class,jobId);
+        UserMaster company=entityManager.find(UserMaster.class, companyId);
+        UserMaster user=entityManager.find(UserMaster.class, userId);
+
+        request.setCompanyId(company);
+        request.setJobId(job);
+        request.setUserId(user);
+        request.setMessage(Message);
+        request.setStatus(Status);
+        request.setRequestedDate(request_date);
+        
+        entityManager.persist(request);
+    }
+     
+    public void cancleJobRequest(Integer requestId)
+    {
+        JobRequest deleteJobRequest = entityManager.find(JobRequest.class, requestId); 
+        entityManager.remove(deleteJobRequest); 
+    }
+    
+     public Collection<Job> getAllJobRequest(){
+        return entityManager.createNamedQuery("JobRequest.findAll").getResultList();
+    }
+     
     
     
 }
