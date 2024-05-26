@@ -8,8 +8,12 @@ import ClientPC.Career_Connect_Client;
 import EntityPC.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.NavigationHandler;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
@@ -30,6 +34,15 @@ public class CompanyCdi {
     GenericType<Collection<UserMaster>> userGeneric;
     
     String searchCompany;
+     private int selectedCompanyId;
+
+    public int getSelectedCompanyId() {
+        return selectedCompanyId;
+    }
+
+    public void setSelectedCompanyId(int selectedCompanyId) {
+        this.selectedCompanyId = selectedCompanyId;
+    }
     
     public CompanyCdi() {
         career_Client=new Career_Connect_Client();
@@ -104,4 +117,48 @@ public class CompanyCdi {
          return "InsertCompany";
     }
     
+    public void viewJobs(int companyId) {
+        this.selectedCompanyId = companyId;
+        FacesContext fc = FacesContext.getCurrentInstance();
+        NavigationHandler nh = fc.getApplication().getNavigationHandler();
+        nh.handleNavigation(fc, null, "DisplayJob?faces-redirect=true&companyId=" + companyId);
+    }
+    
+//    @PostConstruct
+//    public void init() {
+//        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+//        if (session != null) {
+//            loggedInUser = (String) session.getAttribute("loggedInUser");
+//        }
+//    }
+
+    private UserMaster loggedInUser;
+
+    public UserMaster getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public void setLoggedInUser(UserMaster loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+    
+    private String getLoggedInUserEmail() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+        return (String) session.getAttribute("loggedInUser");  // Assuming userEmail is stored in session
+    }
+    
+    
+    @PostConstruct
+    public void init() {
+        String loggedInUserEmail = getLoggedInUserEmail();
+        System.out.println("Logged in user email: " + loggedInUserEmail);
+        if (loggedInUserEmail != null) {
+            response=career_Client.searchUserByEmail(Response.class, loggedInUserEmail);
+            Collection<UserMaster> users = response.readEntity(new GenericType<Collection<UserMaster>>() {});
+            System.out.println("Fetched users: " + users);
+            if (!users.isEmpty()) {
+                loggedInUser = users.iterator().next(); 
+            }
+        }
+    }
 }

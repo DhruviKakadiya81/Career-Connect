@@ -7,6 +7,7 @@ package EntityPC;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -118,10 +119,13 @@ public class JobRequest implements Serializable {
         this.requestedDate = requestedDate;
     }
 
+    @JsonbTransient
     public Collection<ApprovedJob> getApprovedJobCollection() {
         return approvedJobCollection;
     }
-
+    
+    
+    @JsonbTransient
     public void setApprovedJobCollection(Collection<ApprovedJob> approvedJobCollection) {
         this.approvedJobCollection = approvedJobCollection;
     }

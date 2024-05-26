@@ -10,6 +10,27 @@
         <ui:include src="UserSidebar.xhtml"/>
         <div class="content" id="content">
             I m User Dashboard
+            <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Username:" />
+        </h:panelGrid>
+    </h:form>
+            
+            <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="User ID:" />
+            <h:outputText value="#{companyCdi.loggedInUser.userId}" />
+
+            <h:outputLabel value="First Name:" />
+            <h:outputText value="#{companyCdi.loggedInUser.FName}" />
+            
+            <h:outputLabel value="Last Name " />
+            <h:outputText value="#{companyCdi.loggedInUser.LName}" />
+            
+            <h:outputLabel value="Email : " />
+            <h:outputText value="#{companyCdi.loggedInUser.email}" />
+            </h:panelGrid>
+    </h:form>
         </div>
     </h:body>
 </html>
