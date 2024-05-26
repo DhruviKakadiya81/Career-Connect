@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <head>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
        
@@ -252,7 +254,22 @@
     </style>
 </head>
 <body>
+     <ui:include src="UserSidebar.xhtml"/>
+      <div class="content" id="content">
     <h:form>
+         <h:panelGrid columns="2">
+            <h:outputLabel value="User ID:" />
+            <h:outputText value="#{companyCdi.loggedInUser.userId}" />
+
+            <h:outputLabel value="First Name:" />
+            <h:outputText value="#{companyCdi.loggedInUser.FName}" />
+            
+            <h:outputLabel value="Last Name " />
+            <h:outputText value="#{companyCdi.loggedInUser.LName}" />
+            
+            <h:outputLabel value="Email : " />
+            <h:outputText value="#{companyCdi.loggedInUser.email}" />
+            </h:panelGrid>
         <div class="user-dashboard-container">
              <div class="patient-dashboard-container d-flex align-items-center">
                 <div class="patient-dashboard-welcome-container col-lg-6 col-md-11 ml-lg-5 p-md-5 p-4">
@@ -293,8 +310,10 @@
                     </article>
                 </div>
             </div>
-           
+          
         </div>
     </h:form>
+                  </div>
+
 </body>
 </html>

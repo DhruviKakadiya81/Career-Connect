@@ -1,6 +1,7 @@
 package com.mycompany.career_connect.resources;
 
 import EntityPC.Job;
+import EntityPC.JobRequest;
 import EntityPC.Resume;
 import EntityPC.UserMaster;
 import SessionPCG.UserBean;
@@ -34,6 +35,9 @@ public class JakartaEE8Resource {
     
     @EJB
     SessionPCG.JobBean jobBean;
+    
+    @EJB
+    SessionPCG.JobRequestBean jobRequestBean;
     
     
     @GET
@@ -167,6 +171,33 @@ public class JakartaEE8Resource {
     }
     
     
+    @GET
+    @Path("searchCompanyByEmail/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchCompanyByEmail(@PathParam("email") String email) {
+        try {
+            Collection<UserMaster> userMasters = userBean.searchCompanyByEmail(email);
+            return Response.ok(userMasters).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred").build();
+        }
+    }
+    
+    
+    @GET
+    @Path("searchUserByEmail/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchUserByEmail(@PathParam("email") String email) {
+        try {
+            Collection<UserMaster> userMasters = userBean.searchUserByEmail(email);
+            return Response.ok(userMasters).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred").build();
+        }
+    }
+    
     
     // Job Methods
     
@@ -278,7 +309,7 @@ public class JakartaEE8Resource {
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
             Date r_date=sdf.parse(request_date);
             
-            jobBean.requestJob(companyId, jobId, userId, Message, Status, r_date);
+            jobRequestBean.requestJob(companyId, jobId, userId, Message, Status, r_date);
            
         } catch (PersistenceException e) {
 
@@ -293,14 +324,14 @@ public class JakartaEE8Resource {
     @Path("deleteJobRequest/{requestId}")
       public void cancleJobRequest(@PathParam("requestId") Integer requestId)
       {
-          jobBean.cancleJobRequest(requestId);
+          jobRequestBean.cancleJobRequest(requestId);
       }
         
  @GET
     @Path("getAllJobRequest")
     @Produces(MediaType.APPLICATION_JSON)
      public Collection<Job> getAllJobRequest(){
-        return jobBean.getAllJobRequest();
+        return jobRequestBean.getAllJobRequest();
      }      
              
          
@@ -324,6 +355,22 @@ public class JakartaEE8Resource {
       public Collection<Resume> getResume(){
           
            return  userBean.getResume();
+      }
+      
+      
+      @GET
+      @Path("searchJobByCompanyId/{companyId}")
+      @Produces(MediaType.APPLICATION_JSON)
+      public Collection<Job> searchJobByCompanyId(@PathParam("companyId") int companyId) {
+            return jobBean.searchJobByCompanyId(companyId);
+      }
+      
+      
+      @GET
+      @Path("findJobRequestsByCompanyIdAndStatus/{companyId}/{status}")
+      @Produces(MediaType.APPLICATION_JSON)
+      public Collection<JobRequest> findJobRequestsByCompanyIdAndStatus(@PathParam("companyId") int companyId,@PathParam("status") String status) {
+            return jobRequestBean.findJobRequestsByCompanyIdAndStatus(companyId,status);
       }
     
 }

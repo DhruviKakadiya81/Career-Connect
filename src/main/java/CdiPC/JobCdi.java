@@ -8,8 +8,10 @@ import ClientPC.Career_Connect_Client;
 import EntityPC.Job;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
@@ -30,6 +32,15 @@ public class JobCdi {
     GenericType<Collection<Job>> jobGeneric;
     
     String searchKeyword;
+    private int companyId;
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
     
     public JobCdi() {
         
@@ -41,17 +52,40 @@ public class JobCdi {
         
     }
     
-    
-    public Collection<Job> getJobCollection() {
-        if(searchKeyword!=null){
-            response=career_Client.searchJobsByTitle(Response.class,searchKeyword);
-            jobCollection=response.readEntity(jobGeneric);
-            return jobCollection;
-        }else{
-            response=career_Client.getAllJobs(Response.class);
-            jobCollection=response.readEntity(jobGeneric);
-            return jobCollection;
+    @PostConstruct
+    public void init() {
+        if (companyId != 0) {
+            fetchJobsByCompanyId();
         }
+    }
+    
+    
+//    public Collection<Job> getJobCollection() {
+//        if(searchKeyword!=null){
+//            response=career_Client.searchJobsByTitle(Response.class,searchKeyword);
+//            jobCollection=response.readEntity(jobGeneric);
+//            return jobCollection;
+//        }else{
+//            response=career_Client.getAllJobs(Response.class);
+//            jobCollection=response.readEntity(jobGeneric);
+//            return jobCollection;
+//        }
+//    }
+    
+    
+     public Collection<Job> getJobCollection() {
+        if (searchKeyword != null && !searchKeyword.isEmpty()) {
+            response = career_Client.searchJobsByTitle(Response.class, searchKeyword);
+            jobCollection = response.readEntity(jobGeneric);
+        } else {
+            if (companyId != 0) {
+                fetchJobsByCompanyId();
+            } else {
+                response = career_Client.getAllJobs(Response.class);
+                jobCollection = response.readEntity(jobGeneric);
+            }
+        }
+        return jobCollection;
     }
 
     public void setJobCollection(Collection<Job> jobCollection) {
@@ -77,6 +111,15 @@ public class JobCdi {
     public String searchJobUsingTitle()
     {
          return "DisplayJob";
+    }
+    
+    private void fetchJobsByCompanyId() {
+        try {
+            response = career_Client.searchJobByCompanyId(Response.class, String.valueOf(companyId));
+            jobCollection = response.readEntity(jobGeneric);
+        } catch (ClientErrorException e) {
+            e.printStackTrace();
+        }
     }
     
 }
