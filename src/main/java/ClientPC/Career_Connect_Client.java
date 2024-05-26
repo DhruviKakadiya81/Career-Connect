@@ -25,7 +25,7 @@ public class Career_Connect_Client {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080//resources";
+    private static final String BASE_URI = "http://localhost:8080/Career-Connect/resources";
 
     public Career_Connect_Client() {
         client = javax.ws.rs.client.ClientBuilder.newClient();

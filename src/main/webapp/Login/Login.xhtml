@@ -1,24 +1,59 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Login | Application</title>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-image: url('../Assests/LoginPage/Login-bg.png');
+                background-size: cover;
+                margin: 0; /* Remove default margin */
+            }
+
+            .login-container {
+                max-width: 450px;
+                padding: 24px;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 8px;
+                margin-left: 40rem; /* Move content to the right */
+            }
+
+            /* Additional styles as needed */
+        </style>
     </h:head>
     <h:body>
+        <div class="login-container">
+            <p style="text-transform: uppercase; font-size: 3em; font-weight: 600; text-align: center; letter-spacing: 1px;">Welcome back</p>
+            <div style="width: 185px; height: 4.5px; background-image: linear-gradient(to right, #587ca0, #99ecf6); margin: 5px auto;"></div>
+            <p style="text-align: center; font-size: 1.1em; line-height: 28px; margin: 17px 0; color: #696969;">Please, provide login credentials to proceed.</p>
+            
+            <form method="POST" style="display: flex; flex-direction: column;">
+                <div style="margin-bottom: 1rem;">
+                    <div style="position: relative; width: 100%;">
+                        <input type="text" name="email" style="width: 100%; background: #e6e6e6; padding: 14px 64px; border-radius: 30px; border: none; outline: none; color: #333;" placeholder="Email" required="required" />
+                        <i class="fas fa-envelope" style="position: absolute; left: 32px; top: 50%; transform: translateY(-50%); color: #888;"></i>
+                    </div>
+                </div>
 
+                <div style="margin-bottom: 1rem;">
+                    <div style="position: relative; width: 100%;">
+                        <input type="password" name="password" style="width: 100%; background: #e6e6e6; padding: 14px 64px; border-radius: 30px; border: none; outline: none; color: #333;" placeholder="Password" required="required" />
+                        <i class="fas fa-lock" style="position: absolute; left: 32px; top: 50%; transform: translateY(-50%); color: #888;"></i>
+                    </div>
+                </div>
 
-        <form method="POST">
-        <table border="1">
-            <tr>  
-                <td>Email</td> <td><input type="text" name="email"  value=""/></td></tr>
-          
-            <tr>   <td>Password </td> <td><input type="password" name="password" value=""/></td></tr>
-            <tr><td><input type="submit" value="Login"/></td><td><input type="reset" value="Reset"/></td></tr>
-  
-        </table>
-        </form>
-        <br/>
-        <h:outputText id="err" style="color:red" value="#{loginBean.errorStatus}"/>
+                <button type="submit" style="color: #fff; padding: 14px 64px; margin: 2rem auto 1rem auto; text-transform: uppercase; letter-spacing: 2px; background-image: linear-gradient(to right, #587ca0, #99ecf6); font-weight: bold; border: none; outline: none; border-radius: 30px; cursor: pointer; transition: opacity 0.4s;">Login</button>
+
+                <div style="display: block; text-align: center;">
+                    <a href="/forgotPassword" style="text-decoration: none; color: #597ea3; font-size: 17px; font-weight: 700;">Forget Password?</a>
+                </div>
+            </form>
+            <h:outputText id="err" style="color:red; display: block; text-align: center;" value="#{loginBean.errorStatus}"/>
+        </div>
     </h:body>
 </html>

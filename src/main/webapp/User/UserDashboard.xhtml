@@ -1,15 +1,300 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <ui:include src="UserSidebar.xhtml"/>
-        <div class="content" id="content">
-            I m User Dashboard
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+       
+    <title>Home | Health Horizon</title>
+    <style>
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        .user-dashboard-container {
+            animation: fadeIn 1s;
+        }
+        .prescription-container {
+            height: 80vh;
+            font-family: "Jost", sans-serif;
+            display: flex;
+            justify-content: right;
+        }
+        .prescription-container-wrapper-lg, .prescription-container-wrapper-md {
+            position: relative;
+        }
+        .prescription-container-wrapper:before {
+            content: ' ';
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .prescription-container-wrapper-md:before {
+            background-image: url('path-to-responsive-bg.png');
+        }
+        .prescription-container-wrapper-lg:before {
+            background-image: url('path-to-bg.png');
+        }
+        .prescription-content {
+            align-self: center;
+        }
+        .btnLetsGo {
+            background-color: aliceblue;
+            color: #0b8fdc;
+            border: none;
+            font-size: 1.8rem;
+            line-height: 2.4rem;
+            border-radius: 5px;
+            padding: 3px 40px;
+            transition: color 0.25s;
+        }
+        .btnLetsGo:hover {
+            color: rgb(89, 153, 217);
+            cursor: pointer;
+        }
+        @media (max-width: 1000px) {
+            .prescription-container {
+                background-color: #0b8fdc;
+                display: flex;
+                justify-content: left;
+                height: 50vh;
+            }
+            .prescription-container-wrapper-md::before, .prescription-container-wrapper-lg::before {
+                background-image: none;
+            }
+        }
+        .light {
+            background: #fafbff;
+        }
+        #pageHeaderTitle {
+            margin: 2rem 0;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        .facilitycard {
+            flex-wrap: wrap;
+            display: flex;
+            box-shadow: 0 4px 21px -12px rgba(0, 0, 0, 0.66);
+            border-radius: 10px;
+            margin: 0 0 2rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .facilitycard.light {
+            background: linear-gradient(90deg, rgba(236, 247, 255, 1) 0%, rgba(242, 250, 255, 1) 35%, rgba(255, 255, 255, 1) 100%);
+        }
+        .facilitycard h1, .facilitycard .h1 {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        .facilitycard .facilitycard-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+        .facilitycard .facilitycard-img {
+            max-height: 180px;
+            width: 100%;
+            object-fit: cover;
+            position: relative;
+        }
+        .facilitycard .facilitycard-bar {
+            width: 70px;
+            height: 13px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-image: linear-gradient(to right, #587ca0, #99ecf6);
+            transition: width 0.2s ease;
+        }
+        .facilitycard .facilitycard-text {
+            padding: 1.5rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .facilitycard .facilitycard-preview-txt {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: justify;
+            height: 100%;
+            font-size: 1.1rem;
+        }
+        .facilitycard:hover .facilitycard-bar {
+            width: 100px;
+        }
+        @media screen and (min-width: 769px) {
+            .facilitycard {
+                flex-wrap: inherit;
+            }
+            .facilitycard .facilitycard-title {
+                font-size: 2rem;
+            }
+            .facilitycard .facilitycard-img {
+                max-width: 220px;
+                max-height: 100%;
+                transition: transform 0.3s ease;
+            }
+            .facilitycard .facilitycard-text {
+                padding: 3rem;
+                width: 100%;
+            }
+            .facilitycard .media.facilitycard-text:before {
+                content: "";
+                position: absolute;
+                display: block;
+                top: -20%;
+                height: 130%;
+                width: 55px;
+            }
+            .facilitycard:hover .facilitycard-img {
+                transform: scale(1.3);
+            }
+            .facilitycard:nth-child(2n + 1) {
+                flex-direction: row;
+            }
+            .facilitycard:nth-child(2n + 0) {
+                flex-direction: row-reverse;
+            }
+            .facilitycard:nth-child(2n + 1) .facilitycard-text::before {
+                left: -12px !important;
+                transform: rotate(4deg);
+            }
+            .facilitycard:nth-child(2n + 0) .facilitycard-text::before {
+                right: -12px !important;
+                transform: rotate(-4deg);
+            }
+        }
+        @media screen and (min-width: 1024px) {
+            .facilitycard-text {
+                padding: 2rem 3.5rem;
+            }
+            .facilitycard-text:before {
+                content: "";
+                position: absolute;
+                display: block;
+                top: -20%;
+                height: 130%;
+                width: 55px;
+            }
+            .facilitycard.light .facilitycard-text:before {
+                background: #f4fafe;
+            }
+        }
+        .blue .facilitycard-title:hover {
+            color: #0076bd;
+            cursor: pointer;
+        }
+        .blue::before {
+            background: rgb(220, 235, 246);
+            background: linear-gradient(-90deg, rgba(220, 235, 246, 1) 0%, rgba(232, 244, 252, 1) 35%, rgba(255, 255, 255, 1) 100%);
+        }
+        .blue:nth-child(2n)::before {
+            background: rgb(220, 235, 246);
+            background: linear-gradient(90deg, rgba(220, 235, 246, 1) 0%, rgba(232, 244, 252, 1) 35%, rgba(255, 255, 255, 1) 100%);
+        }
+        @media screen and (min-width: 769px) {
+            .blue::before {
+                background: rgb(220, 235, 246);
+                background: linear-gradient(-90deg, rgba(220, 235, 246, 1) 0%, rgba(232, 244, 252, 1) 35%, rgba(255, 255, 255, 1) 100%);
+            }
+            .blue:nth-child(2n)::before {
+                background: rgb(220, 235, 246);
+                background: linear-gradient(90deg, rgba(220, 235, 246, 1) 0%, rgba(232, 244, 252, 1) 35%, rgba(255, 255, 255, 1) 100%);
+            }
+        }
+        .patient-dashboard-container {
+            height: calc(100vh - 55px);
+            background-color: #fafbff;
+        }
+        .patient-dashboard-vector-image {
+            width: 100%;
+        }
+        .patient-dashboard-welcome-title {
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(121,121,121,0.58);
+        }
+        .patient-dashboard-welcome-description {
+            font-size: 21px;
+            text-shadow: 1px 1px 1px rgba(121,121,121,0.58);
+        }
+        .btnAppointment {
+            background-color: #0b8fdc;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 50px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.4s;
+            font-size: 19px;
+            font-weight: 600;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        }
+        .btnAppointment:hover {
+            opacity: 0.9;
+        }
+        @media (max-width: 1000px) {
+            .patient-dashboard-vector-container {
+                display: none;
+            }
+            .patient-dashboard-container {
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h:form>
+        <div class="user-dashboard-container">
+             <div class="patient-dashboard-container d-flex align-items-center">
+                <div class="patient-dashboard-welcome-container col-lg-6 col-md-11 ml-lg-5 p-md-5 p-4">
+                    <p class="display-4 patient-dashboard-welcome-title">
+                        Best quality treatment <br />
+                        <span style="color: #0b8fdc">for All Departments</span>
+                    </p>
+                    <p class="h5 patient-dashboard-welcome-description mt-lg-4 mt-4">
+                        The art of medicine consists in amusing the patient while nature cures the disease. Treatment without prevention is simply unsustainable.
+                    </p>
+                    <h:commandButton value="Appointment" styleClass="btnAppointment text-light mt-4" action="navigate-to-appointment" />
+                </div>
+                <div class="patient-dashboard-vector-container col-lg-5 col-md-6">
+                    <img src="path-to-vector.svg" class="patient-dashboard-vector-image" alt="patient-dashboard-img" />
+                </div>
+            </div>
+            <h:outputText value="Profile Modal Component Placeholder" />
+            <div class="prescription-container-wrapper #{isOpenSidebar ? 'prescription-container-wrapper-md' : 'prescription-container-wrapper-lg'}">
+                <div class="prescription-container row m-0 d-flex text-light">
+                    <div class="prescription-content col-lg-5 col-md-10 my-lg-5 py-lg-5 p-4 ml-md-4">
+                        <p class="h1 mr-lg-5">View Your E-Prescriptions <br />Anytime, Anywhere</p>
+                        <h:commandButton value="Let's Go!" styleClass="btnLetsGo mt-lg-5 mt-md-5" action="navigate-to-prescriptions" />
+                    </div>
+                </div>
+            </div>
+            <div class="facilities-card-container pb-3 light pt-2">
+                <div class="h1 text-center text-dark pb-lg-4" id="pageHeaderTitle">
+                    FACILITIES FOR YOU
+                </div>
+                <div class="container">
+                    <article class="facilitycard light blue">
+                        <img class="facilitycard-img" src="path-to-image.jpg" alt="facilitycard-logo" />
+                        <div class="facilitycard-text t-dark">
+                            <h1 class="facilitycard-title blue">Facility Title</h1>
+                            <div class="facilitycard-bar"></div>
+                            <div class="facilitycard-preview-txt mt-3">Facility Description</div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+           
         </div>
-    </h:body>
+    </h:form>
+</body>
 </html>
