@@ -56,4 +56,16 @@ public class JobRequestBean {
                  .setParameter("status", status)
                  .getResultList();
     }
+     
+     public void ChangeJobRequestStatus(int id,String status){
+         JobRequest jobRequest=entityManager.find(JobRequest.class, id);
+         jobRequest.setStatus(status);
+         entityManager.merge(jobRequest);
+     }
+     
+     public Collection<JobRequest> findJobRequestsByUserId(int userId) {
+        return entityManager.createQuery("SELECT jr FROM JobRequest jr WHERE jr.userId.userId = :userId",JobRequest.class)
+            .setParameter("userId", userId)
+            .getResultList();
+    }
 }
