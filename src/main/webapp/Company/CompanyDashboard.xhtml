@@ -10,6 +10,22 @@
         <ui:include src="CompanySidebar.xhtml"/>
         <div class="content" id="content">
         Hello from Company Dashboard
+        
+        <h:form>
+        <h:panelGrid columns="2">
+            <h:outputLabel value="User ID:" />
+            <h:outputText value="#{companyCdi.loggedInUser.userId}" />
+
+            <h:outputLabel value="First Name:" />
+            <h:outputText value="#{companyCdi.loggedInUser.FName}" />
+            
+            <h:outputLabel value="Email : " />
+            <h:outputText value="#{companyCdi.loggedInUser.email}" />
+            
+            <h:outputLabel value="Address : " />
+            <h:outputText value="#{companyCdi.loggedInUser.addressLine}" />
+            </h:panelGrid>
+    </h:form>
         </div>
     </h:body>
 </html>

@@ -25,7 +25,7 @@ public class Career_Connect_Client {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8082/Career_Connect/resources";
+    private static final String BASE_URI = "http://localhost:8082/Career-Connect/resources";
 
     public Career_Connect_Client() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
@@ -33,7 +33,7 @@ public class Career_Connect_Client {
         webTarget = client.target(BASE_URI).path("rest");
     }
 
-    static {
+     static {
         //for localhost testing only
         javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
                 new javax.net.ssl.HostnameVerifier() {
@@ -77,18 +77,18 @@ public class Career_Connect_Client {
         webTarget.path(java.text.MessageFormat.format("userRegistration/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", new Object[]{fname, lname, email, mobile, profile_img, birth_date, addressline, city, state, pincode, password})).request().post(null);
     }
 
-    public <T> T searchCompanyByName(Class<T> responseType, String title) throws ClientErrorException {
-        WebTarget resource = webTarget;
-        resource = resource.path(java.text.MessageFormat.format("searchCompanyByName/{0}", new Object[]{title}));
-        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
-    }
-
-    public Response deleteById(String userId) throws ClientErrorException {
-        return webTarget.path(java.text.MessageFormat.format("deleteUser/{0}", new Object[]{userId})).request().delete(Response.class);
+    public <T> T getResume(Class<T> responseType) throws ClientErrorException {
+        return webTarget.path("displayResume").request().post(null, responseType);
     }
 
     public void updateCompany(String id, String fname, String email, String mobile, String addressline, String city, String state, String pincode, String password, String technology, String specialization, String certification) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("updatecompany/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}", new Object[]{id, fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification})).request().post(null);
+    }
+
+    public <T> T findJobRequestsByCompanyIdAndStatus(Class<T> responseType, String companyId, String status) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("findJobRequestsByCompanyIdAndStatus/{0}/{1}", new Object[]{companyId, status}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public <T> T getAllJobs(Class<T> responseType) throws ClientErrorException {
@@ -101,9 +101,59 @@ public class Career_Connect_Client {
         return webTarget.path(java.text.MessageFormat.format("deleteJob/{0}", new Object[]{jobId})).request().delete(Response.class);
     }
 
+    public void cancleJobRequest(String requestId) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("deleteJobRequest/{0}", new Object[]{requestId})).request().delete();
+    }
+
     public <T> T searchJobsByTitle(Class<T> responseType, String title) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("searchJobsByTitle/{0}", new Object[]{title}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T getAllJobRequest(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("getAllJobRequest");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T searchUserByEmail(Class<T> responseType, String email) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("searchUserByEmail/{0}", new Object[]{email}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public void deleteResume(String resumeId) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("deleteResume/{0}", new Object[]{resumeId})).request().delete();
+    }
+
+    public void uploadResume(String userid, String pdfname) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("uploadResume/{0}/{1}", new Object[]{userid, pdfname})).request().post(null);
+    }
+
+    public <T> T searchJobByCompanyId(Class<T> responseType, String companyId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("searchJobByCompanyId/{0}", new Object[]{companyId}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T searchCompanyByName(Class<T> responseType, String title) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("searchCompanyByName/{0}", new Object[]{title}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public Response deleteById(String userId) throws ClientErrorException {
+        return webTarget.path(java.text.MessageFormat.format("deleteUser/{0}", new Object[]{userId})).request().delete(Response.class);
+    }
+
+    public void requestJob(String companyid, String jobid, String userid, String message, String status, String requetDate) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("requestJob/{0}/{1}/{2}/{3}/{4}/{5}", new Object[]{companyid, jobid, userid, message, status, requetDate})).request().post(null);
+    }
+
+    public <T> T searchCompanyByEmail(Class<T> responseType, String email) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("searchCompanyByEmail/{0}", new Object[]{email}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 

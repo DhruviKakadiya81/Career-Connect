@@ -5,6 +5,7 @@
 package SessionPCG;
 
 import EntityPC.Job;
+import EntityPC.JobRequest;
 import EntityPC.UserMaster;
 import java.util.Collection;
 import java.util.Date;
@@ -85,6 +86,14 @@ public class JobBean {
         
         entityManager.merge(job);
     }
+    
+     
+    public Collection<Job> searchJobByCompanyId(int id){
+        return entityManager.createQuery("SELECT j FROM Job j WHERE j.companyId.userId = :companyId")
+                                .setParameter("companyId", id)
+                                .getResultList();
+    }
+     
     
     
 }

@@ -5,6 +5,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import javax.security.enterprise.authentication.mechanism.http.HttpAuthenticationMechanism;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.security.enterprise.AuthenticationException;
@@ -18,6 +20,7 @@ import javax.security.enterprise.identitystore.CredentialValidationResult.Status
 import javax.security.enterprise.identitystore.IdentityStoreHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import static jwtrest.Constants.AUTHORIZATION_HEADER;
 import static jwtrest.Constants.BEARER;
 import jwtrest.JWTCredential;
@@ -75,7 +78,8 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
                     AuthenticationStatus status = createToken(result, ctx);
                     
                     
-
+                    HttpSession session = request.getSession();
+                    session.setAttribute("loggedInUser", result.getCallerPrincipal().getName());
                     status = ctx.notifyContainerAboutLogin(result);
 
                  //   KeepRecord.setUsername(username);
@@ -96,6 +100,7 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
                     }
                     if (result.getCallerGroups().contains("Company")) {
                         System.out.println("Company Sideee");
+                        System.out.println(result.getCallerPrincipal().getName());
                         request.getRequestDispatcher("../Company/CompanyDashboard.xhtml").forward(request, response);
                     }
 

@@ -131,6 +131,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
+                    <p class="card-text" style="color: #808080; margin-bottom: 10px;">#{company.userId}</p>
                     <h5 class="card-title" style="font-size: 24px; margin-bottom: 5px;">#{company.FName}</h5>
                     <p class="card-text" style="color: #808080; margin-bottom: 10px;">#{company.email}</p>
                     <hr style="border-top: 1px solid #ccc; margin-bottom: 10px;"/>
@@ -149,9 +150,9 @@
                         </div>
                     </div>
                     <h:commandButton value="Update" action="#{companyCdi.getCompany(company)}" class="btn btn-danger" style="margin: 5px"></h:commandButton>
-
-                    <h:commandButton value="Delete" action="#{companyCdi.deleteCompany(company.userId)}" class="btn btn-danger"></h:commandButton>
-                  
+                    <h:commandButton value="View Jobs" 
+                                 action="#{companyCdi.viewJobs(company.userId)}" 
+                                 class="btn btn-primary"/>
                 </div>
             </div>
         </div>
