@@ -25,19 +25,14 @@ public class Career_Connect_Client {
 
     private WebTarget webTarget;
     private Client client;
-    private static final String BASE_URI = "http://localhost:8080/Career-Connect/resources";
-    
-    
+    private static final String BASE_URI = "http://localhost:8082/Career-Connect/resources";
 
     public Career_Connect_Client() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         client.register(new MyRestFilter());
         webTarget = client.target(BASE_URI).path("rest");
-        
-        
-        
     }
-    
+
     static {
         //for localhost testing only
         javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
@@ -52,7 +47,8 @@ public class Career_Connect_Client {
             }
         });
     }
-
+    
+    
     public void companyRegistration(String fname, String email, String mobile, String addressline, String city, String state, String pincode, String password, String technology, String specialization, String certification) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("companyRegistration/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", new Object[]{fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification})).request().post(null);
     }
@@ -67,6 +63,10 @@ public class Career_Connect_Client {
         WebTarget resource = webTarget;
         resource = resource.path("DisplayCompany");
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public void ChangeJobRequestStatus(String id, String status) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("ChangeJobRequestStatus/{0}/{1}", new Object[]{id, status})).request().post(null);
     }
 
     public void InsertJob(String companyId, String jobTitle, String description, String technology, String qualification, String experience, String salary, String status, String jobType, String postedDate, String expirationDate) throws ClientErrorException {
@@ -92,6 +92,12 @@ public class Career_Connect_Client {
     public <T> T findJobRequestsByCompanyIdAndStatus(Class<T> responseType, String companyId, String status) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("findJobRequestsByCompanyIdAndStatus/{0}/{1}", new Object[]{companyId, status}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T findJobRequestsByUserId(Class<T> responseType, String userId) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path(java.text.MessageFormat.format("findJobRequestsByUserId/{0}", new Object[]{userId}));
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 

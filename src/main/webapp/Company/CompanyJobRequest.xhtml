@@ -20,6 +20,7 @@
 
 
             <h:form>
+
                 <h1><h:outputText value="Pending Request"/></h1>
                 <h:dataTable value="#{jobRequestCdi.jobRequestCollection}" var="item">
                     <h:column>
@@ -63,11 +64,13 @@
                         <h:outputText value="#{item.userId.LName}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Accept"/>
-                        </f:facet>
-                        <h:commandButton value="Accept"/>
-                    </h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Accept"/>
+                    </f:facet>
+                    <h:commandButton value="Accept" action="#{jobRequestCdi.AcceptRequest(item.jobRequestId)}">
+                        <f:ajax execute="@this" render="@form"/>
+                    </h:commandButton>
+                </h:column>
                     
                     <h:column>
                         <f:facet name="header">

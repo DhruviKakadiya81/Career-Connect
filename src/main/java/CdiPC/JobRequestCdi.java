@@ -15,6 +15,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
+import CdiPC.CompanyCdi;
+import javax.ws.rs.ClientErrorException;
 
 /**
  *
@@ -28,6 +30,7 @@ public class JobRequestCdi {
     
     Response response;
 
+    CompanyCdi companyCdi;
     
     Collection<JobRequest> jobRequestCollection;
     JobRequest jobRequestTbl;
@@ -108,7 +111,27 @@ public class JobRequestCdi {
     public void findJobRequestsByCompanyIdAndStatus(int id) {
         response=career_Client.findJobRequestsByCompanyIdAndStatus(Response.class, String.valueOf(id), "Pending");
         jobRequestCollection=response.readEntity(jobRequestGeneric);
-       }
+    }
+    
+    public void findJobRequestsByCompanyIdAndAccepted(int id) {
+        response=career_Client.findJobRequestsByCompanyIdAndStatus(Response.class, String.valueOf(id), "Accepted");
+        jobRequestCollection=response.readEntity(jobRequestGeneric);
+    }
+    
+            @Transactional
+            public String AcceptRequest(int id) {
+            try {
+                career_Client.ChangeJobRequestStatus(String.valueOf(id), "Accepted");
+            } catch (ClientErrorException e) {
+                // Handle the exception
+            }
+            return "CompanyJobRequest";
+            }
+    
+    public void findJobRequestsByUserId(int userId){
+        response=career_Client.findJobRequestsByUserId(Response.class, String.valueOf(userId));
+        jobRequestCollection=response.readEntity(jobRequestGeneric);
+    } 
     
     
 }

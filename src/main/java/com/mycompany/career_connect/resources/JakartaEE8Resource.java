@@ -300,7 +300,7 @@ public class JakartaEE8Resource {
             }
     
     
-       @POST
+    @POST
     @Path("requestJob/{companyid}/{jobid}/{userid}/{message}/{status}/{requetDate}")
      public void requestJob(@PathParam("companyid") int companyId, @PathParam("jobid") int jobId ,@PathParam("userid") int userId ,@PathParam("message") String Message,@PathParam("status") String Status,@PathParam("requetDate") String request_date) throws ParseException{
          
@@ -327,7 +327,7 @@ public class JakartaEE8Resource {
           jobRequestBean.cancleJobRequest(requestId);
       }
         
- @GET
+    @GET
     @Path("getAllJobRequest")
     @Produces(MediaType.APPLICATION_JSON)
      public Collection<Job> getAllJobRequest(){
@@ -372,5 +372,19 @@ public class JakartaEE8Resource {
       public Collection<JobRequest> findJobRequestsByCompanyIdAndStatus(@PathParam("companyId") int companyId,@PathParam("status") String status) {
             return jobRequestBean.findJobRequestsByCompanyIdAndStatus(companyId,status);
       }
+      
+      @POST
+      @Path("ChangeJobRequestStatus/{id}/{status}")
+      public void ChangeJobRequestStatus(@PathParam("id") int id,@PathParam("status") String status){
+          jobRequestBean.ChangeJobRequestStatus(id, status);
+      }
+      
+      @GET
+      @Path("findJobRequestsByUserId/{userId}")
+      @Produces(MediaType.APPLICATION_JSON)
+      public Collection<JobRequest> findJobRequestsByUserId(@PathParam("userId") int userId) {
+            return jobRequestBean.findJobRequestsByUserId(userId);
+      }
+      
     
 }

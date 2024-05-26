@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+     <f:metadata>
+    <f:viewParam value="#{companyCdi.loggedInUser.userId}" name="companyId"/>
+    <f:event type="preRenderView" listener="#{jobRequestCdi.findJobRequestsByUserId(companyCdi.loggedInUser.userId)}"/>
+    </f:metadata>
+    <h:body>
+        <ui:include src="UserSidebar.xhtml"/>
+        
+        <div class="content" id="content">
+            <f:view>
+
+
+                <h:form>
+                    <h1><h:outputText value="Request List"/></h1>
+                    <h:dataTable value="#{jobRequestCdi.jobRequestCollection}" var="item">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="JobRequestId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jobRequestId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Message"/>
+                            </f:facet>
+                            <h:outputText value="#{item.message}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Status"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="RequestedDate"/>
+                            </f:facet>
+                            <h:outputText value="#{item.requestedDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="CompanyId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.companyId.FName}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="JobId"/>
+                            </f:facet>
+                            <h:outputText value="#{item.jobId.jobTitle}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </f:view>
+
+        </div>
+    </h:body>
+</html>

@@ -23,7 +23,7 @@ public class JobBean {
     @PersistenceContext(unitName = "project_sem8_persistence_unit")
     private EntityManager entityManager;
     
-    @RolesAllowed({"User" , "Admin"})
+    @RolesAllowed({"User" , "Admin","Company"})
     public Collection<Job> getAllJobs(){
         return entityManager.createNamedQuery("Job.findAll").getResultList();
     }
