@@ -1,31 +1,168 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <ui:include src="CompanySidebar.xhtml"/>
-        <div class="content" id="content">
-        Hello from Company Dashboard
-        
-        <h:form>
-        <h:panelGrid columns="2">
+
+<head>
+    <title>Dashboard | Doctor</title>
+    <meta name="description" content="Helmet application"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap">-->
+    <style>
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        .doctor-dashboard-container {
+            animation: fadeIn 1s;
+        }
+        .break-line-1 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+        .doctor-dashboard-box {
+            box-shadow: rgba(181, 181, 181, 0.2) 0px 2px 8px 0px;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+        }
+        .doctor-dashboard-vector {
+            max-height: 120px !important;
+        }
+        @media only screen and (max-width: 1000px) {
+            .doctor-dashboard-box {
+                margin-bottom: 25px;
+            }
+            .doctor-profile-appointment-title {
+                font-size: 17px !important;
+            }
+            .doctor-dashboard-statistics-container {
+                margin-top: 5px !important;
+            }
+        }
+        @media only screen and (max-width: 780px) {
+            .doctor-dashboard-vector {
+                display: none;
+            }
+            .doctor-dashboard-progress-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <ui:include src="CompanySidebar.xhtml"/>
+     <div class="content" id="content">
+         
+          <h:panelGrid columns="2">
             <h:outputLabel value="User ID:" />
             <h:outputText value="#{companyCdi.loggedInUser.userId}" />
 
             <h:outputLabel value="First Name:" />
             <h:outputText value="#{companyCdi.loggedInUser.FName}" />
             
-            <h:outputLabel value="Email : " />
+            <h:outputLabel value="Email:" />
             <h:outputText value="#{companyCdi.loggedInUser.email}" />
             
-            <h:outputLabel value="Address : " />
+            <h:outputLabel value="Address:" />
             <h:outputText value="#{companyCdi.loggedInUser.addressLine}" />
             </h:panelGrid>
-    </h:form>
+    <h:form id="dashboardForm">
+        <div class="doctor-dashboard-container p-4 bg-white w-100">
+            <div class="ml-3">
+                <h:outputText value="DASHBOARD" styleClass="h2"/>
+                <h:outputText value="Welcome to Doctor Dashboard" styleClass="h4"/>
+            </div>
+
+            <div class="doctor-dashboard-container row m-0">
+                <div class="col-md-9 col-lg-9 col-sm-9 row m-0 p-0">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="py-4 doctor-dashboard-box bg-primary text-white d-flex justify-content-between align-items-start">
+                            <div class="mx-4 my-1">
+                                <h:outputText value="Welcome Dr. John Doe!" styleClass="h4 font-weight-bold text-white"/>
+                                <h:outputText value="Here are your important tasks and reports." styleClass="h6 mt-2"/>
+                                <h:outputText value="Please check your appointment requests." styleClass="h6"/>
+                            </div>
+                            <div>
+                                <h:graphicImage library="images" name="Doctor-dashboard-vector.png" styleClass="doctor-dashboard-vector"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="py-2 my-lg-4 doctor-dashboard-box bg-dark text-white">
+                            <div class="p-3 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h:outputText value="Total Appointments" styleClass="h5 font-weight-bold text-light"/>
+                                    <h:outputText value="10" styleClass="h3 font-weight-bold text-primary"/>
+                                </div>
+                            </div>
+                            <div style="height: 250px; margin: -20px 20px 0 0;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 m-0">
+                    <div class="py-2 py-lg-3 doctor-dashboard-box bg-dark text-white d-flex flex-column justify-content-center align-items-center">
+                        <h:graphicImage library="images" name="profile-img.png" styleClass="rounded-circle" style="width: 120px; height: 120px"/>
+                        <h:outputText value="Dr. John Doe" styleClass="h4 font-weight-bold text-primary text-center pt-4 pb-2 break-line-1"/>
+                        <h:outputText value="john.doe@example.com" styleClass="h6 text-center mt-1 break-line-1"/>
+                        <h:outputText value="General Hospital" styleClass="h6 text-center break-line-1"/>
+                        <h:outputText value="Cardiology" styleClass="h6 text-center break-line-1"/>
+                        <h:panelGroup>
+                            <hr class="w-100"/>
+                            <div class="p-3 row m-0 g-0">
+                                <div class="col-md-12 mb-lg-3 mt-sm-1">
+                                    <h:outputText value="Total Appointments" styleClass="h6 font-weight-bold text-light break-line-1"/>
+                                    <h:outputText value="10" styleClass="h5 font-weight-bold text-primary"/>
+                                </div>
+                                <div class="col-md-12 mb-lg-3 mt-sm-1">
+                                    <h:outputText value="Total Consulted Patients" styleClass="h6 font-weight-bold text-light break-line-1"/>
+                                    <h:outputText value="5" styleClass="h5 font-weight-bold text-primary"/>
+                                </div>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 row p-0 m-0">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <div class="doctor-dashboard-box bg-dark text-white" style="max-height: 390px; overflow: auto;">
+                            <div class="d-flex justify-content-between align-items-center border-bottom bg-primary p-3">
+                                <h:outputText value="Appointment Requests" styleClass="h5 font-weight-bold text-white"/>
+                            </div>
+                            <div class="p-3">
+                                <div class="d-flex justify-content-center align-items-center" style="min-height: 85px;">
+                                    <h:outputText value="No pending Appointments" styleClass="h5 font-weight-bold text-muted"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                        <div class="doctor-dashboard-box bg-dark text-white" style="max-height: 390px; overflow: auto;">
+                            <div class="d-flex justify-content-between align-items-center border-bottom bg-primary p-3">
+                                <h:outputText value="Approved Appointments" styleClass="h5 font-weight-bold text-white"/>
+                            </div>
+                            <div class="p-3">
+                                <div class="d-flex justify-content-center align-items-center" style="min-height: 85px;">
+                                    <h:outputText value="No approved Appointments" styleClass="h5 font-weight-bold text-muted"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </h:body>
+    </h:form>
+            </div>
+</body>
 </html>
