@@ -16,7 +16,13 @@ import javax.transaction.Transactional;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import CdiPC.CompanyCdi;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.ws.rs.ClientErrorException;
+import javax.ws.rs.PathParam;
+import CdiPC.CompanyCdi;
 
 /**
  *
@@ -30,11 +36,17 @@ public class JobRequestCdi {
     
     Response response;
 
-    CompanyCdi companyCdi;
-    
     Collection<JobRequest> jobRequestCollection;
     JobRequest jobRequestTbl;
     GenericType<Collection<JobRequest>> jobRequestGeneric;
+    
+    @Inject
+    private CompanyCdi companyCdi;
+
+    @PostConstruct
+    public void init() {
+        findJobRequestsByCompanyIdAndStatus(companyCdi.getLoggedInUser().getUserId());
+    }
     
     public JobRequestCdi() {
         
@@ -48,7 +60,7 @@ public class JobRequestCdi {
     public Collection<JobRequest> getJobRequestCollection() {
         return jobRequestCollection;
     }
-
+    
     public void setJobRequestCollection(Collection<JobRequest> jobRequestCollection) {
         this.jobRequestCollection = jobRequestCollection;
     }
@@ -88,14 +100,6 @@ public class JobRequestCdi {
     }
     
     
-//    @Transactional
-//    public String InsertJobRequest(){
-//        System.out.println("Company ID: " + companyid);
-//        System.out.println("Job ID: " + jobid);
-//        System.out.println("User ID: " + userid);
-//        career_Client.requestJob(String.valueOf(companyid), String.valueOf(jobid), String.valueOf(userid), "Hello", "Pending","2024-05-25" );
-//        return "DisplayJob";
-//    }
     
     
     @Transactional
@@ -118,20 +122,32 @@ public class JobRequestCdi {
         jobRequestCollection=response.readEntity(jobRequestGeneric);
     }
     
-            @Transactional
-            public String AcceptRequest(int id) {
-            try {
-                career_Client.ChangeJobRequestStatus(String.valueOf(id), "Accepted");
-            } catch (ClientErrorException e) {
-                // Handle the exception
-            }
-            return "CompanyJobRequest";
-            }
+
+    public String AcceptRequest(@PathParam("jobRequestId") int jobRequestId) {
+    try {
+        career_Client.ChangeJobRequestStatus(String.valueOf(jobRequestId),"Accepted");
+    } catch (ClientErrorException e) {
+    }
+    return "CompanyJobRequest";
+    }
+    
+    public String CancelRequest(@PathParam("jobRequestId") int jobRequestId) {
+    try {
+        career_Client.ChangeJobRequestStatus(String.valueOf(jobRequestId),"Cancel");
+    } catch (ClientErrorException e) {
+    }
+    return "CompanyJobRequest";
+}
+    
     
     public void findJobRequestsByUserId(int userId){
         response=career_Client.findJobRequestsByUserId(Response.class, String.valueOf(userId));
         jobRequestCollection=response.readEntity(jobRequestGeneric);
     } 
+    
+    public String GoToScheduleInterview(){
+        return "ScheduleInterview";
+    }
     
     
 }
