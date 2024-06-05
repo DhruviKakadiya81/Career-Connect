@@ -32,8 +32,8 @@ public class Career_Connect_Client {
         client.register(new MyRestFilter());
         webTarget = client.target(BASE_URI).path("rest");
     }
-
-    static {
+    
+     static {
         //for localhost testing only
         javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
                 new javax.net.ssl.HostnameVerifier() {
@@ -47,8 +47,7 @@ public class Career_Connect_Client {
             }
         });
     }
-    
-    
+
     public void companyRegistration(String fname, String email, String mobile, String addressline, String city, String state, String pincode, String password, String technology, String specialization, String certification) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("companyRegistration/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", new Object[]{fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification})).request().post(null);
     }

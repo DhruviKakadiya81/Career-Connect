@@ -376,7 +376,7 @@ public class JakartaEE8Resource {
       @POST
       @Path("ChangeJobRequestStatus/{id}/{status}")
       public void ChangeJobRequestStatus(@PathParam("id") int id,@PathParam("status") String status){
-          jobRequestBean.ChangeJobRequestStatus(id, status);
+          jobRequestBean.ChangeJobRequestStatus(id,status);
       }
       
       @GET
