@@ -34,7 +34,7 @@ public class UserBean {
         
         Pbkdf2PasswordHashImpl passwordHash = new Pbkdf2PasswordHashImpl();
         String hashedPassword = passwordHash.generate(password.toCharArray());
-       
+       // user image
         userMaster.setFName(fname);
         userMaster.setLName(lname);
         userMaster.setEmail(email);
