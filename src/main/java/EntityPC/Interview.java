@@ -32,8 +32,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Interview.findAll", query = "SELECT i FROM Interview i"),
     @NamedQuery(name = "Interview.findByInterviewId", query = "SELECT i FROM Interview i WHERE i.interviewId = :interviewId"),
     @NamedQuery(name = "Interview.findByMode", query = "SELECT i FROM Interview i WHERE i.mode = :mode"),
-    @NamedQuery(name = "Interview.findByStages", query = "SELECT i FROM Interview i WHERE i.stages = :stages"),
-    @NamedQuery(name = "Interview.findByInterviewDate", query = "SELECT i FROM Interview i WHERE i.interviewDate = :interviewDate")})
+    @NamedQuery(name = "Interview.findByInterviewDate", query = "SELECT i FROM Interview i WHERE i.interviewDate = :interviewDate"),
+    @NamedQuery(name = "Interview.findByInterviewTime", query = "SELECT i FROM Interview i WHERE i.interviewTime = :interviewTime"),
+    @NamedQuery(name = "Interview.findByInterviewDescription", query = "SELECT i FROM Interview i WHERE i.interviewDescription = :interviewDescription")})
 public class Interview implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,14 +50,19 @@ public class Interview implements Serializable {
     private String mode;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "Stages")
-    private String stages;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "Interview_Date")
     @Temporal(TemporalType.DATE)
     private Date interviewDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Interview_Time")
+    @Temporal(TemporalType.TIME)
+    private Date interviewTime;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 800)
+    @Column(name = "Interview_Description")
+    private String interviewDescription;
     @JoinColumn(name = "Company_Id", referencedColumnName = "User_Id")
     @ManyToOne(optional = false)
     private UserMaster companyId;
@@ -74,11 +80,12 @@ public class Interview implements Serializable {
         this.interviewId = interviewId;
     }
 
-    public Interview(Integer interviewId, String mode, String stages, Date interviewDate) {
+    public Interview(Integer interviewId, String mode, Date interviewDate, Date interviewTime, String interviewDescription) {
         this.interviewId = interviewId;
         this.mode = mode;
-        this.stages = stages;
         this.interviewDate = interviewDate;
+        this.interviewTime = interviewTime;
+        this.interviewDescription = interviewDescription;
     }
 
     public Integer getInterviewId() {
@@ -97,20 +104,28 @@ public class Interview implements Serializable {
         this.mode = mode;
     }
 
-    public String getStages() {
-        return stages;
-    }
-
-    public void setStages(String stages) {
-        this.stages = stages;
-    }
-
     public Date getInterviewDate() {
         return interviewDate;
     }
 
     public void setInterviewDate(Date interviewDate) {
         this.interviewDate = interviewDate;
+    }
+
+    public Date getInterviewTime() {
+        return interviewTime;
+    }
+
+    public void setInterviewTime(Date interviewTime) {
+        this.interviewTime = interviewTime;
+    }
+
+    public String getInterviewDescription() {
+        return interviewDescription;
+    }
+
+    public void setInterviewDescription(String interviewDescription) {
+        this.interviewDescription = interviewDescription;
     }
 
     public UserMaster getCompanyId() {

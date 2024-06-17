@@ -61,19 +61,7 @@
     <ui:include src="CompanySidebar.xhtml"/>
      <div class="content" id="content">
          
-          <h:panelGrid columns="2">
-            <h:outputLabel value="User ID:" />
-            <h:outputText value="#{companyCdi.loggedInUser.userId}" />
-
-            <h:outputLabel value="First Name:" />
-            <h:outputText value="#{companyCdi.loggedInUser.FName}" />
-            
-            <h:outputLabel value="Email:" />
-            <h:outputText value="#{companyCdi.loggedInUser.email}" />
-            
-            <h:outputLabel value="Address:" />
-            <h:outputText value="#{companyCdi.loggedInUser.addressLine}" />
-            </h:panelGrid>
+          
     <h:form id="dashboardForm">
         <div class="doctor-dashboard-container p-4 bg-white w-100">
             <div class="ml-3">
@@ -112,10 +100,9 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 m-0">
                     <div class="py-2 py-lg-3 doctor-dashboard-box bg-dark text-white d-flex flex-column justify-content-center align-items-center">
                         <h:graphicImage library="images" name="profile-img.png" styleClass="rounded-circle" style="width: 120px; height: 120px"/>
-                        <h:outputText value="Dr. John Doe" styleClass="h4 font-weight-bold text-primary text-center pt-4 pb-2 break-line-1"/>
-                        <h:outputText value="john.doe@example.com" styleClass="h6 text-center mt-1 break-line-1"/>
-                        <h:outputText value="General Hospital" styleClass="h6 text-center break-line-1"/>
-                        <h:outputText value="Cardiology" styleClass="h6 text-center break-line-1"/>
+                        <h:outputText value="#{companyCdi.loggedInUser.FName}" styleClass="h4 font-weight-bold text-primary text-center pt-4 pb-2 break-line-1"/>
+                        <h:outputText value="#{companyCdi.loggedInUser.email}" styleClass="h6 text-center mt-1 break-line-1"/>
+                        <h:outputText value="#{companyCdi.loggedInUser.addressLine}" styleClass="h6 text-center break-line-1"/>
                         <h:panelGroup>
                             <hr class="w-100"/>
                             <div class="p-3 row m-0 g-0">

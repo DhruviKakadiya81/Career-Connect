@@ -29,7 +29,33 @@ public class UserBean {
     private EntityManager entityManager;
     
     
-    public void userRegistration(String fname,String lname, String email, String mobile,String profile_img,Date birth_date, String addressline, String city, String state, Integer pincode, String password) {
+//    public void userRegistration(String fname,String lname, String email, String mobile,String profile_img,Date birth_date, String addressline, String city, String state, Integer pincode, String password) {
+//        UserMaster userMaster = new UserMaster();
+//        
+//        Pbkdf2PasswordHashImpl passwordHash = new Pbkdf2PasswordHashImpl();
+//        String hashedPassword = passwordHash.generate(password.toCharArray());
+//       
+//        userMaster.setFName(fname);
+//        userMaster.setLName(lname);
+//        userMaster.setEmail(email);
+//        userMaster.setMobileNo(mobile);
+//        userMaster.setProfileImage(profile_img);
+//        userMaster.setBirthDate(birth_date);
+//        userMaster.setAddressLine(addressline);
+//        userMaster.setCity(city);
+//        userMaster.setState(state);
+//        userMaster.setPincode(pincode);
+//        userMaster.setPassword(hashedPassword);
+//        entityManager.persist(userMaster);
+//        
+//        RoleMaster roleMaster=new RoleMaster();
+//        roleMaster.setEmail(email);
+//        roleMaster.setGroupname("User");
+//        entityManager.persist(roleMaster);
+//        
+//    }
+    
+    public void userRegistration(String fname,String lname, String email, String mobile,String addressline, String city, String state, Integer pincode, String password) {
         UserMaster userMaster = new UserMaster();
         
         Pbkdf2PasswordHashImpl passwordHash = new Pbkdf2PasswordHashImpl();
@@ -39,8 +65,8 @@ public class UserBean {
         userMaster.setLName(lname);
         userMaster.setEmail(email);
         userMaster.setMobileNo(mobile);
-        userMaster.setProfileImage(profile_img);
-        userMaster.setBirthDate(birth_date);
+//        userMaster.setProfileImage(profile_img);
+//        userMaster.setBirthDate(birth_date);
         userMaster.setAddressLine(addressline);
         userMaster.setCity(city);
         userMaster.setState(state);

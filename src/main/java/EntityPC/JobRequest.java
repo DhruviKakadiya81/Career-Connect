@@ -123,8 +123,7 @@ public class JobRequest implements Serializable {
     public Collection<ApprovedJob> getApprovedJobCollection() {
         return approvedJobCollection;
     }
-    
-    
+
     @JsonbTransient
     public void setApprovedJobCollection(Collection<ApprovedJob> approvedJobCollection) {
         this.approvedJobCollection = approvedJobCollection;

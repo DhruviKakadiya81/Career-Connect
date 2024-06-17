@@ -23,6 +23,9 @@ import javax.inject.Inject;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.PathParam;
 import CdiPC.CompanyCdi;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -49,7 +52,6 @@ public class JobRequestCdi {
     }
     
     public JobRequestCdi() {
-        
         career_Client=new Career_Connect_Client();
         
         jobRequestCollection=new ArrayList<>();
@@ -73,34 +75,6 @@ public class JobRequestCdi {
         this.jobRequestTbl = jobRequestTbl;
     }
     
-    int companyid,jobid,userid;
-
-    public int getCompanyid() {
-        return companyid;
-    }
-
-    public void setCompanyid(int companyid) {
-        this.companyid = companyid;
-    }
-
-    public int getJobid() {
-        return jobid;
-    }
-
-    public void setJobid(int jobid) {
-        this.jobid = jobid;
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-    
-    
-    
     
     @Transactional
         public String InsertJobRequest(int companyid, int jobid, int userid){
@@ -117,18 +91,13 @@ public class JobRequestCdi {
         jobRequestCollection=response.readEntity(jobRequestGeneric);
     }
     
-    public void findJobRequestsByCompanyIdAndAccepted(int id) {
-        response=career_Client.findJobRequestsByCompanyIdAndStatus(Response.class, String.valueOf(id), "Accepted");
-        jobRequestCollection=response.readEntity(jobRequestGeneric);
-    }
-    
-
     public String AcceptRequest(@PathParam("jobRequestId") int jobRequestId) {
     try {
         career_Client.ChangeJobRequestStatus(String.valueOf(jobRequestId),"Accepted");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Job request accepted successfully"));
     } catch (ClientErrorException e) {
     }
-    return "CompanyJobRequest";
+    return "CompanyJobRequest?faces-redirect=true";
     }
     
     public String CancelRequest(@PathParam("jobRequestId") int jobRequestId) {
@@ -136,7 +105,7 @@ public class JobRequestCdi {
         career_Client.ChangeJobRequestStatus(String.valueOf(jobRequestId),"Cancel");
     } catch (ClientErrorException e) {
     }
-    return "CompanyJobRequest";
+    return "CompanyJobRequest?faces-redirect=true";
 }
     
     
@@ -145,9 +114,20 @@ public class JobRequestCdi {
         jobRequestCollection=response.readEntity(jobRequestGeneric);
     } 
     
-    public String GoToScheduleInterview(){
-        return "ScheduleInterview";
-    }
+    
+    // In your managed bean (jobRequestCdi)
+private Long selectedJobRequestId;
+
+public Long getSelectedJobRequestId() {
+    return selectedJobRequestId;
+}
+
+public void setSelectedJobRequestId(Long selectedJobRequestId) {
+    this.selectedJobRequestId = selectedJobRequestId;
+}
+
+    
+    
     
     
 }

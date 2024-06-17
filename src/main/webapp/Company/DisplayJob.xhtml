@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                overflow-x: hidden;
+            }
+
+            .companyHead {
+                font-size: 40px;
+                color: #095c9d;
+                font-weight: 500;
+            }
+
+            .job-list-container {
+                animation: fadeIn 1s;
+                background-color: #fafbff;
+                min-height: calc(100vh - 125px);
+            }
+
+            .card {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .card-body {
+                padding: 20px;
+                position: relative;
+            }
+
+            .card-title {
+                font-size: 24px;
+                margin-bottom: 10px;
+                color: #095c9d;
+                font-weight: 600 !important;
+            }
+
+            .card-text {
+                color: #808080;
+            }
+            
+            .text-black {
+                color: black;
+            }
+
+            .btn-primary, .btn-danger {
+                margin: 5px;
+            }
+            
+            .heading {
+                font-weight: 600 !important;
+                color: #000 !important;
+            }
+
+            .action-buttons {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .btn-update {
+                background-color: #28a745 !important;
+                border-color: #28a745 !important;
+                margin-right: 0.5rem !important;
+            }
+
+            .btn-delete {
+                background-color: #dc3545 !important;
+                border-color: #dc3545 !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:include src="CompanySidebar.xhtml"/>
+        
+        <div class="content" id="content">
+            <div class="container">
+                <h1 class="companyHead p-3">Job List</h1>
+                <h:form>
+                    
+                <p:commandButton value="Add Job" icon="pi pi-plus" 
+                                 styleClass="mb-3" style="margin-right: .5rem" action="#{companyJobCdi.GotoJobInsert()}">
+                </p:commandButton>
+                </h:form>
+                <h:form>
+                <div class="row row-cols-1 row-cols-md-2 g-4 job-list-container">
+                    <ui:repeat value="#{companyJobCdi.companyJobCollection}" var="item">
+                        <div class="col">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="action-buttons">
+                                        <p:commandButton icon="pi pi-pencil" title="Update" styleClass="btn btn-update"/>
+                                        <p:commandButton icon="pi pi-trash" action="#{companyJobCdi.deleteJob(item.jobId)}" title="Delete" styleClass="btn btn-delete"/>
+                                    </div>
+                                    <p class="card-title">#{item.jobTitle}</p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="card-text text-black"><span class="heading">Description :</span> #{item.description}</p>
+                                            <p class="card-text text-black"><span class="heading">Technology :</span> #{item.technology}</p>
+                                            <p class="card-text text-black"><span class="heading">Qualification :</span> #{item.qualification}</p>
+                                            <p class="card-text text-black"><span class="heading">Experience :</span> #{item.experience}</p>
+                                            <p class="card-text text-black"><span class="heading">Salary :</span> #{item.salary}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="card-text text-black"><span class="heading">Status :</span> #{item.status}</p>
+                                            <p class="card-text text-black"><span class="heading">Job Type :</span> #{item.jobType}</p>
+                                            <p class="card-text text-black"><span class="heading">Posted Date :</span> #{item.postedDate}</p>
+                                            <p class="card-text text-black"><span class="heading">Expiration Date :</span> #{item.expirationDate}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ui:repeat>
+                </div>
+                </h:form>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </h:body>
+</html>
