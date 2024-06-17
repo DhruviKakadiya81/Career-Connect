@@ -2,14 +2,196 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+        <style>
+            .header-div {
+                background-color: #f7f9fc;
+                border: 1px solid #e3e6f0;
+                border-radius: 5px;
+                text-align: center;
+            }
+
+            .mainText {
+                font-size: 38px;
+                color: #0D89EC;
+                font-weight: 500;
+            }
+
+            .subtext {
+                font-size: 21px;
+                color: #6c757d;
+            }
+
+            .lastText {
+                font-size: 18px;
+                color: #6c757d;
+            }
+
+            .comNameText {
+                font-size: 23px;
+                color: #0D89EC;
+                font-weight: 600;
+            }
+
+            .intDetailTitle {
+                font-size: 33px;
+                color: white;
+                font-weight: 500;
+                text-align: center;
+            }
+
+            .intDetailCard {
+                background-color: #0b8fdc !important;
+                height: 100%;
+                text-align: center;
+            }
+
+            .insBtn {
+                font-weight: 600 !important;
+                width: 200px;
+            }
+
+            /* New styles for the time buttons */
+            .time-button .ui-button {
+                width: 120px;
+                height: 50px;
+                font-size: 16px;
+                font-weight: bold;
+                margin: 15px;
+                color: white !important;
+                background-color: #5CACEE !important;
+                border: 1px solid #5CACEE;
+                border-radius: 5px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .time-button .ui-button:hover {
+                background-color: white !important;
+                border-color: #0b8fdc !important;
+                color: #0b8fdc !important;
+            }
+
+            .time-button .ui-state-active {
+                background-color: #0a70c2 !important;
+                border-color: #0a70c2 !important;
+            }
+            
+            .intDesc{
+                width: 100% !important;
+            }
+            
+            .btnDiv{
+                text-align: right;
+            }
+            
+            .btnbtn{
+                font-size: 18px !important;
+            }
+            
+            .intMode{
+                font-size: 20px;
+                font-weight: 600;
+                color: #6c757d;
+            }
+            .userImage{
+                border-radius: 100%;
+                background-color: white;
+                width: 150px;
+                height: 150px;
+            }
+            
+            .userName{
+                color: white;
+                font-size: 27px;
+                font-weight: 500;
+            }
+            
+            .userEmail,
+            .userMobile{
+                color: white;
+                font-size: 20px;
+            }
+            
+            .ui-datepicker .ui-widget-content {
+            font-weight: normal;
+            color: #000000; }
+            
+        </style>
     </h:head>
+
     <h:body>
-        <ui:include src="CompanySidebar.xhtml"/>
+        <ui:include src="CompanySidebar.xhtml" />
         <div class="content" id="content">
-            <h1>Hello From Schedule Interview</h1>
+
+            <div class="header-div pb-2 mb-2">
+                <p class="mainText mt-3">Accept Job Request And Schedule Interview</p>
+                <p class="subtext">Discover The Best Employee Based On Your Requirement</p>
+                <p class="lastText">Schedule Interview for <h:outputText class="comNameText" value="#{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.FName} #{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.LName}"></h:outputText></p>
+            </div>
+            <div class="row pt-2">
+                <div class="col-md-3">
+                    <div class="card intDetailCard pt-2">
+                        <div class="card-title intDetailTitle">Interviewer Details</div>
+                        <div class="userImage mx-auto my-3 pt-2">Image</div>
+                        <p class="userName">#{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.FName} #{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.LName}</p>
+                        <p class="userEmail">#{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.email}</p>
+                        <p class="userMobile">#{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.mobileNo}</p>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card p-3">
+                        <h:form>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <p:datePicker  value="#{interviewCdi.interiewTbl.interviewDate}" inline="true" mindate="#{interviewCdi.tomorrowDate}"/>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p class="intMode">Interview Mode :</p>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p:selectOneRadio style="font-size: 18px;" value="#{interviewCdi.interiewTbl.mode}">
+                                                <f:selectItem itemLabel="Online" itemValue="Online" />
+                                                <f:selectItem itemLabel="Offline" itemValue="Offline" />
+                                            </p:selectOneRadio>
+                                        </div>
+                                    </div>
+                                    <div class="px-5 pb-1">
+                                        <p:selectOneButton value="#{interviewCdi.intTime}" styleClass="time-button">
+                                        <f:selectItem itemLabel="09:00 AM" itemValue="09:00:00" />
+                                        <f:selectItem itemLabel="10:00 AM" itemValue="10:00:00" />
+                                        <f:selectItem itemLabel="11:00 AM" itemValue="11:00:00" />
+                                        <f:selectItem itemLabel="12:00 PM" itemValue="12:00:00" />
+                                        <f:selectItem itemLabel="1:00 PM" itemValue="1:00:00" />
+                                        <f:selectItem itemLabel="02:00 PM" itemValue="02:00:00" />
+                                        <f:selectItem itemLabel="03:00 PM" itemValue="03:00:00" />
+                                        <f:selectItem itemLabel="04:00 PM" itemValue="04:00:00" />
+                                        <f:selectItem itemLabel="05:00 PM" itemValue="05:00:00" />
+                                    </p:selectOneButton>
+                                    </div>
+                                    <div>
+                                        <p:inputTextarea rows="5" class="intDesc" value="#{interviewCdi.interiewTbl.interviewDescription}" />
+                                    </div>
+                                    <div class="mt-2 btnDiv">
+                                        <p:commandButton class="px-4 btnbtn" value="Schedule Interview" action="#{interviewCdi.ScheduleInterview}">
+                                        <f:param name="companyId" value="#{acceptedJobRequestCdi.acceptedJobRequestTbl.companyId.userId}" />
+                                        <f:param name="jobId" value="#{acceptedJobRequestCdi.acceptedJobRequestTbl.jobId.jobId}" />
+                                        <f:param name="userId" value="#{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.userId}" />
+                                        <f:param name="jobRequestId" value="#{acceptedJobRequestCdi.acceptedJobRequestTbl.jobRequestId}" />
+                                    </p:commandButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </h:body>
 </html>

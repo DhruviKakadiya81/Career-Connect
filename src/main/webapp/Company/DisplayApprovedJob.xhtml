@@ -5,9 +5,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Approved Job List</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="../Css/DisplayJob.css"/>
         <style>
             body {
                 margin: 0;
@@ -15,14 +14,14 @@
                 font-family: Arial, sans-serif;
                 overflow-x: hidden;
             }
-            
+
             .companyHead {
                 font-size: 40px;
                 color: #095c9d;
                 font-weight: 500;
             }
-            
-            .doctor-list-container {
+
+            .approved-job-list-container {
                 animation: fadeIn 1s;
                 background-color: #fafbff;
                 min-height: calc(100vh - 125px);
@@ -43,6 +42,7 @@
                 font-size: 24px;
                 margin-bottom: 10px;
                 color: #095c9d;
+                font-weight: 600 !important;
             }
 
             .card-text {
@@ -59,7 +59,7 @@
                 border-radius: 5px;
                 font-size: 14px;
             }
-            
+
             .text-black {
                 color: black;
             }
@@ -71,27 +71,28 @@
     </h:head>
     <f:metadata>
         <f:viewParam value="#{companyCdi.loggedInUser.userId}" name="companyId"/>
-        <f:event type="preRenderView" listener="#{jobRequestCdi.findJobRequestsByUserId(companyCdi.loggedInUser.userId)}"/>
+        <f:event type="preRenderView" listener="#{approvedJobCdi.findApprovedJobByCompany(companyCdi.loggedInUser.userId)}"/>
     </f:metadata>
     <h:body>
-        <ui:include src="UserSidebar.xhtml"/>
-        
+        <ui:include src="CompanySidebar.xhtml"/>
+
         <div class="content" id="content">
             <div class="container">
-                <h1 class="companyHead p-3">Request List</h1>
+                <h1 class="companyHead p-3">Approved Job List</h1>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <ui:repeat value="#{jobRequestCdi.jobRequestCollection}" var="item">
+                    <ui:repeat value="#{approvedJobCdi.approvedJobCollection}" var="item">
                         <div class="col">
-                            <div class="card">
+                            <div class="card mb-4">
                                 <div class="card-body">
                                     <span class="status-badge">#{item.status}</span>
-                                    <!--<p class="card-text">Job Request ID: #{item.jobRequestId}</p>-->
                                     <p class="card-title">#{item.jobId.jobTitle}</p>
-                                    <p class="card-text text-black">Message: #{item.message}</p>
-                                    <p class="card-text text-black">Requested Date: #{item.requestedDate}
-                                       
+                                    <p class="card-text text-black">Approved Date: #{item.approvedDate}
+                                        
                                     </p>
-                                    <p class="card-text text-black">Company: #{item.companyId.FName}</p>
+                                    <p class="card-text text-black">Approval Note: #{item.approvalNote}</p>
+                                    <p class="card-text text-black">Salary: #{item.salary}</p>
+                                    <p class="card-text text-black">Job Request ID: #{item.jobRequestId.jobRequestId}</p>
+                                    <p class="card-text text-black">User: #{item.userId.FName} #{item.userId.LName}</p>
                                 </div>
                             </div>
                         </div>

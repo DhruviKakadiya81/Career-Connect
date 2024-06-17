@@ -1,0 +1,282 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <title>Registration</title>
+        <meta name="description" content="Helmet application" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+        <style>
+            @keyframes fadeIn {
+                0% {
+                    opacity: 0;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+
+            .signup-container {
+                animation: fadeIn 1s;
+                background-image: url('../Assests/RegisterPage/Signup-bg.png');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                width: 100vw;
+                height: 100vh;
+
+            }
+
+            .signup-form-container {
+                width: 100%;
+                padding: 24px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+
+
+            .signup-title {
+                text-transform: uppercase;
+                font-size: 3em;
+                font-weight: 600;
+                text-align: center;
+                letter-spacing: 1px;
+            }
+
+            .signup-container .home-icon-container {
+                position: relative;
+            }
+
+            .signup-container .home-icon {
+                color: #587ca0;
+                cursor: pointer;
+                position: absolute;
+                right: 0%;
+            }
+
+            .horizontal-separator {
+                width: 185px;
+                height: 4.5px;
+                background-image: linear-gradient(to right, #587ca0, #99ecf6);
+                margin: 5px 0px;
+            }
+
+            .welcome-message {
+                text-align: center;
+                font-size: 1.1em;
+                line-height: 28px;
+                margin: 17px 0;
+                color: #696969;
+            }
+
+            .signup-form {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .form-control {
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                outline: none;
+                border: none;
+                padding: 0;
+                width: 100%;
+            }
+
+            .form-control label {
+                width: 100%;
+                padding-left: 1.5rem; /*    Adjust to match the icon position */
+            }
+
+
+
+
+            .form-control>input~i {
+                color: #8fb7df;
+            }
+
+            .invalid-input>input~i {
+                color: rgb(240, 128, 128);
+            }
+
+            .signup-container .btn-submit {
+                color: #fff;
+                padding: 14px 64px;
+                margin: 32px auto;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                background-image: linear-gradient(to right, #587ca0, #99ecf6);
+                font-weight: bold;
+                cursor: pointer;
+                transition: opacity 0.4s;
+            }
+
+            .signup-container .btn-submit:hover {
+                opacity: 0.9;
+            }
+
+            .link-container .additional-link {
+                text-decoration: none;
+                color: #597ea3;
+                font-size: 17px;
+                font-weight: 500;
+            }
+
+            .link-container .additional-link:hover {
+                color: #1b344c;
+            }
+
+            .signup-error-message {
+                color: rgb(255, 104, 104);
+                font-weight: 400;
+                font-size: 14px;
+                height: 15px;
+            }
+
+            .signup-container input,
+            .signup-container .btn-submit,
+            .signup-container .btn-submit:focus {
+                border: none;
+                outline: none;
+                border-radius: 30px;
+                font-size: 1.1em;
+                width: 100%; /* Ensures input fields take full width of the container */
+                max-width: 600px; /* Adjust this value to increase or decrease the width */
+                background: #e6e6e6;
+                color: #333;
+                letter-spacing: 0.5px;
+                padding: 14px 64px; /* Ensure padding is consistent */
+                margin: 0;
+            }
+
+            .signup-form-wrapper {
+                display: flex;
+                width: 90%; 
+                justify-content: left;
+                align-items: left;
+                margin-left: -130px;
+                margin-top: 70px;
+            }
+
+            .signup-container .form-control {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                margin-bottom: 15px;
+            }
+
+            .signup-container .form-control label {
+                margin-bottom: 5px;
+                padding-left: 64px; /* Adjust this value to align with icon */
+            }
+
+            .signup-container input~i {
+                position: absolute;
+                left: 32px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #888;
+                transition: color 0.4s;
+            }
+
+
+            @media (max-width: 780px) {
+                .signup-form-wrapper {
+                    width: 100%;
+                }
+
+                .signup-container {
+                    background-image: none;
+                }
+
+                .signup-title {
+                    font-size: 2em;
+                }
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+       
+
+        <h:form>
+            <div class="signup-container" >
+                <div class="home-icon-container">
+                    <i class="fas fa-home fa-2x home-icon m-3" onclick="window.location.href = '/'"></i>
+                </div>
+                <div class="signup-form-wrapper" >
+                    <div class="signup-form-container">
+                        <p class="signup-title">Join Career-Connect</p>
+                        <div class="horizontal-separator mb-3"></div>
+                        <p class="welcome-message">Start your journey with us, Discover the best healthcare services in the country.</p>
+                        <div class="signup-form">
+                            <div class="row mb-lg-4 w-lg-75 px-3">
+                                <div class="col-lg-6 mt-3">
+                                    <div class="form-control">
+                                      
+                                        <h:inputText id="fname" a:placeholder="First Name" value="#{registrationCdi.fname}" required="true" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                    <div class="form-control">
+                                       
+                                        <h:inputText id="lname" a:placeholder="Last Name" value="#{registrationCdi.lname}" required="true" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-lg-4 w-lg-75 px-3">
+                                <div class="col-lg-6 mt-3">
+                                    <div class="form-control">
+                                       
+                                        <h:inputText id="email" a:placeholder="Email" value="#{registrationCdi.email}" required="true" /> </div>
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                    <div class="form-control">
+                                       
+                                        <h:inputText id="mobile" a:placeholder="Mobile No" value="#{registrationCdi.mobileno}" required="true" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-lg-4 w-lg-75 px-3">
+                                <div class="col-lg-6 mt-3">
+                                    <div class="form-control">
+                                       
+                                       <h:inputSecret class="input-field" a:placeholder="Password" value="#{registrationCdi.password}" id="password" required="true" />
+                                      
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                    <div class="form-control">
+                                       
+                                       <h:inputSecret class="input-field" a:placeholder="Confirm Password" value="#{registrationCdi.cpassword}" id="cpassword" required="true" />
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        
+
+                                <h:commandButton value="Register" action="#{registrationCdi.register()}"  style="color: #fff; padding: 14px 64px; margin: 2rem auto 1rem auto;
+                                             text-transform: uppercase; letter-spacing: 2px;
+                                             background-image: linear-gradient(to right, #587ca0, #99ecf6);
+                                             font-weight: bold; border: none; outline: none; border-radius: 30px;
+                                             cursor: pointer; transition: opacity 0.4s; width: 200px" />
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                             
+
+        </h:form>
+    </h:body>
+</html>

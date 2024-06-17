@@ -1,31 +1,162 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<?xml version='1.0' encoding='UTF-8' ?>  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
     <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <ui:include src="AdminSidebar.xhtml"/>
-        <div class="content" id="content">
-        I m from Admin Dashboard
-        
-         <h:form>
-        <h:panelGrid columns="2">
-            <h:outputLabel value="User ID:" />
-            <h:outputText value="#{companyCdi.loggedInUser.userId}" />
+        <title>Dashboard | Health Horizon</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"/>
+        <style>
+            .admin-dashboard-box {
+                box-shadow: rgba(181, 181, 181, 0.2) 0px 2px 8px 0px;
+            }
+            .break-line-1 {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
 
-            <h:outputLabel value="First Name:" />
-            <h:outputText value="#{companyCdi.loggedInUser.FName}" />
-            
-            <h:outputLabel value="Last Name " />
-            <h:outputText value="#{companyCdi.loggedInUser.LName}" />
-            
-            <h:outputLabel value="Email : " />
-            <h:outputText value="#{companyCdi.loggedInUser.email}" />
-            </h:panelGrid>
-    </h:form>
+            #dashboard-pie-chart {
+                width: 400px !important;
+                height: 300px !important;
+            }
+         .job-title {
+                color: #2196f3;
+                font-weight: bold;
+                font-size: 1.5em;
+                display: block;
+            }
+            .job-details {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+                width: 100%;
+            }
+            .job-info {
+                flex: 2;
+                margin-right: 10px;
+               
+            }
+            .company-name {
+                flex: 1;
+                text-align: right;
+                color: #555;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+/*            .admin-dashboard-box {
+                padding: 15px;
+                width: 100%;
+                box-sizing: border-box;
+            }*/
+            @media only screen and (max-width: 1000px) {
+                .admin-dashboard-box {
+                    margin-bottom: 15px;
+                }
+            }
+        </style>
+    </h:head>
+    <h:body style="background-color: white; width: 100%;">
+        <ui:include src="AdminSidebar.xhtml" />
+        <div class="content" id="content">
+        <h:form>
+            <div style="margin: 0 12px;">
+                <h2 style="margin-bottom: 0; color: #2196f3">DASHBOARD</h2>
+                <p>Welcome to admin dashboard</p>
+            </div>
+            <div class="admin-dashboard-container row" style="margin: 0;">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="py-4 admin-dashboard-box" style="background-color: #f2f0f0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 5px;">
+                        <h3><h:outputText value="#{adminDashboardCdi.userCount}" style="font-size: 26px; color: #2196f3; margin-bottom: 5px;"/></h3>
+                        <h:outputText value="Total Users" style="font-size: 18px; color: #666;"/>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="py-4 admin-dashboard-box" style="background-color: #f2f0f0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 5px;">
+                        <h:outputText value="#{adminDashboardCdi.cpmpanyCount}" style="font-size: 26px; color: #2196f3; margin-bottom: 5px;"/>
+                        <h:outputText value="Total Companies" style="font-size: 18px; color: #666;"/>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="py-4 admin-dashboard-box" style="background-color: #f2f0f0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 5px;">
+                        <h:outputText value="#{adminDashboardCdi.jobCount}" style="font-size: 26px; color: #2196f3; margin-bottom: 5px;"/>
+                        <h:outputText value="Total Jobs" style="font-size: 18px; color: #666;"/>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <div class="py-2 my-lg-4 admin-dashboard-box" style="background-color:#f2f0f0; border-radius: 5px; height: 393px;">
+                        <div style="padding: 30px; display: flex; align-items: center;">
+                            <div style="margin-right: 50px;">
+                                <h3 style="font-weight: 600; color: black">Job Request</h3>
+                      
+                            </div>
+<!--                            <div>
+                                <h3 style="font-weight: 600; color: black;">Total Companies</h3>
+                                <h:outputText value="#{userCdi.cpmpanyCount}" style="font-size: 26px; color: #2196f3; margin-bottom: 5px;"/>
+
+                            </div>-->
+                        </div>
+                        <div style="height: 250px; margin-top: 50px;  margin: -20px 20px 0 0;">
+                            <p:chart type="line" model="#{lineChart.drawArea}" style="height: 100%; width:90%;margin-left: 70px" />
+                            </div>
+                    </div>
+                </div>
+                 <div class="col-lg-4 col-md-4 col-sm-12">
+                <div class="my-lg-4 admin-dashboard-box" style="background-color: white; border-radius: 5px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid white; background-color: #2196f3; padding: 15px; border-radius: 5px;">
+                        <h3 style="color: white; font-weight: 600;">Approved Job Information</h3>
+                    </div>
+                    <div style="height: 327px; overflow: auto; padding: 5px; margin-bottom: 5px">
+                        <h:form>
+                            <h:dataTable value="#{adminDashboardCdi.approvedJobCollection}" var="item" styleClass="job-details-table" width="100%">
+                                <h:column>
+                                    <div class="job-details" style="background-color: #f2f0f0;margin-bottom: 2px">
+                                        <div class="job-info">
+                                            <h:outputText value="#{item.jobId.jobTitle}" styleClass="job-title"/>
+                                            <h:outputText value="#{item.userId.FName} #{item.userId.LName}"/>
+                                        </div>
+                                        <div class="company-name">
+                                            <h:outputText value="#{item.companyId.FName}"/>
+                                        </div>
+                                    </div>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+                <div class="col-md-5 col-sm-12">
+                    <div class="admin-dashboard-box" style="background-color: #f2f0f0; border-radius: 5px; padding: 30px;">
+                        <h3 style="font-weight: 600; color: black">Total Users  Companies</h3>
+                        <div style="display: flex; flex-direction: column; align-items: center; margin-top: 25px; height: 300px;">
+
+                            <p:chart type="pie" model="#{pieChart.pieModel}" style="width:400px;height:300px" /> </div>
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-12 mb-lg-4">
+                    <div class="admin-dashboard-box" style="background-color: #f2f0f0; border-radius: 5px; height: 415px;">
+                        <h3 style="font-weight: 600; color: black; padding: 30px;">Job Requests and Approved Jobs</h3>
+                        <div style="height: 365px;">
+                           <p:chart type="bar" model="#{barChart.barModel}" style="width:750px;height:300px;margin-left: 30px" />  </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>    
         </div>
+
+
+        
+        <!--    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+
     </h:body>
 </html>

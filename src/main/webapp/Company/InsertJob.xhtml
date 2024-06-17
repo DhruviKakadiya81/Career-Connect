@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .header-div {
+                background-color: #f7f9fc;
+                border: 1px solid #e3e6f0;
+                border-radius: 5px;
+                text-align: center;
+            }
+
+            .mainText{
+                font-size: 38px;
+                color: #0D89EC;
+                font-weight: 500;
+            }
+
+            .subtext{
+                font-size: 21px;
+                color: #6c757d;
+            }
+
+            .lastText{
+                font-size: 18px;
+                color: #6c757d;
+            }
+
+            .comNameText{
+                font-size: 23px;
+                color: #0D89EC;
+                font-weight: 600;
+            }
+
+            .card-title{
+                font-size: 40px;
+                color: #0D89EC;
+                font-weight: 500;
+                text-align: center;
+            }
+            
+            .insBtn{
+                font-weight: 600 !important;
+                width: 200px;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <ui:include src="CompanySidebar.xhtml"/>
+
+        <div class="content" id="content">
+            <f:view>
+                <div class="header-div pb-2 mb-2">
+                    <p class="mainText mt-3">Add Job According To Your Requirement</p>
+                    <p class="subtext">Discover The Best Employee Based On Your Requirement</p>
+                    <p class="lastText">Insert A Job As a <h:outputText class="comNameText" value="#{companyCdi.loggedInUser.FName}"></h:outputText></p>
+                </div>
+                <div class="card mt-2">
+                    <h:form>
+                        <div class="card-title">
+                            <h:outputText value="Insert Job"/>
+                        </div>
+                        <div class="row px-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="jobTitle">Job Title:</label>
+                                    <p:inputText id="jobTitle" value="#{companyJobCdi.companyJobTbl.jobTitle}" required="true" requiredMessage="The Job Title field is required." class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description:</label>
+                                    <p:inputText id="description" value="#{companyJobCdi.companyJobTbl.description}" required="true" requiredMessage="The Description field is required." class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="technology">Technology:</label>
+                                    <p:inputText id="technology" value="#{companyJobCdi.companyJobTbl.technology}" required="true" requiredMessage="The Technology field is required." class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="qualification">Qualification:</label>
+                                    <p:inputText id="qualification" value="#{companyJobCdi.companyJobTbl.qualification}" required="true" requiredMessage="The Qualification field is required." class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="experience">Experience:</label>
+                                    <p:inputText id="experience" value="#{companyJobCdi.companyJobTbl.experience}" required="true" requiredMessage="The Experience field is required." class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="salary">Salary:</label>
+                                    <p:inputText id="salary" value="#{companyJobCdi.companyJobTbl.salary}" required="true" requiredMessage="The Salary field is required." class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Status:</label>
+                                    <p:selectOneMenu id="status" value="#{companyJobCdi.companyJobTbl.status}" class="form-control">
+                                        <f:selectItem itemLabel="Select One" itemValue=""/>
+                                        <f:selectItem itemLabel="Open" itemValue="Open"/>
+                                        <f:selectItem itemLabel="Closed" itemValue="Closed"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jobType">Job Type:</label>
+                                    <p:selectOneMenu id="jobType" value="#{companyJobCdi.companyJobTbl.jobType}" class="form-control">
+                                        <f:selectItem itemLabel="Select One" itemValue=""/>
+                                        <f:selectItem itemLabel="Work From Home" itemValue="Work From Home"/>
+                                        <f:selectItem itemLabel="From Company" itemValue="From Company"/>
+                                    </p:selectOneMenu>
+                                </div>
+                                <div class="form-group">
+                                    <label for="expirationDate">Expiration Date:</label><br/>
+                                    <p:datePicker id="expirationDate" value="#{companyJobCdi.companyJobTbl.expirationDate}" required="true" requiredMessage="The Expiration Date field is required."/>
+                                </div>
+                                <div class="form-group mt-4" >
+                                    <p:commandButton value="Insert Job" action="#{companyJobCdi.InsertJob()}" class="btn btn-primary insBtn"/>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </f:view>
+
+        </div>
+    </h:body>
+</html>

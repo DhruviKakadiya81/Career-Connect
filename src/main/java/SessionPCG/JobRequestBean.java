@@ -40,7 +40,7 @@ public class JobRequestBean {
         entityManager.persist(request);
     }
      
-    public void cancleJobRequest(Integer requestId)
+    public void deleteJobRequest(Integer requestId)
     {
         JobRequest deleteJobRequest = entityManager.find(JobRequest.class, requestId); 
         entityManager.remove(deleteJobRequest); 

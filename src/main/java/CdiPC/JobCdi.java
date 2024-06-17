@@ -6,11 +6,15 @@ package CdiPC;
 
 import ClientPC.Career_Connect_Client;
 import EntityPC.Job;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
@@ -22,7 +26,7 @@ import javax.ws.rs.core.Response;
 @Named(value = "jobCdi")
 @RequestScoped
 public class JobCdi {
-
+    
     Career_Connect_Client career_Client;
     
     Response response;
@@ -33,6 +37,8 @@ public class JobCdi {
     
     String searchKeyword;
     private int companyId;
+    
+    
 
     public int getCompanyId() {
         return companyId;
@@ -121,5 +127,7 @@ public class JobCdi {
             e.printStackTrace();
         }
     }
+    
+    
     
 }

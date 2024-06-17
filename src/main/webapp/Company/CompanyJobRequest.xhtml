@@ -14,11 +14,11 @@
             border-bottom: 2px solid #0b8fdc !important;
         }
 
-        .companyHead{
-            font-size: 40px;
-            color: #0b8fdc;
-            font-weight: 500;
-        }
+         .companyHead {
+                font-size: 40px;
+                color: #095c9d;
+                font-weight: 500;
+            }
         
         .acceptButton {
             background-color: white !important; /* White background */
@@ -65,7 +65,7 @@
         <div class="content" id="content">
             <f:view>
                 <h:form id="jobRequestForm">
-                    <h1 class="p-2"><h:outputText value="Pending Request"/></h1>
+                    <h1 class="companyHead p-2"><h:outputText value="Pending Request"/></h1>
                     <div class="card">
                 <div class="dataTableWrapper">
                     <p:dataTable var="job" value="#{jobRequestCdi.jobRequestCollection}">

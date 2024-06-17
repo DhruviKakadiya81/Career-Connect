@@ -7,7 +7,6 @@
     <h:head>
         <title>Facelet Title</title>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="../Css/DisplayJob.css"/>
         <style>
             body {
                 margin: 0;
@@ -71,26 +70,28 @@
     </h:head>
     <f:metadata>
         <f:viewParam value="#{companyCdi.loggedInUser.userId}" name="companyId"/>
-        <f:event type="preRenderView" listener="#{jobRequestCdi.findJobRequestsByUserId(companyCdi.loggedInUser.userId)}"/>
+        <f:event type="preRenderView" listener="#{interviewCdi.findInterviewByUser(companyCdi.loggedInUser.userId)}"/>
     </f:metadata>
     <h:body>
         <ui:include src="UserSidebar.xhtml"/>
         
         <div class="content" id="content">
             <div class="container">
-                <h1 class="companyHead p-3">Request List</h1>
+                <h1 class="companyHead p-3">Interview List</h1>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <ui:repeat value="#{jobRequestCdi.jobRequestCollection}" var="item">
+                    <ui:repeat value="#{interviewCdi.userInterviewCollection}" var="item">
                         <div class="col">
                             <div class="card">
                                 <div class="card-body">
-                                    <span class="status-badge">#{item.status}</span>
-                                    <!--<p class="card-text">Job Request ID: #{item.jobRequestId}</p>-->
+                                    <!--<p class="card-text">Interview ID: #{item.interviewId}</p>-->
                                     <p class="card-title">#{item.jobId.jobTitle}</p>
-                                    <p class="card-text text-black">Message: #{item.message}</p>
-                                    <p class="card-text text-black">Requested Date: #{item.requestedDate}
-                                       
+                                    <p class="card-text text-black">Mode: #{item.mode}</p>
+                                    <p class="card-text text-black">Interview Date: #{item.interviewDate}
+                                        <!--<f:convertDateTime pattern="MM/dd/yyyy" />-->
                                     </p>
+                                    <p class="card-text text-black">Interview Time: #{item.interviewTime}                                        <!--<f:convertDateTime pattern="HH:mm:ss" />-->
+                                    </p>
+                                    <p class="card-text text-black">Description: #{item.interviewDescription}</p>
                                     <p class="card-text text-black">Company: #{item.companyId.FName}</p>
                                 </div>
                             </div>
