@@ -93,4 +93,17 @@ public class CompanyJobCdi {
         return "DisplayJob?faces-redirect=true";
     }
     
+    public String getJob(Job j){
+        this.CompanyJobTbl=j;
+        return "UpdateJob";
+    }
+    
+    public String updateJob(){
+        Date ExpirationDate = CompanyJobTbl.getExpirationDate(); // Initialize interviewDate
+        String ExpirationDateStr = new SimpleDateFormat("yyyy-MM-dd").format(ExpirationDate);
+        career_Client.updateJob(String.valueOf(CompanyJobTbl.getJobId()), CompanyJobTbl.getJobTitle(), CompanyJobTbl.getDescription(), CompanyJobTbl.getTechnology(), CompanyJobTbl.getQualification(), CompanyJobTbl.getExperience(), String.valueOf(CompanyJobTbl.getSalary()), CompanyJobTbl.getStatus(), CompanyJobTbl.getJobType(), ExpirationDateStr);
+        return "DisplayJob?faces-redirect=true";
+    }
+    
+    
 }

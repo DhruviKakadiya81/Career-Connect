@@ -6,12 +6,20 @@ package CdiPC;
 
 import ClientPC.Career_Connect_Client;
 import EntityPC.UserMaster;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
+import java.util.Random;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.Part;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
@@ -51,6 +59,34 @@ public class ProfileCdi {
     public void setUserTbl(UserMaster userTbl) {
         this.userTbl = userTbl;
     }
+    
+    Part pro_img;
+
+    public Part getPro_img() {
+        return pro_img;
+    }
+
+    public void setPro_img(Part pro_img) {
+        this.pro_img = pro_img;
+    }
+    
+    String text;
+    
+    public void saveFile() throws IOException {
+        InputStream input = pro_img.getInputStream();
+        String path="F:\\Projects\\Career-Connect\\src\\main\\webapp\\uploaded_img";
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(random.nextInt(9) + 1);
+        for (int i = 0; i < 11; i++) {
+            sb.append(random.nextInt(10));
+        }
+        String temp = sb.toString();
+
+        text = "IMG_" + temp + pro_img.getSubmittedFileName();
+        Files.copy(input, new File(path, text).toPath());
+    }
 
     public String saveProfile() {
         String fname = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("fname");
@@ -61,7 +97,13 @@ public class ProfileCdi {
 
         if (fname != null && lname != null && email != null && password != null && mobileno!=null) {
             try {
-                careerClient.userRegistration(fname, lname, email, mobileno, userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(), String.valueOf(userTbl.getPincode()), password);
+                
+                Date BirthDate = userTbl.getBirthDate(); // Initialize interviewDate
+                String BirthDateStr = new SimpleDateFormat("yyyy-MM-dd").format(BirthDate);
+                
+                saveFile();
+                
+                careerClient.userRegistration(fname, lname, email, mobileno,text,BirthDateStr, userTbl.getAddressLine(), userTbl.getCity(), userTbl.getState(), String.valueOf(userTbl.getPincode()), password);
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("fname");
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("lname");
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("email");
