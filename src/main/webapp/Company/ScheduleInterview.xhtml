@@ -104,6 +104,12 @@
                 height: 150px;
             }
             
+            .imgDis{
+                border-radius: 100%;
+                width: 150px;
+                height: 150px;
+            }
+            
             .userName{
                 color: white;
                 font-size: 27px;
@@ -136,7 +142,9 @@
                 <div class="col-md-3">
                     <div class="card intDetailCard pt-2">
                         <div class="card-title intDetailTitle">Interviewer Details</div>
-                        <div class="userImage mx-auto my-3 pt-2">Image</div>
+                        <div class="userImage mx-auto my-3 pt-2">
+                            <img class="imgDis" src="../uploaded_img/#{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.profileImage}" height="100px" width="100px"/>
+                        </div>
                         <p class="userName">#{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.FName} #{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.LName}</p>
                         <p class="userEmail">#{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.email}</p>
                         <p class="userMobile">#{acceptedJobRequestCdi.acceptedJobRequestTbl.userId.mobileNo}</p>

@@ -31,7 +31,6 @@ public class Career_Connect_Client {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         webTarget = client.target(BASE_URI).path("rest");
     }
-    
 
     public <T> T countJobRequestsInMay(Class<T> responseType) throws ClientErrorException {
         WebTarget resource = webTarget;
@@ -235,8 +234,8 @@ public class Career_Connect_Client {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
-    public void userRegistration(String fname, String lname, String email, String mobile, String addressline, String city, String state, String pincode, String password) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("userRegistration/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}", new Object[]{fname, lname, email, mobile, addressline, city, state, pincode, password})).request().post(null);
+    public void userRegistration(String fname, String lname, String email, String mobile, String profile_img, String birth_date, String addressline, String city, String state, String pincode, String password) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("userRegistration/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", new Object[]{fname, lname, email, mobile, profile_img, birth_date, addressline, city, state, pincode, password})).request().post(null);
     }
 
     public <T> T getResume(Class<T> responseType) throws ClientErrorException {
@@ -337,8 +336,8 @@ public class Career_Connect_Client {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
-    public void updateJob(String jobId, String jobTitle, String description, String technology, String qualification, String experience, String salary, String status, String jobType, String postedDate, String expirationDate) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("updateJob/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", new Object[]{jobId, jobTitle, description, technology, qualification, experience, salary, status, jobType, postedDate, expirationDate})).request().post(null);
+    public void updateJob(String jobId, String jobTitle, String description, String technology, String qualification, String experience, String salary, String status, String jobType, String expirationDate) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("updateJob/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}", new Object[]{jobId, jobTitle, description, technology, qualification, experience, salary, status, jobType, expirationDate})).request().post(null);
     }
 
     public <T> T countApprovedJobsInDecember(Class<T> responseType) throws ClientErrorException {

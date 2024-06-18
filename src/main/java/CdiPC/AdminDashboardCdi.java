@@ -103,4 +103,8 @@ public Integer getCpmpanyCount() {
         }
     }
     
+    public String GotoInterview(){
+        return "";
+    }
+    
 }

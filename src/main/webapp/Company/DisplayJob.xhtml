@@ -101,7 +101,7 @@
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="action-buttons">
-                                        <p:commandButton icon="pi pi-pencil" title="Update" styleClass="btn btn-update"/>
+                                        <p:commandButton icon="pi pi-pencil" title="Update" action="#{companyJobCdi.getJob(item)}" styleClass="btn btn-update"/>
                                         <p:commandButton icon="pi pi-trash" action="#{companyJobCdi.deleteJob(item.jobId)}" title="Delete" styleClass="btn btn-delete"/>
                                     </div>
                                     <p class="card-title">#{item.jobTitle}</p>

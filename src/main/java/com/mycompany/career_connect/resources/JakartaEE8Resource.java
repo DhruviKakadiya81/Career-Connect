@@ -99,47 +99,15 @@ public class JakartaEE8Resource {
         }
     }
 
-//    @POST
-//    @Path("userRegistration/{fname}/{lname}/{email}/{mobile}/{profile_img}/{birth_date}/{addressline}/{city}/{state}/{pincode}/{password}")
-//    public void userRegistration(
-//            @PathParam("fname") String fname,
-//            @PathParam("lname") String lname,
-//            @PathParam("email") String email,
-//            @PathParam("mobile") String mobile,
-//            @PathParam("profile_img") String profile_img,
-//            @PathParam("birth_date") String birth_date,
-//            @PathParam("addressline") String addressline,
-//            @PathParam("city") String city,
-//            @PathParam("state") String state,
-//            @PathParam("pincode") Integer pincode,
-//            @PathParam("password") String password) throws ParseException {
-//
-//        try {
-//
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//            Date birth = sdf.parse(birth_date);
-//
-//            userBean.userRegistration(fname, lname, email, mobile, profile_img, birth, addressline, city, state, pincode, password);
-//
-//        } catch (PersistenceException e) {
-//
-//        } catch (RuntimeException e) {
-//
-//        }
-//    }
-    
-    
-    
-    
     @POST
-    @Path("userRegistration/{fname}/{lname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}")
+    @Path("userRegistration/{fname}/{lname}/{email}/{mobile}/{profile_img}/{birth_date}/{addressline}/{city}/{state}/{pincode}/{password}")
     public void userRegistration(
             @PathParam("fname") String fname,
             @PathParam("lname") String lname,
             @PathParam("email") String email,
             @PathParam("mobile") String mobile,
-            //            @PathParam("profile_img") String profile_img,
-            //            @PathParam("birth_date") String birth_date,
+            @PathParam("profile_img") String profile_img,
+            @PathParam("birth_date") String birth_date,
             @PathParam("addressline") String addressline,
             @PathParam("city") String city,
             @PathParam("state") String state,
@@ -148,9 +116,10 @@ public class JakartaEE8Resource {
 
         try {
 
-//            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-//            Date birth=sdf.parse(birth_date);
-            userBean.userRegistration(fname, lname, email, mobile, addressline, city, state, pincode, password);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date birth = sdf.parse(birth_date);
+
+            userBean.userRegistration(fname, lname, email, mobile, profile_img, birth, addressline, city, state, pincode, password);
 
         } catch (PersistenceException e) {
 
@@ -159,6 +128,37 @@ public class JakartaEE8Resource {
         }
     }
     
+    
+    
+    
+//    @POST
+//    @Path("userRegistration/{fname}/{lname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}")
+//    public void userRegistration(
+//            @PathParam("fname") String fname,
+//            @PathParam("lname") String lname,
+//            @PathParam("email") String email,
+//            @PathParam("mobile") String mobile,
+//            //            @PathParam("profile_img") String profile_img,
+//            //            @PathParam("birth_date") String birth_date,
+//            @PathParam("addressline") String addressline,
+//            @PathParam("city") String city,
+//            @PathParam("state") String state,
+//            @PathParam("pincode") Integer pincode,
+//            @PathParam("password") String password) throws ParseException {
+//
+//        try {
+//
+////            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+////            Date birth=sdf.parse(birth_date);
+//            userBean.userRegistration(fname, lname, email, mobile, addressline, city, state, pincode, password);
+//
+//        } catch (PersistenceException e) {
+//
+//        } catch (RuntimeException e) {
+//
+//        }
+//    }
+//    
     
     
     
@@ -301,7 +301,7 @@ public class JakartaEE8Resource {
     }
 
     @POST
-    @Path("updateJob/{jobId}/{jobTitle}/{description}/{technology}/{qualification}/{experience}/{salary}/{status}/{jobType}/{postedDate}/{expirationDate}")
+    @Path("updateJob/{jobId}/{jobTitle}/{description}/{technology}/{qualification}/{experience}/{salary}/{status}/{jobType}/{expirationDate}")
     public void updateJob(
             @PathParam("jobId") Integer jobId,
             @PathParam("jobTitle") String jobTitle,
@@ -312,15 +312,13 @@ public class JakartaEE8Resource {
             @PathParam("salary") int salary,
             @PathParam("status") String status,
             @PathParam("jobType") String jobType,
-            @PathParam("postedDate") String postedDate,
             @PathParam("expirationDate") String expirationDate
     ) throws ParseException {
 
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date postDate = sdf.parse(postedDate);
             Date expDate = sdf.parse(expirationDate);
-            jobBean.updateJob(jobId, jobTitle, description, technology, qualification, experience, salary, status, jobType, postDate, expDate);
+            jobBean.updateJob(jobId, jobTitle, description, technology, qualification, experience, salary, status, jobType, expDate);
 
         } catch (PersistenceException e) {
 
@@ -328,6 +326,7 @@ public class JakartaEE8Resource {
 
         }
     }
+    
 
     @POST
     @Path("requestJob/{companyid}/{jobid}/{userid}/{message}/{status}/{requetDate}")

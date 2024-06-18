@@ -69,7 +69,7 @@ public class JobBean {
     }
     
     
-    public void updateJob(int jobId,String jobTitle,String description,String technology,String qualification,String experience,int salary,String status,String jobType,Date postedDate,Date expirationDate){
+    public void updateJob(int jobId,String jobTitle,String description,String technology,String qualification,String experience,int salary,String status,String jobType ,Date expirationDate){
     
         Job job=entityManager.find(Job.class, jobId);
         
@@ -81,7 +81,6 @@ public class JobBean {
         job.setSalary(salary);
         job.setStatus(status);
         job.setJobType(jobType);
-        job.setPostedDate(postedDate);
         job.setExpirationDate(expirationDate);
         
         entityManager.merge(job);
