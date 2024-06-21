@@ -60,7 +60,7 @@
         </style>
     </h:head>
     <h:body>
-        <ui:include src="UserSidebar.xhtml"/>
+        <ui:include src="CompanySidebar.xhtml"/>
 
         <div class="content" id="content">
             <h:form> 
@@ -103,24 +103,19 @@
                                     <h:inputText class="value m-0 updInput" value="#{profileCdi.userTbl.FName}"></h:inputText>
                                 </div>
                                 <div class="col-sm-4 my-3 my-md-0">
-                                    <p class="label m-0">Last Name</p>
-                                    <h:inputText class="value m-0 updInput" value="#{profileCdi.userTbl.LName}"></h:inputText>
-                                </div>
-                                <div class="col-sm-4 my-3 my-md-0">
                                     <p class="label m-0">Personal Email</p>
                                     <p class="value m-0 updInput"> #{profileCdi.userTbl.email}</p>
                                 </div>
-                            </div>
-                            <div class="row px-4 py-md-3">
                                 <div class="col-sm-4 my-3 my-md-0">
                                     <p class="label m-0">Mobile Number</p>
                                     <h:inputText class="value m-0 updInput" value="#{profileCdi.userTbl.mobileNo}"></h:inputText>
                                 </div>
-                                <div class="col-sm-4 my-3 my-md-0">
+                                <div class="col-sm-4 my-3 my-md-3">
                                     <p class="label m-0">Password</p>
-                                    <h:inputSecret class="value m-0 updInput"  value="#{profileCdi.userTbl.password}"></h:inputSecret>>
+                                    <h:inputSecret class="value m-0 updInput"  value="#{profileCdi.userTbl.password}"></h:inputSecret>
                                 </div>
                             </div>
+                            
                             <hr class="mx-3" />
                             <div class="body-title py-3 px-4">
                                 <h5>Contact Information</h5>
@@ -146,8 +141,28 @@
                                     <h:inputText class="value m-0 updInput" value="#{profileCdi.userTbl.pincode}"></h:inputText>
                                 </div>
                             </div>
+                            
+                            <hr class="mx-3" />
+                            <div class="body-title py-3 px-4">
+                                <h5>Technology Information</h5>
+                                <div class="horizontal-bar"></div>
+                            </div>
+                            <div class="row px-4 py-md-3">
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">Technology</p>
+                                    <h:inputText class="value m-0 updInput" value="#{profileCdi.userTbl.technology}"></h:inputText>
+                                </div>
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">Specialization</p>
+                                    <h:inputText class="value m-0 updInput" value="#{profileCdi.userTbl.specialization}"></h:inputText>
+                                </div>
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">Certification</p>
+                                    <h:inputText class="value m-0 updInput" value="#{profileCdi.userTbl.certification}"></h:inputText>
+                                </div>
+                            </div>
                             <div class="row justify-content-end">
-                                <p:commandButton value="Update" class="px-4 py-2 mr-5 btnUpd" action="#{profileCdi.UpdatePro()}"></p:commandButton>
+                                <p:commandButton value="Update" class="px-4 py-2 mr-5 btnUpd" action="#{profileCdi.UpdateCompanyPro()}"></p:commandButton>
                             </div>
                         </div>
                     </div>

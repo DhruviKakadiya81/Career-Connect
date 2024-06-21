@@ -32,7 +32,7 @@ public class ProfileCdi {
     private Career_Connect_Client careerClient;
 
     private Collection<UserMaster> userCollection;
-    private UserMaster userTbl;
+     UserMaster userTbl;
     private GenericType<Collection<UserMaster>> userGeneric;
 
     public ProfileCdi() {
@@ -149,7 +149,7 @@ public class ProfileCdi {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("password");
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("mobileno");
 
-                return "Login";
+                return "MainContainer";
             } catch (Exception e) {
                 // Handle the exception
                 return "error";
@@ -159,8 +159,48 @@ public class ProfileCdi {
             return "error";
         }
     }
+    
+    @Inject
+    private CompanyCdi companyCdi;
 
-    public String GotoUpdateProfile() {
+    public String GotoUpdateProfile(UserMaster u) {
+        this.userTbl=u;
         return "UpdateProfile";
     }
+    
+    public String UpdatePro(){
+        String pinStr=String.valueOf(userTbl.getPincode());
+        String id=String.valueOf(userTbl.getUserId());
+        
+        System.out.println(id);
+        System.out.println(companyCdi.getLoggedInUser().getFName());
+        System.out.println(companyCdi.getLoggedInUser().getLName());
+        
+        careerClient.upateUserProfile(id,
+                userTbl.getFName(), userTbl.getLName(), userTbl.getMobileNo(), 
+                userTbl.getPassword(), userTbl.getAddressLine(), userTbl.getState(), 
+                userTbl.getCity(), pinStr);
+        return "ShowProfile?faces-redirect=true";
+    }
+    
+    public String GotoCompanyUpdateProfile(UserMaster u) {
+        this.userTbl=u;
+        return "UpdateCompanyProfile";
+    }
+    
+    public String UpdateCompanyPro(){
+        String pinStr=String.valueOf(userTbl.getPincode());
+        String id=String.valueOf(userTbl.getUserId());
+        
+        System.out.println(id);
+        System.out.println(companyCdi.getLoggedInUser().getFName());
+        System.out.println(companyCdi.getLoggedInUser().getLName());
+        
+        careerClient.upateCompanyProfile(id,
+                userTbl.getFName(),  userTbl.getMobileNo(), 
+                userTbl.getPassword(), userTbl.getAddressLine(), userTbl.getState(), 
+                userTbl.getCity(), pinStr,userTbl.getTechnology(),userTbl.getSpecialization(),userTbl.getCertification());
+        return "ShowCompanyProfile?faces-redirect=true";
+    }
+    
 }
