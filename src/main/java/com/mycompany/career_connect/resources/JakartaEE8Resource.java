@@ -131,34 +131,8 @@ public class JakartaEE8Resource {
         }
     }
 
-//    @POST
-//    @Path("userRegistration/{fname}/{lname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}")
-//    public void userRegistration(
-//            @PathParam("fname") String fname,
-//            @PathParam("lname") String lname,
-//            @PathParam("email") String email,
-//            @PathParam("mobile") String mobile,
-//            //            @PathParam("profile_img") String profile_img,
-//            //            @PathParam("birth_date") String birth_date,
-//            @PathParam("addressline") String addressline,
-//            @PathParam("city") String city,
-//            @PathParam("state") String state,
-//            @PathParam("pincode") Integer pincode,
-//            @PathParam("password") String password) throws ParseException {
-//
-//        try {
-//
-////            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-////            Date birth=sdf.parse(birth_date);
-//            userBean.userRegistration(fname, lname, email, mobile, addressline, city, state, pincode, password);
-//
-//        } catch (PersistenceException e) {
-//
-//        } catch (RuntimeException e) {
-//
-//        }
-//    }
-//    
+
+    
     @POST
     @Path("companyRegistration/{fname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}/{technology}/{specialization}/{certification}")
     public void companyRegistration(
@@ -999,4 +973,58 @@ public class JakartaEE8Resource {
     }
 
 
+    @POST
+    @Path("upateUserProfile/{id}/{fname}/{lname}/{mobile}/{password}/{addressline}/{state}/{city}/{pincode}")
+    public void upateUserProfile(
+            @PathParam("id") int id,
+            @PathParam("fname") String fname,
+            @PathParam("lname") String lname,
+            @PathParam("mobile") String mobile,
+            @PathParam("password") String password,
+            @PathParam("addressline") String addressline,
+            @PathParam("city") String city,
+            @PathParam("state") String state,
+            @PathParam("pincode") Integer pincode
+    ) throws ParseException {
+
+        try {
+
+            userBean.upateUserProfile(id,fname, lname, mobile,password, addressline,state, city, pincode);
+
+        } catch (PersistenceException e) {
+
+        } catch (RuntimeException e) {
+
+        }
+    }
+    
+    
+    @POST
+    @Path("upateCompanyProfile/{id}/{fname}/{mobile}/{password}/{addressline}/{state}/{city}/{pincode}/{technology}/{specialization}/{certification}")
+    public void upateCompanyProfile(
+            @PathParam("id") int id,
+            @PathParam("fname") String fname,
+            @PathParam("mobile") String mobile,
+            @PathParam("password") String password,
+            @PathParam("addressline") String addressline,
+            @PathParam("city") String city,
+            @PathParam("state") String state,
+            @PathParam("pincode") Integer pincode,
+            @PathParam("technology") String technology,
+            @PathParam("specialization") String specialization,
+            @PathParam("certification") String certification
+    ) throws ParseException {
+
+        try {
+
+            userBean.upateCompanyProfile(id,fname, mobile,password, addressline,state, city, pincode,technology,specialization,certification);
+
+        } catch (PersistenceException e) {
+
+        } catch (RuntimeException e) {
+
+        }
+    }
+    
+    
 }

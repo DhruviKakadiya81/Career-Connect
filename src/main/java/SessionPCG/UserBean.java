@@ -243,6 +243,47 @@ public class UserBean {
     }
 }
 
+    
+    public void upateUserProfile(int id,String fname,String lname, String mobile,String Password, String addressline, String state,String city,  Integer pincode){
+    
+        UserMaster userMaster = entityManager.find(UserMaster.class, id);
+       
+        Pbkdf2PasswordHashImpl passwordHash = new Pbkdf2PasswordHashImpl();
+        String hashedPassword = passwordHash.generate(Password.toCharArray());
+        
+        userMaster.setFName(fname);
+        userMaster.setLName(lname);
+        userMaster.setMobileNo(mobile);
+        userMaster.setPassword(hashedPassword);
+        userMaster.setAddressLine(addressline);
+        userMaster.setState(state);
+        userMaster.setCity(city);
+        userMaster.setPincode(pincode);
+        entityManager.merge(userMaster);
+    
+    }
+    
+    
+    public void upateCompanyProfile(int id,String fname, String mobile,String Password, String addressline, String state,String city,  Integer pincode,String technology,String specialization,String certification){
+    
+        UserMaster userMaster = entityManager.find(UserMaster.class, id);
+       
+        Pbkdf2PasswordHashImpl passwordHash = new Pbkdf2PasswordHashImpl();
+        String hashedPassword = passwordHash.generate(Password.toCharArray());
+        
+        userMaster.setFName(fname);
+        userMaster.setMobileNo(mobile);
+        userMaster.setPassword(hashedPassword);
+        userMaster.setAddressLine(addressline);
+        userMaster.setState(state);
+        userMaster.setCity(city);
+        userMaster.setPincode(pincode);
+        userMaster.setTechnology(technology);
+        userMaster.setSpecialization(specialization);
+        userMaster.setCertification(certification);
+        entityManager.merge(userMaster);
+    
+    }
 
     
     

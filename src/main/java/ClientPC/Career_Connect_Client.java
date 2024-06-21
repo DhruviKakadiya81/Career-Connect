@@ -326,6 +326,10 @@ public class Career_Connect_Client {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public void upateCompanyProfile(String id, String fname, String mobile, String password, String addressline, String state, String city, String pincode, String technology, String specialization, String certification) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("upateCompanyProfile/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", new Object[]{id, fname, mobile, password, addressline, state, city, pincode, technology, specialization, certification})).request().post(null);
+    }
+
     public <T> T countInterviewsInApril(Class<T> responseType) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path("countInterviewsInApril");
@@ -370,6 +374,10 @@ public class Career_Connect_Client {
         WebTarget resource = webTarget;
         resource = resource.path("countInterviewsInNovember");
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public void upateUserProfile(String id, String fname, String lname, String mobile, String password, String addressline, String state, String city, String pincode) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("upateUserProfile/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}", new Object[]{id, fname, lname, mobile, password, addressline, state, city, pincode})).request().post(null);
     }
 
     public <T> T countJobRequestsInOctober(Class<T> responseType) throws ClientErrorException {
