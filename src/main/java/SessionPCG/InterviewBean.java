@@ -6,6 +6,7 @@ package SessionPCG;
 
 import EntityPC.Interview;
 import EntityPC.Job;
+import EntityPC.Newsletter;
 import EntityPC.UserMaster;
 import java.sql.Time;
 import java.util.Collection;
@@ -76,5 +77,23 @@ public class InterviewBean {
             .setParameter("userId", userId)
             .getResultList();
     }
+    
+    public Collection<Interview> disAdminInterview(){
+            Collection<Interview> interview=entityManager.createNamedQuery("Interview.findAll").getResultList();
+            return interview;
+    }
+    
+    public void InsertNewsLetterEmail(String newsEmail){
+        
+        Newsletter news =new Newsletter();
+        
+       
+       news.setNewsEmail(newsEmail);
+                
+        entityManager.persist(news);        
+    }
+
+    
+    
      
 }

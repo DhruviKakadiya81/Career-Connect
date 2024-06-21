@@ -8,6 +8,22 @@
     <h:head>
         <title>Facelet Title</title>
         <style> 
+            .approveHead{
+                color: #0b8fdc;
+                text-align: center;
+                font-weight: 600;
+            }
+            
+            .approveLabels{
+                font-size: 20px;
+                font-weight: bold;
+                color: #808080;
+            }
+            
+            .approveCard{
+                border: none;
+                 box-shadow: 0px 4px 10px gray;
+            }
             
         </style>
     </h:head>
@@ -16,21 +32,23 @@
         <div class="content" id="content">
             
         <h:form id="approvalForm">
-            <p>Approval Form</p>
+            <div style="padding-top: 70px">
+            <div class="card approveCard" style="margin: auto;width: 40%;padding: 15px;">
+                <h1 class="approveHead">Approval Form</h1>
            
                 
-                <h:outputLabel for="approvedNote" value="Approved Note: " />
+                <h:outputLabel for="approvedNote" value="Approved Note: " class="pt-4 approveLabels" />
                 <p:inputTextarea id="approvedNote" value="#{approvedJobCdi.approvedJobTbl.approvalNote}" rows="5" cols="30" />
                 
-                <h:outputLabel for="status" value="Status: " />
+                <h:outputLabel for="status" value="Status: " class="py-2 approveLabels"/>
                 <p:selectOneMenu id="status" value="#{approvedJobCdi.approvedJobTbl.status}">
                     <f:selectItem itemLabel="Select One" itemValue="" />
                     <f:selectItem itemLabel="Training" itemValue="Training" />
                     <f:selectItem itemLabel="Employee" itemValue="Employee" />
                 </p:selectOneMenu>
                 
-                <h:outputLabel for="salary" value="Salary: " />
-                <p:inputText id="salary" value="#{approvedJobCdi.approvedJobTbl.salary}" />
+                <h:outputLabel for="salary" value="Salary: " class="py-2 approveLabels"/>
+                <p:inputText id="salary" value="#{approvedJobCdi.approvedJobTbl.salary}" class="mb-4"/>
                 
                 <p:commandButton value="Save" action="#{approvedJobCdi.approvedJobIns()}" update=":approvalForm" >
                     <f:param name="companyId" value="#{interviewCdi.todayInteriewTbl.companyId.userId}" />
@@ -38,6 +56,8 @@
                     <f:param name="userId" value="#{interviewCdi.todayInteriewTbl.userId.userId}" />
                     <f:param name="interviewId" value="#{interviewCdi.todayInteriewTbl.interviewId}" />
                 </p:commandButton>
+            </div>
+           </div>
            
         </h:form>
         </div>

@@ -4,13 +4,10 @@
   background-position: center;
   background-repeat: no-repeat;*/
   height: 100vh;
-  font-family: "Jost", sans-serif;
   background-color:#0ba7ff; 
 }
 
-.logo-img {
-  height: 100px;
-}
+
 
 .landing-navbar-container {
   display: flex;

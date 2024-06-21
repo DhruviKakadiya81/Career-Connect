@@ -7,12 +7,23 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
         <link rel="stylesheet" href="Css/MainContainer.css"/>
+        <style>
+            .logo-img {
+                height: 90px;
+            }
+            
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
     </h:head>
     <h:body>
       <div class="main-container m-0 p-0">
-      <div class="landing-navbar-container pt-3">
+      <div class="landing-navbar-container">
         <a class="navbar-brand mx-md-5 mx-3" href="/">
-          <img src="" class="logo-img" alt="Logo" />
+          <img src="../Assests/HomePage/Logo.png" class="logo-img" alt="Logo" />
         </a>
         <div class="landing-navbar-link">
           <a class="text-light px-4" href="/">
@@ -287,20 +298,17 @@
         </p>
 
         <div class="newsletter-form-container pb-4">
-              <Form autoComplete="off">
+            <h:form>
                 <div class="">
                   <div class="newsletter-form-input my-lg-5">
-                      <input
-                      name="email"
-                      type="text"
-                      placeholder="What's your email?"
-                      ></input>
-                    <button type="submit">
-                     <i class="fas fa-arrow-right"></i>
-                    </button>
+                      <h:inputText value="#{adminCdi.newsletterTbl.newsEmail}"/>
+                                            
+                      <h:commandButton action="#{adminCdi.InsertNewsLetterEmail()}">
+                          <i class="fas fa-arrow-right mt-3" style="font-size: 40px"></i>
+                      </h:commandButton>
                   </div>
                 </div>
-              </Form>
+            </h:form>
         </div>
       </div>
     </div>

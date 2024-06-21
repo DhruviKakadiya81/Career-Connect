@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Send Newsletter</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <style>
+            @keyframes fadeIn {
+                0% {
+                    opacity: 0;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+            }
+            .newsletter-mail-form-container {
+                background: url("../Assests/HomePage/Newsletter-bg.png");
+                background-size: cover;
+                background-position: center center;
+                width: 100%;
+                background-repeat: no-repeat;
+                min-height: calc(100vh-125px);
+                box-sizing: border-box;
+                padding: 0px !important;
+            }
+            .NewsletterEmailLogo {
+                width: 50%;
+            }
+
+            .newsletter-mail-form-title {
+                background: -webkit-linear-gradient(
+                    90deg,
+                    rgba(8, 0, 139, 1) 0%,
+                    rgba(0, 212, 255, 1) 100%
+                    );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .newsletter-mail-form-container {
+                animation: fadeIn 1s;
+                width: 100%;
+                height: 100vh;
+                padding: 0px !important;
+            }
+
+            .newsletter-form-container {
+                max-width: 700px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .newsletter-form {
+                display: flex;
+                flex-direction: column;
+                width: 65%;
+
+            }
+
+            .form-control {
+                width: 100%;
+                position: relative;
+                outline: none;
+                border: none;
+                padding: 0;
+            }
+
+            .newsletter-mail-form-container .input-field,
+            .newsletter-mail-form-container .btn-submit,
+            .newsletter-mail-form-container .btn-submit:focus {
+                border: none;
+                outline: none;
+                border-radius: 30px;
+                font-size: 1.1em;
+            }
+
+            .newsletter-mail-form-container .input-field {
+                width: 100%;
+                background: #ffffff;
+                color: #333;
+                letter-spacing: 0.5px;
+                padding: 14px 64px;
+                box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            }
+
+            .newsletter-mail-form-container .message-container ~ i {
+                position: absolute;
+                left: 32px;
+                top: 17%;
+                transform: translateY(-50%);
+                color: #888;
+                transition: color 0.4s;
+            }
+            .newsletter-mail-form-container .title-container ~ i {
+                position: absolute;
+                left: 32px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #888;
+                transition: color 0.4s;
+            }
+            .form-control {
+                background: none;
+            }
+            .form-control > input ~ i {
+                color: #8fb7df;
+            }
+
+            .invalid-input > input ~ i {
+                color: rgb(240, 128, 128);
+            }
+
+            .newsletter-mail-form-container .btn-submit {
+                color: #fff;
+                padding: 14px 64px;
+                margin: 32px auto;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                background-image: linear-gradient(to right, #587ca0, #99ecf6);
+                font-weight: bold;
+                cursor: pointer;
+                transition: opacity 0.4s;
+            }
+
+            .newsletter-mail-form-container .btn-submit:hover {
+                opacity: 0.9;
+            }
+
+            .login-error-message {
+                color: rgb(255, 104, 104);
+                font-weight: 400;
+                font-size: 14px;
+                height: 15px;
+            }
+            .text-area-container > .input-field {
+                resize: none;
+            }
+
+
+           
+
+
+        </style>
+    </h:head>
+    <h:body>
+
+<ui:include src="AdminSidebar.xhtml" />
+<div class="content" id="content">
+    <div class="newsletter-mail-form-container  p-0 m-0">
+
+            <div class="row m-0 p-0">
+                <p class="h1 text-center newsletter-mail-form-title font-weight-bold text-secondary py-2 pt-5 col-12">
+                    Welcome to SendBox!
+                </p>
+                <div class="col-md-6 px-5 py-1 d-flex justify-content-center align-items-center">
+                    <img src="../Assests/HomePage/Newsletter-email-logo.png"  alt="NewsletterEmailLogo"  class="NewsletterEmailLogo" />
+                </div>
+                <div class="col-md-6 newsletter-form-container d-flex justify-content-center align-items-center py-5">
+
+                    <h:form class="newsletter-form mt-5" >
+                        <div class="mb-4 mt-4">
+                            <div class="">
+                                <h:inputText class="input-field title-container" value="#{newsletterBeanController.subject}"/>
+                                <i class="fas fa-text-height" style="position: absolute; left: 165px; top: 27%; transform: translateY(-50%); color: #888;"></i>
+                            </div>
+                            <div class="login-error-message text-right mr-3">
+
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="text-area-container ">
+                                <h:inputTextarea class="input-field message-container"  rows="5" value="#{newsletterBeanController.content}" />
+                                <i class="fas fa-comment-alt" style="position: absolute; left: 165px; top: 44%; transform: translateY(-50%); color: #888;"></i>
+                            </div>
+                            <div class="contactus-error-message text-right mr-1">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <h:commandButton value="send" class="btn-submit" action="#{newsletterBeanController.sendNewsletter()}"></h:commandButton>
+                    </h:form>
+
+
+                </div>
+            </div>
+        </div>
+</div>
+
+        
+
+    </h:body>
+</html>

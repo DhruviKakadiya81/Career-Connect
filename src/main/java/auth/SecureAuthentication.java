@@ -52,7 +52,7 @@ public class SecureAuthentication implements HttpAuthenticationMechanism, Serial
             if (request.getRequestURI().contains("Logout")) {
                 request.logout();
                 KeepRecord.reset();
-                response.sendRedirect("Login/Login.jsf");
+                response.sendRedirect("../Login/Login.xhtml");
                 return ctx.doNothing();
             }
         } catch (Exception e) {

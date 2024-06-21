@@ -14,7 +14,7 @@
     }
     .sidebar {
         height: 100vh;
-        width: 230px;
+        width: 250px;
         background-color: #0b8fdc;
         position: fixed;
         left: -250px;
@@ -86,11 +86,15 @@
 
                 <div class="link-container" id="linkContainer">
                     <i class="fas fa-home px-3 pb-2"></i>
-                    <i class="fas fa-info-circle px-3 py-2"></i>
-                    <i class="fas fa-cogs px-3 py-2"></i>
-                    <i class="fas fa-envelope px-3 py-2"></i>
-                    <i class="fas fa-envelope px-3 py-2"></i>
-                    <i class="fas fa-envelope px-3 py-2"></i>
+                    <i class="fas fa-briefcase px-3 py-2"></i>
+                    <i class="fas fa-paper-plane px-3 py-2"></i>
+                    <i class="fas fa-check-circle px-3 py-2"></i>
+                    <i class="fas fa-list-ul px-3 py-2"></i>
+                    <i class="fas fa-calendar-day px-3 py-2"></i>
+                    <i class="fas fa-clipboard-check px-3 py-2"></i>
+                    <i class="fas fa-user px-3 py-2"></i>
+                    <i class="fas fa-sign-out-alt px-3 py-2"></i>
+                    
                 </div>
             </div>
 
@@ -100,13 +104,15 @@
     <div class="close-btn" id="closeBtn" onclick="toggleSidebar()">
         <i class="fas fa-times"></i>
     </div>
-    <a href="../Company/CompanyDashboard.xhtml"><i class="fas fa-home"></i> Dashboard</a>
-    <a href="../Company/DisplayJob.xhtml"><i class="fas fa-cogs"></i> Display Job</a>
-    <a href="../Company/CompanyJobRequest.xhtml"><i class="fas fa-cogs"></i> Job Request</a>
-    <a href="../Company/AcceptedJobRequest.xhtml"><i class="fas fa-envelope"></i> Accepted Job Request</a>
-    <a href="../Company/EveryInterview.xhtml"><i class="fas fa-envelope"></i> Interview List</a>
-    <a href="../Company/TodaysInterview.xhtml"><i class="fas fa-envelope"></i> Today's Interview</a>
-    <a href="../Company/DisplayApprovedJob.xhtml"><i class="fas fa-envelope"></i> Display Approved Job</a>
+    <a href="../Company/CompanyDashboard.xhtml" class="mt-3"><i class="fas fa-home"></i> Dashboard</a>
+    <a href="../Company/DisplayJob.xhtml"><i class="fas fa-briefcase"></i> Display Job</a>
+    <a href="../Company/CompanyJobRequest.xhtml"><i class="fas fa-paper-plane"></i> Job Request</a>
+    <a href="../Company/AcceptedJobRequest.xhtml"><i class="fas fa-check-circle"></i> Accepted Job Request</a>
+    <a href="../Company/EveryInterview.xhtml"><i class="fas fa-list-ul"></i> Interview List</a>
+    <a href="../Company/TodaysInterview.xhtml"><i class="fas fa-calendar-day"></i> Today's Interview</a>
+    <a href="../Company/DisplayApprovedJob.xhtml"><i class="fas fa-clipboard-check"></i> Display Approved Job</a>
+    <a href="../Company/ShowProfile.xhtml"><i class="fas fa-user"></i> Show Profile</a>
+    <a href="../Login/Logout.xhtml"><i class="fas fa-sign-out-alt"></i> Logout</a>
 </div>
 
 
@@ -132,7 +138,7 @@
             toggleBtn.style.display = 'none';
             closeBtn.style.display = 'block';
             closeBtn.style.right = '10px'; // Adjust the value to place the close button within the sidebar
-            content.style.marginLeft = '230px'; // Adjust the value to match the width of the sidebar
+            content.style.marginLeft = '250px'; // Adjust the value to match the width of the sidebar
             linkContainer.style.display = 'none'; // Hide icons when sidebar is open
             content.style.paddingLeft='5px';
         } else {

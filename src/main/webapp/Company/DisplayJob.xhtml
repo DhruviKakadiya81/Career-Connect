@@ -70,6 +70,10 @@
                 right: 10px;
             }
             
+            .container{
+                max-width:  97% !important;
+            }
+            
             .btn-update {
                 background-color: #28a745 !important;
                 border-color: #28a745 !important;
@@ -98,7 +102,7 @@
                 <div class="row row-cols-1 row-cols-md-2 g-4 job-list-container">
                     <ui:repeat value="#{companyJobCdi.companyJobCollection}" var="item">
                         <div class="col">
-                            <div class="card mb-3">
+                            <div class="card mb-4">
                                 <div class="card-body">
                                     <div class="action-buttons">
                                         <p:commandButton icon="pi pi-pencil" title="Update" action="#{companyJobCdi.getJob(item)}" styleClass="btn btn-update"/>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
@@ -7,13 +6,18 @@
 
         <title>Home | Health Horizon</title>
         <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
             .patient-dashboard-container{
                 height: calc(100vh - 55px);
                 background-color: #fafbff;
             }
 
             .patient-dashboard-vector-image{
-                width: 100%;
+                width: 110%;
             }
             .patient-dashboard-welcome-title{
                 font-weight: 600;
@@ -58,7 +62,7 @@
                 background-color: #0b8fdc;
             }
 
-            
+
             .prescription-content {
                 align-self: center;
             }
@@ -80,17 +84,17 @@
             }
 
             @media (max-width: 1000px) {
-                .prescription-container {
-                    background-color: #0b8fdc;
-                    display: flex;
-                    justify-content: left;
-                    height: 50vh;
-                }
-                .prescription-container-wrapper-md::before,
-                .prescription-container-wrapper-lg::before {
-                    background-image: none;
-                }
-            }
+  .prescription-container {
+    background-color: #0b8fdc;
+    display: flex;
+    justify-content: left;
+    height: 50vh;
+  }
+  .prescription-container-wrapper-md::before,
+  .prescription-container-wrapper-lg::before {
+    background-image: none;
+  }
+}
 
             #pageHeaderTitle {
                 margin: 2rem 0;
@@ -289,37 +293,39 @@
             <div class="patient-dashboard-container d-flex align-items-center">
                 <div class="patient-dashboard-welcome-container col-lg-6 col-md-11 ml-lg-5 p-md-5 p-4">
                     <p class="display-4 patient-dashboard-welcome-title">
-                        Best quality treatment <br /> for
-                        Job Seeker
+                        Connecting you to <br /> your dream job
 
                     </p>
                     <p class="h5 patient-dashboard-welcome-description mt-lg-4 mt-4">
-                        The art of medicine consists in amusing the patient while nature cures
-                        the disease. Treatment without prevention is simply unsustainable.
+                        Your career is our priority. Explore a world of opportunities and find the job that suits you best. With Career Connect, the job search and application process is simple and efficient.
                     </p>
-                    <button
-                        class="btnAppointment text-light mt-4" onclick="">
-
-                        Appointment
+                     <a href="../User/DisplayJob.xhtml" class="text-light" style="text-decoration: none;">
+                    <button  class="btnAppointment text-light mt-4" onclick="">
+                       
+                            Search Jobs
+                     
                     </button>
+                            </a>
                 </div>
                 <div class="patient-dashboard-vector-container col-lg-5 col-md-6">
-                    <img
-
-                        class="patient-dashboard-vector-image"
-                        alt="patient-dashboard-img"
-                        />
+                    <img class="patient-dashboard-vector-image" alt="patient-dashboard-img" src="../Assests/HomePage/user_dash_img1.png"/>
+                  
                 </div>
             </div>
 
-                        <div class="prescription-container-wrapper">
-                            <div class='prescription-container row m-0 d-flex text-light'>
-                                <div class="prescription-content col-lg-5 col-md-10 my-lg-5 py-lg-5 p-4 ml-md-4">
-                                    <p class='h1 mr-lg-5'>View Your E-Prescriptions <br />Anytime, Anywhere</p>
-                                    <button class='btnLetsGo mt-lg-5 mt-md-5'>Let's Go!</button>
-                                </div>
-                            </div>
-                        </div>
+            <div class="prescription-container-wrapper prescription-container-wrapper-md prescription-container-wrapper-lg">
+                <div class='prescription-container row m-0 d-flex text-light'>
+                    <div class="col-lg-5 col-md-10" style="margin: auto;">
+                        <img class="patient-dashboard-vector-image" alt="patient-dashboard-img" src="../Assests/HomePage/View_Request.png"/>
+                    </div>
+                    <div class="prescription-content col-lg-5 col-md-10 my-lg-5 py-lg-5 p-4 ml-md-5">
+                        <p class='h1 mr-lg-5'>View Your Requested Job <br />Anytime, Anywhere</p>
+                         <a href="../User/UserJobRequest.xhtml" class="text-light" style="text-decoration: none;">
+                        <button class='btnLetsGo mt-lg-5 mt-md-5'>Let's Go!</button>
+                         </a>
+                    </div>
+                </div>
+            </div>
 
             <div class="facilities-card-container pb-3 light pt-2">
                 <div class="h1 text-center text-dark pb-lg-4" id="pageHeaderTitle">
@@ -329,28 +335,43 @@
                     <div class="facilitycard light blue">
                         <img
                             class="facilitycard-img"
-                            src="../Assests/HomePage/home_img.png"
+                            src="../Assests/HomePage/material.png"
                             alt="facilitycard-logo"
                             />
                         <div class="facilitycard-text t-dark">
-                            <h1 class="facilitycard-title blue">Hello</h1>
+                            <h1 class="facilitycard-title blue">Exclusive Training Materials</h1>
                             <div class="facilitycard-bar" />
                             <div class="facilitycard-preview-txt mt-3">
-                                We are here to service you
+                               Access exclusive training materials to enhance your skills. Our platform offers a wide range of courses, tutorials to help you stay up-to-date with the latest industry trends.
                             </div>
                         </div>
                     </div>
                     <div class="facilitycard light blue">
                         <img
                             class="facilitycard-img"
-                            src="../Assests/HomePage/home_img.png"
+                            src="../Assests/HomePage/interview.png"
                             alt="facilitycard-logo"
                             />
                         <div class="facilitycard-text t-dark">
-                            <h1 class="facilitycard-title blue">Hello</h1>
+                            <h1 class="facilitycard-title blue">Real-time Interview Scheduling</h1>
                             <div class="facilitycard-bar" />
                             <div class="facilitycard-preview-txt mt-3">
-                                We are here to service you
+                               Seamlessly schedule interviews with potential employers through our platform. Receive reminders and notifications to ensure you're always on track and prepared for your interviews.
+                            </div>
+                        </div>
+                    </div>
+                        
+                         <div class="facilitycard light blue">
+                        <img
+                            class="facilitycard-img"
+                            src="../Assests/HomePage/notification.png"
+                            alt="facilitycard-logo"
+                            />
+                        <div class="facilitycard-text t-dark">
+                            <h1 class="facilitycard-title blue">Automated Email Notifications</h1>
+                            <div class="facilitycard-bar" />
+                            <div class="facilitycard-preview-txt mt-3">
+                                Receive automated email updates about your application status and Get notified about important events such as interview schedules and selection outcomes.
                             </div>
                         </div>
                     </div>

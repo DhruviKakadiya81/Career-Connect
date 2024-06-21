@@ -12,7 +12,9 @@
                 height: 100vh;
                 background-image: url('../Assests/LoginPage/Login-bg.png');
                 background-size: cover;
-                margin: 0; /* Remove default margin */
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
             }
 
             .login-container {
@@ -28,7 +30,7 @@
     </h:head>
     <h:body>
         <div class="login-container">
-            <p style="text-transform: uppercase; font-size: 3em; font-weight: 600; text-align: center; letter-spacing: 1px;">Welcome back</p>
+            <p style="text-transform: uppercase; font-size: 3em;  text-align: center;">Welcome back</p>
             <div style="width: 185px; height: 4.5px; background-image: linear-gradient(to right, #587ca0, #99ecf6); margin: 5px auto;"></div>
             <p style="text-align: center; font-size: 1.1em; line-height: 28px; margin: 17px 0; color: #696969;">Please, provide login credentials to proceed.</p>
             
@@ -50,7 +52,7 @@
                 <button type="submit" style="color: #fff; padding: 14px 64px; margin: 2rem auto 1rem auto; text-transform: uppercase; letter-spacing: 2px; background-image: linear-gradient(to right, #587ca0, #99ecf6); font-weight: bold; border: none; outline: none; border-radius: 30px; cursor: pointer; transition: opacity 0.4s;">Login</button>
 
                 <div style="display: block; text-align: center;">
-                    <a href="/forgotPassword" style="text-decoration: none; color: #597ea3; font-size: 17px; font-weight: 700;">Forget Password?</a>
+                    <a href="http://localhost:8082/Career-Connect/faces/Home/ForgetPassword.xhtml" style="text-decoration: none; color: #597ea3; font-size: 17px; font-weight: 700;">Forget Password?</a>  Or  <a style="text-decoration: none; color: #597ea3; font-size: 17px; font-weight: 700;" href="http://localhost:8082/Career-Connect/faces/User/registration.xhtml">SignUp?</a>
                 </div>
             </form>
             <h:outputText id="err" style="color:red; display: block; text-align: center;" value="#{loginBean.errorStatus}"/>

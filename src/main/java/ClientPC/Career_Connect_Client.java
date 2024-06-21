@@ -56,6 +56,10 @@ public class Career_Connect_Client {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public void resetPassword(String otp, String password) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("resetPassword/{0}/{1}", new Object[]{otp, password})).request().post(null);
+    }
+
     public <T> T getTotalJobs(Class<T> responseType) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path("totaljobs");
@@ -64,6 +68,10 @@ public class Career_Connect_Client {
 
     public void updateCompany(String id, String fname, String email, String mobile, String addressline, String city, String state, String pincode, String password, String technology, String specialization, String certification) throws ClientErrorException {
         webTarget.path(java.text.MessageFormat.format("updatecompany/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}", new Object[]{id, fname, email, mobile, addressline, city, state, pincode, password, technology, specialization, certification})).request().post(null);
+    }
+
+    public void sendOtpIfEmailExists(String email) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("sendOtpIfEmailExists/{0}", new Object[]{email})).request().post(null);
     }
 
     public void deleteInterview(String userId) throws ClientErrorException {
@@ -78,6 +86,12 @@ public class Career_Connect_Client {
 
     public Response deleteJob(String jobId) throws ClientErrorException {
         return webTarget.path(java.text.MessageFormat.format("deleteJob/{0}", new Object[]{jobId})).request().delete(Response.class);
+    }
+
+    public <T> T disAdminInterview(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("DisplayAdminInterview");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
     public <T> T countApprovedJobsInMarch(Class<T> responseType) throws ClientErrorException {
@@ -168,6 +182,12 @@ public class Career_Connect_Client {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public <T> T disAdminApprovedJob(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("DisplayAdminApprovedJob");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public <T> T findInterviewByToday(Class<T> responseType, String userId) throws ClientErrorException {
         WebTarget resource = webTarget;
         resource = resource.path(java.text.MessageFormat.format("findInterviewByToday/{0}", new Object[]{userId}));
@@ -234,8 +254,8 @@ public class Career_Connect_Client {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
-    public void userRegistration(String fname, String lname, String email, String mobile, String profile_img, String birth_date, String addressline, String city, String state, String pincode, String password) throws ClientErrorException {
-        webTarget.path(java.text.MessageFormat.format("userRegistration/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", new Object[]{fname, lname, email, mobile, profile_img, birth_date, addressline, city, state, pincode, password})).request().post(null);
+    public void userRegistration(String fname, String lname, String email, String mobile, String profile_img, String birth_date, String addressline, String city, String state, String pincode, String password, String resume) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("userRegistration/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}/{11}", new Object[]{fname, lname, email, mobile, profile_img, birth_date, addressline, city, state, pincode, password, resume})).request().post(null);
     }
 
     public <T> T getResume(Class<T> responseType) throws ClientErrorException {
@@ -414,6 +434,10 @@ public class Career_Connect_Client {
         WebTarget resource = webTarget;
         resource = resource.path("countJobRequestsInJune");
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public void InsertNewsLetterEmail(String email) throws ClientErrorException {
+        webTarget.path(java.text.MessageFormat.format("InsertNews/{0}", new Object[]{email})).request().post(null);
     }
 
     public <T> T searchCompanyByEmail(Class<T> responseType, String email) throws ClientErrorException {

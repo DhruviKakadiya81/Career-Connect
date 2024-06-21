@@ -20,7 +20,7 @@
                 margin-top: 20px;
             }
             .add-company-button {
-                background: linear-gradient(to right, #0b6bca, #c4e1ff);
+                background-color: linear-gradient(to right, #0b6bca, #c4e1ff);
                 color: white;
                 padding: 10px 20px;
                 border: none;
@@ -110,12 +110,15 @@
                         <label for="pincode">Pincode:</label>
                         <h:inputText id="pincode" value="#{profileCdi.userTbl.pincode}" styleClass="form-control"/>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                     <label for="birthDate">Birth Date:</label><br/>
                     <p:datePicker id="birthDate" value="#{profileCdi.userTbl.birthDate}" required="true" requiredMessage="The Expiration Date field is required."/>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        IMAGE <h:inputFile id="profileImage" value="#{profileCdi.pro_img}"  required="true" />
+                    <div class="col-md-4 mt-4">
+                        Image : <h:inputFile id="profileImage" value="#{profileCdi.pro_img}"  required="true" />
+                    </div>
+                    <div class="col-md-4 mb-3 mt-4">
+                        Resume : <h:inputFile id="resume" value="#{profileCdi.resume}"  required="true" />
                     </div>
                 </div>
                 <br/>
