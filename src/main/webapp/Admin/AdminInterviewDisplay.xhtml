@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <style>
+          
+
+            .appointment-container {
+                animation: fadeIn 1s;
+                min-height: calc(100vh - 125px);
+            }
+
+            .section-title h2 {
+                color: #0b6bca;
+            }
+
+            .admin-appointment-card-container {
+                border-radius: 10px;
+                box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                margin: 15px 0px;
+                width: 106%;
+            }
+
+            .admin-appointment-card-preview {
+                padding: 25px;
+            }
+
+            .admin-appointment-card-preview .status-tag {
+                border-radius: 3px;
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: 1px;
+                color: white;
+                position: absolute;
+                padding: 2px;
+            }
+
+            .admin-appointment-card-preview .pending {
+                background-color: #a0a0a0;
+            }
+
+            .admin-appointment-card-preview .approved {
+                background-color: #e7a24e;
+            }
+
+            .admin-appointment-card-preview .completed {
+                background-color: #7fcb55;
+            }
+
+            .admin-appointment-card-preview .cancelled {
+                background-color: #f44b2d;
+            }
+
+            .admin-appointment-card-info {
+                background-color: #0b8fdc;
+                padding: 25px;
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+
+            .btn-edit-appointment {
+                color: rgb(255, 255, 255) !important;
+                transition: 0.5s color;
+            }
+
+            .btn-edit-appointment:hover {
+                background-color: white !important;
+                color: #0b8fdc !important;
+                transition: 0.5s background-color;
+            }
+            
+             .container{
+                max-width: 97% !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:include src="AdminSidebar.xhtml"/>
+        <div class="content" id="content">
+
+            <div class="container">
+                <div class='appointment-container'>
+
+                    <div class="section-title pt-4">
+                        <h2 class='font-weight-bold pl-4'>Interviews</h2>
+                    </div>
+                    <hr class='mx-3' />
+
+
+
+                    <div class ='mb-3'>
+
+                        <div class ='row m-0'>
+<ui:repeat value="#{adminCdi.adminInterviewCollection}" var="item">
+                            <div class='col-lg-4 col-md-6 p-3'>
+                                
+                                <div class="admin-appointment-container mx-3">
+                                    <div class="admin-appointment-card-container row ">
+                                        <div class="admin-appointment-card-preview col-5">
+
+                                            <div style="background-color: #0b8fdc;height: 90px;width: 90px;border-radius: 100%;text-align: center;margin: auto">
+                                    <c:choose>
+                                        <c:when test="#{empty item.userId.profileImage}">
+                                            <h:outputText value="#{item.userId.FName.substring(0, 1)}#{item.userId.LName.substring(0, 1)}" 
+                                                          styleClass="align-self-center my-4" style="color: white;font-size: 35px;line-height: 90px;"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img class="imgDis" src="../uploaded_img/#{item.userId.profileImage}" height="90px" width="90px" style="border-radius: 100%"/>
+                                        </c:otherwise>
+                                    </c:choose>
+        <!--                                    <h:outputText value="#{companyCdi.loggedInUser.FName.substring(0, 1)}" 
+                                                          styleClass="align-self-center my-4" style="color: white;font-size: 55px;line-height: 150px;"/>-->
+                                </div>
+                                            <p class="h5 m-0 pt-3 text-center font-weight-bold">#{item.userId.FName}</p>
+                                            <p class="h5 m-0 text-center font-weight-bold">#{item.userId.LName}</p>
+                                            <p class="h5 m-0 pt-2 text-center text-secondary break-line-1"></p>
+                                            <p class="h6 m-0 pt-2 text-center text-secondary">+91 #{item.userId.mobileNo}</p>
+                                            <p class="h6 m-0 pt-2 text-center text-secondary">#{adminCdi.currentDate.after(item.interviewDate)? 'Completed' : (adminCdi.currentDate.before(item.interviewDate)? 'Pending' : 'today')}
+
+</p>
+
+                                        </div>
+                                        <div class="admin-appointment-card-info text-center d-flex flex-column text-light col-7 justify-content-center align-items-center " style="">
+                                            <div class="text-right w-100 mb-4 d-none">
+<!--                                                                          <IconButton
+                                                                                size="small"
+                                                                                className='btn-edit-appointment'
+                                                                               
+                                                                            >
+                                                                                <EditIcon fontSize="small" />
+                                                                            </IconButton>-->
+                                            </div>
+                                            <p class="h4 m-0 font-weight-bold">#{item.companyId.FName}</p>
+                                            <p class="h5 m-0 pt-1">#{item.mode} Mode</p>
+                                            <p class="h6 pt-4 m-0">Interview Date :</p>
+                                            <p class="h6 m-0 font-weight-bold pt-2"><h:outputText value="#{item.interviewDate}"> <f:convertDateTime pattern="yyyy-MM-dd"/></h:outputText>
+                                               </p>
+                                            <p class="h6 pt-3 m-0">Interview Time :</p>
+                                            <p class="h6 m-0 font-weight-bold pt-2"><h:outputText value="#{item.interviewTime}"><f:convertDateTime pattern="hh:mm:ss"/></h:outputText></p>
+
+                                        </div>
+                                   
+                                    </div>
+                                     
+                                 </div>
+                              
+                            </div>
+      </ui:repeat>
+
+                        </div>
+
+                    </div>                   
+
+
+                </div> 
+            </div>
+        </div>
+    </h:body>
+</html>

@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"> 
     <h:head>
-        <title>Dashboard | Health Horizon</title>
+        <title>Facelet title</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"/>
         <style>
@@ -61,6 +61,10 @@
                     margin-bottom: 15px;
                 }
             }
+            
+            .dashTitle{
+                color: #0b8fdc;
+            }
         </style>
     </h:head>
     <h:body style="background-color: white; width: 100%;">
@@ -68,8 +72,8 @@
         <div class="content" id="content">
         <h:form>
             <div style="margin: 0 12px;">
-                <h2 style="margin-bottom: 0; color: #2196f3">DASHBOARD</h2>
-                <p>Welcome to admin dashboard</p>
+                <h2 class="dashTitle">DASHBOARD</h2>
+                <h4 class="dashTitle">Welcome to Admin Dashboard</h4>
             </div>
             <div class="admin-dashboard-container row" style="margin: 0;">
                 <div class="col-lg-4 col-md-4 col-sm-12">

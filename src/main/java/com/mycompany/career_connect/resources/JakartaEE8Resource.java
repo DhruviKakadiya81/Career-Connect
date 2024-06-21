@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.persistence.PersistenceException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -46,7 +47,7 @@ public class JakartaEE8Resource {
 
     @EJB
     SessionPCG.ApprovedJobBean approvedJobBean;
-    
+
     @EJB
     SessionPCG.ChartBean chartBean;
 
@@ -100,7 +101,7 @@ public class JakartaEE8Resource {
     }
 
     @POST
-    @Path("userRegistration/{fname}/{lname}/{email}/{mobile}/{profile_img}/{birth_date}/{addressline}/{city}/{state}/{pincode}/{password}")
+    @Path("userRegistration/{fname}/{lname}/{email}/{mobile}/{profile_img}/{birth_date}/{addressline}/{city}/{state}/{pincode}/{password}/{resume}")
     public void userRegistration(
             @PathParam("fname") String fname,
             @PathParam("lname") String lname,
@@ -112,14 +113,16 @@ public class JakartaEE8Resource {
             @PathParam("city") String city,
             @PathParam("state") String state,
             @PathParam("pincode") Integer pincode,
-            @PathParam("password") String password) throws ParseException {
+            @PathParam("password") String password,
+            @PathParam("resume") String resume
+    ) throws ParseException {
 
         try {
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date birth = sdf.parse(birth_date);
 
-            userBean.userRegistration(fname, lname, email, mobile, profile_img, birth, addressline, city, state, pincode, password);
+            userBean.userRegistration(fname, lname, email, mobile, profile_img, birth, addressline, city, state, pincode, password,resume);
 
         } catch (PersistenceException e) {
 
@@ -127,10 +130,7 @@ public class JakartaEE8Resource {
 
         }
     }
-    
-    
-    
-    
+
 //    @POST
 //    @Path("userRegistration/{fname}/{lname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}")
 //    public void userRegistration(
@@ -159,10 +159,6 @@ public class JakartaEE8Resource {
 //        }
 //    }
 //    
-    
-    
-    
-
     @POST
     @Path("companyRegistration/{fname}/{email}/{mobile}/{addressline}/{city}/{state}/{pincode}/{password}/{technology}/{specialization}/{certification}")
     public void companyRegistration(
@@ -326,7 +322,6 @@ public class JakartaEE8Resource {
 
         }
     }
-    
 
     @POST
     @Path("requestJob/{companyid}/{jobid}/{userid}/{message}/{status}/{requetDate}")
@@ -470,7 +465,6 @@ public class JakartaEE8Resource {
         return approvedJobBean.findApprovedJobByUser(userId);
     }
 
-    
     @GET
     @Path("countJobRequestsInMay")
     @Produces(MediaType.APPLICATION_JSON)
@@ -937,8 +931,7 @@ public class JakartaEE8Resource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred").build();
         }
     }
-    
-    
+
     @GET
     @Path("/totalusers")
     @Produces(MediaType.APPLICATION_JSON)
@@ -962,13 +955,48 @@ public class JakartaEE8Resource {
         long jobCount = chartBean.getTotalJobs();
         return Response.ok(jobCount).build();
     }
-    
+
     @GET
     @Path("DisplayApprovedJob")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<ApprovedJob> displayApprovedJobs() {
         return chartBean.displayApprovedJobs();
     }
+
+    @POST
+    @Path("sendOtpIfEmailExists/{email}")
+    public void sendOtpIfEmailExists(@PathParam("email") String email) {
+        userBean.sendOtpIfEmailExists(email);
+    }
+
+    @POST
+    @Path("resetPassword/{otp}/{password}")
+    public void resetPassword(@PathParam("otp") String otp, @PathParam("password") String password) {
+        System.out.println("Received OTP: " + otp); // Debugging line
+    System.out.println("Received Password: " + password); // Debugging line
+        userBean.resetPassword(otp, password);
+    }
     
+    @GET
+    @Path("DisplayAdminInterview")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<Interview> disAdminInterview() {
+        return interviewBean.disAdminInterview();
+    }
+    
+    @GET
+    @Path("DisplayAdminApprovedJob")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<ApprovedJob> disAdminApprovedJob() {
+        return approvedJobBean.disAdminApprovedJob();
+    }
+    
+    @POST
+    @Path("InsertNews/{email}")
+    public void InsertNewsLetterEmail(@PathParam("email") String email)
+    {
+        interviewBean.InsertNewsLetterEmail(email);
+    }
+
 
 }

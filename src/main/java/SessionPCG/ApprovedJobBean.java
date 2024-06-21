@@ -55,4 +55,9 @@ public class ApprovedJobBean {
             .setParameter("userId", userId)
             .getResultList();
     }
+    
+    public Collection<ApprovedJob> disAdminApprovedJob(){
+            Collection<ApprovedJob> approvedJob=entityManager.createNamedQuery("ApprovedJob.findAll").getResultList();
+            return approvedJob;
+    }
 }

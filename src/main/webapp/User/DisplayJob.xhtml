@@ -21,6 +21,13 @@
                 color: #095c9d;
                 font-weight: 500;
             }
+            
+            .card {
+                box-shadow: 0px 4px 7px gray;
+                border-radius: 10px;
+                overflow: hidden;
+                position: relative;
+            }
   
     </style>
 
@@ -33,7 +40,7 @@
 <body>
     <ui:include src="UserSidebar.xhtml"/>
         
-        <div class="content" id="content">
+        <div class="content" id="content" >
         <p class='mb-3 mx-3 companyHead'>Job List</p>
      
         <div class="mx-3">
@@ -60,7 +67,7 @@
 </div>
            <h:form>
        
-        <div class="row row-cols-1 row-cols-md-3 g-4 px-3">
+        <div class="row row-cols-1 row-cols-md-3 g-4 px-3 mb-3">
     <ui:repeat value="#{jobCdi.jobCollection}" var="job">
         <div class="col">
             <div class="card">

@@ -16,6 +16,10 @@
                 overflow-x: hidden;
             }
             
+            .container{
+                max-width:  97% !important;
+            }
+            
             .companyHead {
                 font-size: 40px;
                 color: #095c9d;
@@ -29,7 +33,7 @@
             }
 
             .card {
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                box-shadow: 0px 4px 7px gray;
                 border-radius: 10px;
                 overflow: hidden;
                 position: relative;
@@ -82,7 +86,7 @@
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     <ui:repeat value="#{jobRequestCdi.jobRequestCollection}" var="item">
                         <div class="col">
-                            <div class="card">
+                            <div class="card mb-3">
                                 <div class="card-body">
                                     <span class="status-badge">#{item.status}</span>
                                     <!--<p class="card-text">Job Request ID: #{item.jobRequestId}</p>-->

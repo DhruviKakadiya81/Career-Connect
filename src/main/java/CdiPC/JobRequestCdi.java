@@ -23,8 +23,11 @@ import javax.inject.Inject;
 import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.PathParam;
 import CdiPC.CompanyCdi;
+import EntityPC.Resume;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -126,6 +129,39 @@ public void setSelectedJobRequestId(Long selectedJobRequestId) {
     this.selectedJobRequestId = selectedJobRequestId;
 }
 
+
+ private String resumeUrl;
+ 
+  public String getResumeUrl() {
+        return resumeUrl;
+    }
+
+    public void setResumeUrl(String resumeUrl) {
+        this.resumeUrl = resumeUrl;
+    }
+
+    @PersistenceContext(unitName = "project_sem8_persistence_unit")
+    private EntityManager entityManager;
+    
+    public void viewResume(int userId) {
+        try {
+            // Query to get the resume by userId
+            Resume resume = entityManager.createQuery("SELECT r FROM Resume r WHERE r.userId.userId = :userId", Resume.class)
+                              .setParameter("userId", userId)
+                              .getSingleResult();
+
+            if (resume != null) {
+                // Construct the URL to the resume
+                resumeUrl = "../uploaded_resume/" + resume.getPdfName();
+                System.out.println(resumeUrl);
+            } else {
+                resumeUrl = "Resume not found";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            resumeUrl = "Error retrieving resume";
+        }
+    }
     
     
     

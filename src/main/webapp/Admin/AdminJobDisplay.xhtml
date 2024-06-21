@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                overflow-x: hidden;
+            }
+
+            .companyHead {
+                font-size: 40px;
+                color: #095c9d;
+                font-weight: 500;
+            }
+
+           
+
+            .card {
+                box-shadow: 0px 4px 7px gray;
+                border-radius: 10px;
+                overflow: hidden;
+                position: relative;
+            }
+           
+
+            .card-body {
+                padding: 20px;
+                position: relative;
+            }
+
+            .card-title {
+                font-size: 24px;
+                margin-bottom: 10px;
+                color: #095c9d;
+                font-weight: 600 !important;
+            }
+
+            .card-text {
+                color: #808080;
+            }
+
+            .text-black {
+                color: black;
+            }
+
+            .btn-primary, .btn-danger {
+                margin: 5px;
+            }
+
+            .heading {
+                font-weight: 600 !important;
+                color: #000 !important;
+            }
+
+            .action-buttons {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
+
+            .btn-update {
+                background-color: #28a745 !important;
+                border-color: #28a745 !important;
+                margin-right: 0.5rem !important;
+            }
+
+            .btn-delete {
+                background-color: #dc3545 !important;
+                border-color: #dc3545 !important;
+            }
+            
+            .container{
+                max-width: 97% !important;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+        <ui:include src="AdminSidebar.xhtml"/>
+
+        <div class="content" id="content">
+            <div class="container">
+                <h1 class="companyHead p-3">Job List</h1>
+<!--                <h:form>
+                    <p:commandButton value="Add Job" icon="pi pi-plus" 
+                                     styleClass="mb-3" style="margin-right: .5rem" action="#{companyJobCdi.GotoJobInsert()}">
+                    </p:commandButton>
+                </h:form>-->
+                <h:form>
+                    <div class="row row-cols-1 row-cols-md-3 g-4 job-list-container">
+                        <ui:repeat value="#{adminCdi.adminJobCollection}" var="item">
+                        <div class="col-md-4 mb-3"> <!-- Changed to col-md-4 --> <div class="card">
+                                    <div class="card-body">
+                                      
+                                        <p class="card-title">#{item.jobTitle}</p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p class="card-text text-black mb-1" style="margin-bottom: 1px;"><span class="heading">Technology :</span></p>
+                                                <p class="card-text text-black"> #{item.technology}</p>
+
+                                                <p class="card-text text-black mb-1"><span class="heading">Qualification :</span></p>
+                                                <p class="card-text text-black">#{item.qualification}</p>
+
+                                                <p class="card-text text-black mb-1"><span class="heading">Experience :</span></p>
+                                                <p class="card-text text-black">#{item.experience}</p>
+
+                                                <p class="card-text text-black mb-1"><span class="heading">Salary :</span></p>
+                                                <p class="card-text text-black">#{item.salary}</p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p class="card-text text-black mb-1"><span class="heading">Status :</span></p>
+                                                <p class="card-text text-black">#{item.status}</p>
+
+                                                <p class="card-text text-black mb-1"><span class="heading">Job Type :</span></p>
+                                                <p class="card-text text-black">#{item.jobType}</p>
+
+                                                <p class="card-text text-black mb-1"><span class="heading">Posted Date :</span></p>
+                                                <p class="card-text text-black" id="postedDate"><h:outputText value="#{item.postedDate}">
+                                                        <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                    </h:outputText></p>
+
+                                                <p class="card-text text-black mb-1"><span class="heading">Expiration Date :</span></p>
+                                                <p class="card-text text-black" id="expirationDate"><h:outputText value="#{item.expirationDate}">
+                                                        <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                    </h:outputText></p>
+                                            </div>
+
+<!--                                            <div class="col-md-12">
+                                                <p class="card-text text-black">#{item.description}</p>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </h:body>
+</html>

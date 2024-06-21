@@ -9,6 +9,13 @@
         <meta name="description" content="Helmet application" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
         <style>
+            
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            
             @keyframes fadeIn {
                 0% {
                     opacity: 0;
@@ -20,7 +27,6 @@
 
             .signup-container {
                 animation: fadeIn 1s;
-                background-image: url('../Assests/RegisterPage/Signup-bg.png');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -209,7 +215,7 @@
        
 
         <h:form>
-            <div class="signup-container" >
+            <div class="signup-container" style="background-image: url('../Assests/HomePage/Signup-bg.png');">
                 <div class="home-icon-container">
                     <i class="fas fa-home fa-2x home-icon m-3" onclick="window.location.href = '/'"></i>
                 </div>

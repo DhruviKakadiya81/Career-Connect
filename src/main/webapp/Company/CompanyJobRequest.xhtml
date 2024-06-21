@@ -7,56 +7,60 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
-        <style> .dataTableWrapper .ui-datatable th { background-color: #0b8fdc; color: white; font-size: 17px; }
+        <style> .dataTableWrapper .ui-datatable th {
+                background-color: #0b8fdc;
+                color: white;
+                font-size: 17px;
+            }
 
 
-        .dataTableWrapper .ui-datatable tbody td {
-            border-bottom: 2px solid #0b8fdc !important;
-        }
+            .dataTableWrapper .ui-datatable tbody td {
+                border-bottom: 2px solid #0b8fdc !important;
+            }
 
-         .companyHead {
+            .companyHead {
                 font-size: 40px;
                 color: #095c9d;
                 font-weight: 500;
             }
-        
-        .acceptButton {
-            background-color: white !important; /* White background */
-            border: 2px solid #4CAF50 !important; /* Green border */
-            color: #4CAF50 !important; /* Green text */
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px !important;
-            cursor: pointer;
-            border-radius: 5px !important;
-        }
-        
-        .cancelButton {
-            background-color: white !important; /* White background */
-            border: 2px solid #f44336 !important; /* Red border */
-            color: #f44336 !important; /* Red text */
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px !important;
-            cursor: pointer;
-            border-radius: 5px !important;
-        }
-        
 
-        .acceptButton .pi-check {
-            color: #4CAF50 !important; /* Green icon */
-        }
+            .acceptButton {
+                background-color: white !important; /* White background */
+                border: 2px solid #4CAF50 !important; /* Green border */
+                color: #4CAF50 !important; /* Green text */
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px !important;
+                cursor: pointer;
+                border-radius: 5px !important;
+            }
 
-        .cancelButton .pi-times {
-            color: #f44336 !important; /* Red icon */
-        }
-        
-    </style>
+            .cancelButton {
+                background-color: white !important; /* White background */
+                border: 2px solid #f44336 !important; /* Red border */
+                color: #f44336 !important; /* Red text */
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px !important;
+                cursor: pointer;
+                border-radius: 5px !important;
+            }
+
+
+            .acceptButton .pi-check {
+                color: #4CAF50 !important; /* Green icon */
+            }
+
+            .cancelButton .pi-times {
+                color: #f44336 !important; /* Red icon */
+            }
+
+        </style>
     </h:head>
     <f:metadata>
-    <f:viewParam value="#{companyCdi.loggedInUser.userId}" name="companyId"/>
+        <f:viewParam value="#{companyCdi.loggedInUser.userId}" name="companyId"/>
     </f:metadata>
 
 
@@ -67,38 +71,48 @@
                 <h:form id="jobRequestForm">
                     <h1 class="companyHead p-2"><h:outputText value="Pending Request"/></h1>
                     <div class="card">
-                <div class="dataTableWrapper">
-                    <p:dataTable var="job" value="#{jobRequestCdi.jobRequestCollection}">
-                        <p:column headerText="Job Request Id" class="tblColumn">
-                            <h:outputText value="#{job.jobRequestId}" />
-                        </p:column>
-                        <p:column headerText="Message">
-                            <h:outputText value="#{job.message}" />
-                        </p:column>
-                        <p:column headerText="Status">
-                            <h:outputText value="#{job.status}" />
-                        </p:column>
-                        <p:column headerText="Requested Date">
-                            <h:outputText value="#{job.requestedDate}" >
-                            <f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
-                        </p:column>
-                        <p:column headerText="Job Title">
-                            <h:outputText value="#{job.jobId.jobTitle}" />
-                        </p:column>
-                        <p:column headerText="User Name">
-                            <h:outputText value="#{job.userId.FName}" />
-                            <h:outputText value="#{job.userId.LName}" />
-                        </p:column>
-                        <p:column headerText="Accept" styleClass="centeredColumn">
-                            <p:commandButton icon="pi pi-check" action="#{jobRequestCdi.AcceptRequest(job.jobRequestId)}" styleClass="acceptButton" update=":jobRequestForm" oncomplete="PF('dataTableWidgetVar').filter();"/>
-                        </p:column>
-                         
-                        <p:column headerText="Cancel" styleClass="centeredColumn">
-                            <p:commandButton icon="pi pi-times" styleClass="cancelButton" action="#{jobRequestCdi.CancelRequest(job.jobRequestId)}" update=":jobRequestForm" oncomplete="PF('dataTableWidgetVar').filter();"/>
-                        </p:column>
-                    </p:dataTable>
-                </div>
-            </div>
+                        <div class="dataTableWrapper">
+                            <p:dataTable var="job" value="#{jobRequestCdi.jobRequestCollection}">
+                                <p:column headerText="Job Request Id" class="tblColumn">
+                                    <h:outputText value="#{job.jobRequestId}" />
+                                </p:column>
+                                <p:column headerText="Message">
+                                    <h:outputText value="#{job.message}" />
+                                </p:column>
+                                <p:column headerText="Status">
+                                    <h:outputText value="#{job.status}" />
+                                </p:column>
+                                <p:column headerText="Requested Date">
+                                    <h:outputText value="#{job.requestedDate}" >
+                                        <f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
+                                </p:column>
+                                <p:column headerText="Job Title">
+                                    <h:outputText value="#{job.jobId.jobTitle}" />
+                                </p:column>
+                                <p:column headerText="User Name">
+                                    <h:outputText value="#{job.userId.FName}" />
+                                    <h:outputText value="#{job.userId.LName}" />
+                                </p:column>
+
+                                <p:column headerText="View Resume" styleClass="centeredColumn">
+                                    <p:commandButton icon="pi pi-eye" actionListener="#{jobRequestCdi.viewResume(job.userId.userId)}"
+                                                     oncomplete="PF('resumeDialog').show();"
+                                                     update=":jobRequestForm:resumeDialog"/>
+                                </p:column>
+
+                                <p:column headerText="Accept" styleClass="centeredColumn">
+                                    <p:commandButton icon="pi pi-check" action="#{jobRequestCdi.AcceptRequest(job.jobRequestId)}" styleClass="acceptButton" update=":jobRequestForm" oncomplete="PF('dataTableWidgetVar').filter();"/>
+                                </p:column>
+
+                                <p:column headerText="Cancel" styleClass="centeredColumn">
+                                    <p:commandButton icon="pi pi-times" styleClass="cancelButton" action="#{jobRequestCdi.CancelRequest(job.jobRequestId)}" update=":jobRequestForm" oncomplete="PF('dataTableWidgetVar').filter();"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                    <p:dialog id="resumeDialog" header="User Resume" widgetVar="resumeDialog" modal="true" resizable="false" width="800" height="600">
+                        <iframe src="#{jobRequestCdi.resumeUrl}" style="width:100%; height:100%; border:none;"></iframe>
+                    </p:dialog>
                 </h:form>
             </f:view>
         </div>

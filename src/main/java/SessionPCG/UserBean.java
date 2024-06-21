@@ -4,16 +4,21 @@
  */
 package SessionPCG;
 
+import EntityPC.Otp;
 import EntityPC.Resume;
 import EntityPC.RoleMaster;
 import EntityPC.UserMaster;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpSession;
 import org.glassfish.soteria.identitystores.hash.Pbkdf2PasswordHashImpl;
 
 /**
@@ -29,7 +34,7 @@ public class UserBean {
     private EntityManager entityManager;
     
     
-    public void userRegistration(String fname,String lname, String email, String mobile,String profile_img,Date birth_date, String addressline, String city, String state, Integer pincode, String password) {
+    public void userRegistration(String fname,String lname, String email, String mobile,String profile_img,Date birth_date, String addressline, String city, String state, Integer pincode, String password,String resume) {
         UserMaster userMaster = new UserMaster();
         
         Pbkdf2PasswordHashImpl passwordHash = new Pbkdf2PasswordHashImpl();
@@ -47,6 +52,11 @@ public class UserBean {
         userMaster.setPincode(pincode);
         userMaster.setPassword(hashedPassword);
         entityManager.persist(userMaster);
+        
+        Resume resumetbl=new Resume();
+        resumetbl.setUserId(userMaster);
+        resumetbl.setPdfName(resume);
+        entityManager.persist(resumetbl);
         
         RoleMaster roleMaster=new RoleMaster();
         roleMaster.setEmail(email);
@@ -164,5 +174,76 @@ public class UserBean {
                             .setParameter("email", "%" + email + "%")
                             .getResultList();
     }
+       
+       
+     @Inject
+    private EmailPackage.EmailSender emailService;
+       
+    public Optional<UserMaster> findUserByEmail(String email) {
+        try {
+            return Optional.ofNullable(entityManager.createNamedQuery("UserMaster.findByEmail", UserMaster.class)
+                    .setParameter("email", email)
+                    .getSingleResult());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+    
+    @Inject
+    private HttpSession session;
+    
+    public void sendOtpIfEmailExists(String email) {
+        Optional<UserMaster> userOptional = findUserByEmail(email);
+        if (userOptional.isPresent()) {
+            String otp = generateOtp();
+            emailService.sendOtp(email, otp);
+         
+            Otp otpEntity = new Otp();
+        otpEntity.setEmail(email);
+        otpEntity.setOtp(otp);
+        otpEntity.setExpiryDate(new Date(System.currentTimeMillis() + 60 * 1000)); // 1 minute expiry
+        entityManager.persist(otpEntity);
+           
+        }
+    }
+   
+    
+    private String generateOtp() {
+        // Generate a 6-digit OTP
+        return String.valueOf((int) (Math.random() * 900000) + 100000);
+    }
+    
+    
+    public void resetPassword(String enteredOtp, String newPassword) {
+    List<Otp> otps = entityManager.createQuery("SELECT o FROM Otp o WHERE o.otp = :otp AND o.expiryDate > CURRENT_TIMESTAMP", Otp.class)
+            .setParameter("otp", enteredOtp)
+            .getResultList();
+
+    if (!otps.isEmpty()) {
+        Otp otpEntity = otps.get(0);
+        String email = otpEntity.getEmail();
+
+        UserMaster user = findUserByEmail(email).orElse(null);
+        if (user != null) {
+            System.out.println("User found: " + user.getEmail());
+            
+            Pbkdf2PasswordHashImpl passwordHash = new Pbkdf2PasswordHashImpl();
+        String hashedPassword = passwordHash.generate(newPassword.toCharArray());
+        
+            user.setPassword(hashedPassword); // Ensure password is hashed
+            entityManager.merge(user); // Update the user in the database
+            entityManager.remove(otpEntity); // Remove the OTP from the database
+            System.out.println("Password updated successfully"); // Debugging line
+        } else {
+            System.out.println("User not found"); // Debugging line
+        }
+    } else {
+        System.out.println("Invalid or expired OTP"); // Debugging line
+        throw new SecurityException("Invalid or expired OTP");
+    }
+}
+
+
+    
     
 }

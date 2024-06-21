@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+        <style>
+            @keyframes fadeIn {
+                0% {
+                    opacity: 0;
+                }
+
+                100% {
+                    opacity: 1;
+                }
+            }
+            
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            .fade-in {
+                animation: fadeIn 1s;
+            }
+
+            .user-account-container {
+                min-height: calc(100vh - 125px);
+            }
+
+            .label {
+                color: #899499;
+            }
+
+            .horizontal-bar {
+                width: 90px;
+                height: 4.5px;
+                background-image: linear-gradient(to right, #587ca0, #99ecf6);
+                margin: 5px 0px;
+                border-radius: 5px;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <ui:include src="CompanySidebar.xhtml"/>
+
+        <div class="content" id="content">
+             <h:form> 
+                <div class='profile-card fade-in'>
+                    <div class='d-flex justify-content-between align-items-center'>
+                        <h3 class='text-blue p-4 m-0'>My Account</h3>
+                        <div>
+                            <p:commandButton icon="pi pi-pencil" title="Update" 
+                                             styleClass="btn btn-update" 
+                                             action="#{profileCdi.GotoUpdateProfile()}"
+                                             />
+                        </div>
+                    </div>
+                    <hr class='m-0' />
+                    <div>
+                        <div class='pb-lg-5 fade-in'>
+                            <div class="body-title py-3 px-4">
+                                <h5>Profile Picture</h5>
+                                <div class="horizontal-bar"></div>
+                            </div>
+                            <div class='px-4 mb-4'>
+                                <div style="background-color: #0b8fdc;height: 150px;width: 150px;border-radius: 100%;text-align: center;">
+                                    <c:choose>
+                                        <c:when test="#{empty companyCdi.loggedInUser.profileImage}">
+                                            <h:outputText value="#{companyCdi.loggedInUser.FName.substring(0, 1)}#{companyCdi.loggedInUser.LName.substring(0, 1)}" 
+                                                          styleClass="align-self-center my-4" style="color: white;font-size: 55px;line-height: 150px;"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img class="imgDis" src="../uploaded_img/#{companyCdi.loggedInUser.profileImage}" height="150px" width="150px" style="border-radius: 100%"/>
+                                        </c:otherwise>
+                                    </c:choose>
+        <!--                                    <h:outputText value="#{companyCdi.loggedInUser.FName.substring(0, 1)}" 
+                                                          styleClass="align-self-center my-4" style="color: white;font-size: 55px;line-height: 150px;"/>-->
+                                </div>
+                            </div>
+                            <div class="body-title py-3 px-4">
+                                <h5>Personal Information</h5>
+                                <div class="horizontal-bar"></div>
+                            </div>
+                            <div class="row px-4 pb-lg-3">
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">First Name</p>
+                                    <p class="value m-0">#{companyCdi.loggedInUser.FName}</p>
+                                </div>
+                                
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">Personal Email</p>
+                                    <p class="value break-line-1 m-0">#{companyCdi.loggedInUser.email}</p>
+                                </div>
+                                 <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">Mobile Number</p>
+                                    <p class="value m-0">+91 #{companyCdi.loggedInUser.mobileNo}</p>
+                                </div>
+                            </div>
+                            
+                            <hr class="mx-3" />
+                            <div class="body-title py-3 px-4">
+                                <h5>Contact Information</h5>
+                                <div class="horizontal-bar"></div>
+                            </div>
+                            <div class="row px-4 py-lg-3">
+                                <div class="col-12 my-3 my-md-0">
+                                    <p class="label m-0">Address</p>
+                                    <p class="value break-line-1 m-0">#{companyCdi.loggedInUser.addressLine}</p>
+                                </div>
+                            </div>
+                            <div class="row px-4 py-md-3">
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">State</p>
+                                    <p class="value m-0">#{companyCdi.loggedInUser.state}</p>
+                                </div>
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">City</p>
+                                    <p class="value m-0">#{companyCdi.loggedInUser.city}</p>
+                                </div>
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">Pincode</p>
+                                    <p class="value m-0">#{companyCdi.loggedInUser.pincode}</p>
+                                </div>
+                            </div>
+                            
+                            <hr class="mx-3" />
+                            <div class="body-title py-3 px-4">
+                                <h5>Technology Information</h5>
+                                <div class="horizontal-bar"></div>
+                            </div>
+                            <div class="row px-4 py-md-3">
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">State</p>
+                                    <p class="value m-0">#{companyCdi.loggedInUser.technology}</p>
+                                </div>
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">City</p>
+                                    <p class="value m-0">#{companyCdi.loggedInUser.specialization}</p>
+                                </div>
+                                <div class="col-sm-4 my-3 my-md-0">
+                                    <p class="label m-0">Pincode</p>
+                                    <p class="value m-0">#{companyCdi.loggedInUser.certification}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </h:form>
+        </div>
+        
+    </h:body>
+</html>
